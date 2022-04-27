@@ -10,9 +10,34 @@
 	padding: 4rem 0;
 	flex: 1;
 	display: flex;
-	flex-direction: column;
+	/* flex-direction: column-reverse; */
 	justify-content: center;
 	align-items: center;
+}
+
+.nameh1 {
+	font-size: 70px !important;
+	margin: 0;
+}
+
+.jbProfile {
+	font-size: 35px;
+}
+
+.greeting {
+	margin: 0;
+	font-size: 35px;
+}
+
+#shortIntro {
+	font-size: 25px !important;
+	text-align: center !important;
+	color: red;
+}
+
+.main img {
+	width: 40%;
+	height: auto;
 }
 
 .footer {
