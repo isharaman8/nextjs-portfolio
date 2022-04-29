@@ -1,0 +1,13 @@
+.profileImage {
+	width: 400px;
+	height: auto;
+	border-radius: 100px;
+	margin-left: 40px;
+}
+
+.innerPTag {
+	width: 80%;
+	margin: 20px auto;
+	font-size: 20px;
+	color: rgb(29, 29, 29);
+}

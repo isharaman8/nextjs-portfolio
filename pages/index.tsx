@@ -50,7 +50,7 @@ const Home: NextPage = () => {
 					{/* <h1 ref={textRef}></h1> */}
 				</Box>
 				<img
-					style={{ flex: 1, width: "100%", height: "auto" }}
+					style={{zIndex: 5, flex: 1, width: "100%", height: "auto" }}
 					src="https://c.tenor.com/NOYF3f82b_gAAAAC/programmer.gif"
 					alt="coding gif"
 				/>

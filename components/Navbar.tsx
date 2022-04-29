@@ -12,7 +12,7 @@ import Link from "next/link";
 
 import style from "../styles/Navbar.module.css";
 
-const pages = ["Home", "About", "Blog", "Projects", "Contact"];
+const pages = ["Home", "About", "Tech", "Blog", "Projects", "Contact"];
 
 const Navbar = () => {
 	const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
@@ -79,7 +79,13 @@ const Navbar = () => {
 						>
 							{pages.map((page) => (
 								<MenuItem key={page} onClick={handleCloseNavMenu}>
-									<Typography textAlign="center">{page}</Typography>
+									<Link
+										href={`/${
+											page.toLowerCase() === "home" ? "" : page.toLowerCase()
+										}`}
+									>
+										<Typography textAlign="center">{page}</Typography>
+									</Link>
 								</MenuItem>
 							))}
 						</Menu>
