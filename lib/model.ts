@@ -19,9 +19,9 @@ export function loadGLTFModel(
                 obj.position.x = 0
                 obj.receiveShadow = receiveShadow
                 obj.castShadow = castShadow
-                obj.scale.x = 100
-                obj.scale.y = 100
-                obj.scale.z = 100
+                obj.scale.x = 90
+                obj.scale.y = 90
+                obj.scale.z = 90
                 scene.add(obj)
 
                 obj.traverse(function (child: any) {

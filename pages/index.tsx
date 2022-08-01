@@ -244,19 +244,19 @@ const Home: NextPage = () => {
                 >
                     <ModelLoad />
                 </Canvas> */}
-                <div
+                <Box
                     ref={refBody}
-                    style={{
-                        height: '100vh',
+                    sx={{
+                        height: '600px',
                         width: '600px',
                         justifyContent: 'center',
                         overflowY: `hidden`,
                         alignItems: 'center',
                         flex: 0.7,
                         // border: `1px solid black`,
-                        marginRight: 40,
+                        marginRight: 20,
                     }}
-                ></div>
+                ></Box>
             </main>
         </div>
     )
