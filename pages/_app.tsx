@@ -12,7 +12,7 @@ import ColorModeContext from '../components/ColorModeContext'
 
 function MyApp({ Component, pageProps }: AppProps) {
     const theme = useTheme()
-    const [mode, setMode] = React.useState<'light' | 'dark'>('light')
+    const [mode, setMode] = React.useState<'light' | 'dark'>('dark')
     const particlesInit = async (main: any) => {
         console.log(main)
         await loadFull(main)

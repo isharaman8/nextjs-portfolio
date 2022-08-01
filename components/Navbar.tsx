@@ -14,7 +14,7 @@ import * as React from 'react'
 
 import style from '../styles/Navbar.module.css'
 import { Switch } from '@mui/material'
-import { styled } from '@mui/material/styles'
+import { styled, useTheme } from '@mui/material/styles'
 
 const pages = ['Home', 'About', 'Tech', 'Blog', 'Projects', 'Contact']
 
@@ -69,7 +69,7 @@ const MaterialUISwitch = styled(Switch)(({ theme }) => ({
 
 const Navbar = () => {
     const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null)
-
+    const theme = useTheme()
     const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorElNav(event.currentTarget)
     }
@@ -184,6 +184,9 @@ const Navbar = () => {
                     >
                         <MaterialUISwitch
                             onChange={colorMode.toggleColorMode}
+                            checked={
+                                theme.palette.mode === 'dark' ? true : false
+                            }
                         />
                         {pages.map((page) => (
                             <Link
