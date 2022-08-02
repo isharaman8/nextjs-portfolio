@@ -6,7 +6,6 @@ import { LIGHTTHEME, DARKTHEME } from '../constants/themeColor'
 import LaunchIcon from '@mui/icons-material/Launch'
 import GitHubIcon from '@mui/icons-material/GitHub'
 import styles from '../styles/singleProject.module.css'
-import BackdropFilter from 'react-backdrop-filter'
 
 interface IProps {
     project: ISingleProject
@@ -21,7 +20,10 @@ export const SingleProjectCard = ({ project }: IProps) => {
         <Box
             sx={{
                 width: `100%`,
-                background: `linear-gradient(to bottom right, rgba(255,255,255,0.2), rgba(255,255,255,0))`,
+                background:
+                    mode === 'light'
+                        ? LIGHTTHEME.background.linearGradient
+                        : DARKTHEME.background.linearGradient,
                 height: 'fit-content',
                 display: 'flex',
                 justifyContent: 'flex-start',
@@ -36,7 +38,7 @@ export const SingleProjectCard = ({ project }: IProps) => {
                 alt="project hero image"
                 height={`350`}
                 width={500}
-                style={{ borderRadius: '10px 0 0 10px' }}
+                style={{ borderRadius: '40px 0 0 40px' }}
             />
             <Box sx={{ width: '100%', padding: `20px 20px` }}>
                 <Typography variant={'h3'}>{project.name}</Typography>
@@ -44,9 +46,15 @@ export const SingleProjectCard = ({ project }: IProps) => {
                     {project.description}
                 </Typography>
                 <Box width={`80%`} sx={{ position: 'absolute', bottom: 20 }}>
-                    <Stack direction={'row'} spacing={2}>
+                    <Stack
+                        direction={'row'}
+                        spacing={2}
+                        className={styles.techStack}
+                        sx={{ transition: `all 1s ease` }}
+                    >
                         {project.techStack.map((singleItem: string) => (
                             <img
+                                className={styles.techStackImage}
                                 src={`static/TECH_ICONS/${singleItem}`}
                                 alt="tech stack image"
                                 style={{ width: '60px', height: '60px' }}

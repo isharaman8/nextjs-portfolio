@@ -2,6 +2,7 @@ export const LIGHTTHEME = {
     background: {
         default: `#1976d2`,
         paper: `#59acff`,
+        linearGradient: `linear-gradient(to bottom right, rgba(0,0,0,0.3), rgba(0,0,0,0))`,
     },
     typography: {
         primary: `#000000`,
@@ -18,6 +19,7 @@ export const DARKTHEME = {
         default: `#121212`,
         paper: `#121212`,
         lightDark: `#5a5a5a`,
+        linearGradient: `linear-gradient(to bottom right, rgba(255,255,255,0.2), rgba(255,255,255,0))`,
     },
     typography: {
         primary: `#fff`,
