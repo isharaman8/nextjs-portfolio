@@ -1,51 +1,48 @@
 import {
-	Box,
-	Button,
-	Card,
-	CardActions,
-	CardContent,
-	CardMedia,
-	Typography,
-} from "@mui/material";
-import React from "react";
+    Box,
+    Button,
+    Card,
+    CardActions,
+    CardContent,
+    CardMedia,
+    Typography,
+} from '@mui/material'
+import React from 'react'
+import { SingleProjectCard } from '../components/SingleProjectCard'
+import { PROJECT_ARRAY, ISingleProject } from '../constants/projectDesc'
+import { LIGHTTHEME, DARKTHEME } from '../constants/themeColor'
+import { useTheme } from '@mui/material'
 
 const Projects = () => {
-	return (
-		<Box
-			sx={{
-				height: "85vh",
-				border: "1px solid black",
-				width: "80%",
-				margin: "auto",
-				marginTop: "100px",
-				display: "grid",
-				placeContent: "center",
-				gridTemplateColumns: "repeat(2, 1fr)",
-			}}
-		>
-			<Card sx={{ maxWidth: 345 }}>
-				<CardMedia
-					component="img"
-					height="auto"
-					image="https://static.vecteezy.com/system/resources/previews/005/162/476/original/cartoon-iguana-isolated-on-white-background-free-vector.jpg"
-					alt="green iguana"
-				/>
-				<CardContent>
-					<Typography gutterBottom variant="h5" component="div">
-						Lizard
-					</Typography>
-					<Typography variant="body2" color="text.secondary">
-						Lizards are a widespread group of squamate reptiles, with over 6,000
-						species, ranging across all continents except Antarctica
-					</Typography>
-				</CardContent>
-				<CardActions>
-					<Button size="small">Share</Button>
-					<Button size="small">Learn More</Button>
-				</CardActions>
-			</Card>
-		</Box>
-	);
-};
-
-export default Projects;
+    const theme: any = useTheme()
+    const {
+        palette: { mode },
+    } = theme
+    return (
+        <>
+            <Typography variant="h2" mt={10} textAlign={'center'}>
+                Projects I've made
+            </Typography>
+            <Box
+                sx={{
+                    width: '75%',
+                    margin: 'auto',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    borderRadius: 10,
+                    marginTop: 3,
+                    zIndex: 10,
+                    justifyContent: 'flex-start',
+                    alignItems: 'center',
+                    gap: 3,
+                    padding: 4,
+                }}
+            >
+                {PROJECT_ARRAY.map((one: ISingleProject) => (
+                    <SingleProjectCard key={one.name} project={one} />
+                ))}
+            </Box>
+        </>
+    )
+}
+export default Projects

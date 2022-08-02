@@ -1,0 +1,16 @@
+export const ICONS: Array<string> = [
+    'css.svg',
+    'expressjs.png',
+    'firebase.svg',
+    'html5.svg',
+    'javascript.svg',
+    'material-ui-1.svg',
+    'chakraUI.png',
+    'mongodb.svg',
+    'nestjs.png',
+    'nodejs.svg',
+    'react.svg',
+    'sass.svg',
+    'socketio.png',
+    'typescript.svg',
+]
