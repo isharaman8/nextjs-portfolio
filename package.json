@@ -19,6 +19,7 @@
     "react-backdrop-filter": "2.1.0",
     "react-dom": "18.0.0",
     "react-tsparticles": "^2.0.6",
+    "sass": "^1.54.1",
     "three": "^0.143.0",
     "tsparticles": "^2.0.6"
   },

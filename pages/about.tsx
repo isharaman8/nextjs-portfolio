@@ -1,8 +1,30 @@
 import { Avatar, Box, Button, Typography } from '@mui/material'
-import ColorModeContext from '../components/ColorModeContext'
 import * as React from 'react'
-import styles from '../styles/About.module.css'
 import { useTheme } from '@emotion/react'
+
+import styles from '../styles/About.module.scss'
+import ColorModeContext from '../components/ColorModeContext'
+import { FONT_SIZES } from '../constants/fontsSize'
+import { styled } from '@mui/material/styles'
+
+const CustomTypography = styled(Typography)`
+    font-size: ${FONT_SIZES.about.pFont.lg};
+    text-align: center;
+    width: 80%;
+    margin: auto;
+
+    @media only screen and (max-width: 1200px) {
+        & {
+            font-size: ${FONT_SIZES.about.pFont.md};
+        }
+    }
+
+    @media only screen and (max-width: 900px) {
+        & {
+            font-size: ${FONT_SIZES.about.pFont.xs};
+        }
+    }
+`
 
 function About() {
     const colorMode = React.useContext(ColorModeContext)
@@ -10,7 +32,7 @@ function About() {
     return (
         <Box
             sx={{
-                marginTop: '100px',
+                marginTop: { lg: `100px`, xs: `180px` },
                 height: '80vh',
                 display: 'flex',
                 justifyContent: 'center',
@@ -20,9 +42,15 @@ function About() {
             }}
         >
             <Avatar
-                style={{
-                    width: '200px',
-                    height: '200px',
+                sx={{
+                    width: {
+                        lg: `200px`,
+                        xs: `150px`,
+                    },
+                    height: {
+                        lg: `200px`,
+                        xs: `150px`,
+                    },
                     borderColor:
                         theme.palette.mode === 'dark' ? 'white' : '#1976d2',
                     borderWidth: 3,
@@ -36,19 +64,29 @@ function About() {
                 <Typography
                     variant="h1"
                     component="h1"
-                    style={{ textAlign: 'center' }}
+                    sx={{
+                        textAlign: 'center',
+                        fontSize: {
+                            lg: FONT_SIZES.about.h1.lg,
+                            md: FONT_SIZES.about.h1.md,
+                            xs: FONT_SIZES.about.h1.xs,
+                        },
+                        marginBottom: {
+                            xs: `20px`,
+                        },
+                    }}
                 >
                     About Me
                 </Typography>
-                <p className={styles.innerPTag}>
+                <CustomTypography>
                     Hey, I am Aman Kumar. I'm an aspiring Web Developer. I have
                     a serious passion for building amazing web applications.
-                </p>
-                <p className={styles.innerPTag}>
+                </CustomTypography>
+                <CustomTypography>
                     I am skilled in developing web apps using the MERN stack and
                     I've built many amazing projects which you can see below.
-                </p>
-                <p className={styles.innerPTag}>Apart from coding, I love:</p>
+                </CustomTypography>
+                <CustomTypography>Apart from coding, I love:</CustomTypography>
                 <ul className={styles.innerPTag} style={{ paddingLeft: 50 }}>
                     <li>🎧 Listening to music</li>
                     <li>📚 Reading books</li>
