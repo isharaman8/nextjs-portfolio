@@ -42,4 +42,21 @@ export const FONT_SIZES = {
             xs: `3.7vw`,
         },
     },
+    projects: {
+        mainHeading: {
+            lg: `4vw`,
+            md: `4vw`,
+            xs: `4vw`,
+        },
+        singleProjectCardHeading: {
+            lg: `2vw`,
+            md: `4vw`,
+            xs: `6vw`,
+        },
+        singleProjectDescription: {
+            lg: `1vw`,
+            md: `1.7vw`,
+            xs: `3vw`,
+        },
+    },
 }

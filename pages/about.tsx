@@ -9,19 +9,20 @@ import { styled } from '@mui/material/styles'
 
 const CustomTypography = styled(Typography)`
     font-size: ${FONT_SIZES.about.pFont.lg};
-    text-align: center;
     width: 80%;
-    margin: auto;
+    margin: 10px auto;
 
     @media only screen and (max-width: 1200px) {
         & {
             font-size: ${FONT_SIZES.about.pFont.md};
+            text-align: center;
         }
     }
 
     @media only screen and (max-width: 900px) {
         & {
             font-size: ${FONT_SIZES.about.pFont.xs};
+            text-align: center;
         }
     }
 `

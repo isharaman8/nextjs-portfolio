@@ -1,11 +1,13 @@
 import * as React from 'react'
-import { ISingleProject } from '../constants/projectDesc'
 import { Box, Stack, Typography } from '@mui/material'
 import { useTheme } from '@mui/material'
-import { LIGHTTHEME, DARKTHEME } from '../constants/themeColor'
 import LaunchIcon from '@mui/icons-material/Launch'
 import GitHubIcon from '@mui/icons-material/GitHub'
-import styles from '../styles/singleProject.module.css'
+
+import styles from '../styles/singleProject.module.scss'
+import { LIGHTTHEME, DARKTHEME } from '../constants/themeColor'
+import { ISingleProject } from '../constants/projectDesc'
+import { FONT_SIZES } from '../constants/fontsSize'
 
 interface IProps {
     project: ISingleProject
@@ -16,6 +18,8 @@ export const SingleProjectCard = ({ project }: IProps) => {
     const {
         palette: { mode },
     } = theme
+
+    const { projects } = FONT_SIZES
     return (
         <Box
             sx={{
@@ -28,29 +32,76 @@ export const SingleProjectCard = ({ project }: IProps) => {
                 display: 'flex',
                 justifyContent: 'flex-start',
                 alignItems: 'flex-start',
+                flexDirection: {
+                    xs: `column`,
+                    md: `column`,
+                    lg: `row`,
+                },
                 borderRadius: 10,
                 position: 'relative',
             }}
             className={styles.blurForm}
         >
-            <img
-                src={project.heroImage}
-                alt="project hero image"
-                height={`350`}
-                width={500}
-                style={{ borderRadius: '40px 0 0 40px' }}
-            />
+            <div className={styles.projectImageDiv}>
+                <img
+                    src={project.heroImage}
+                    alt="project hero image"
+                    className={styles.projectImage}
+                />
+            </div>
+
             <Box sx={{ width: '100%', padding: `20px 20px` }}>
-                <Typography variant={'h3'}>{project.name}</Typography>
-                <Typography component={'p'} width={`80%`} mt={2} fontSize={18}>
+                <Typography
+                    variant={'h3'}
+                    sx={{
+                        fontSize: {
+                            lg: projects.singleProjectCardHeading.lg,
+                            md: projects.singleProjectCardHeading.md,
+                            xs: projects.singleProjectCardHeading.xs,
+                        },
+                        textAlign: { xs: `center`, md: `left` },
+                        width: { lg: `80%`, md: `100%`, xs: `100%` },
+                    }}
+                >
+                    {project.name}
+                </Typography>
+                <Typography
+                    component={'p'}
+                    mt={2}
+                    sx={{
+                        fontSize: {
+                            lg: projects.singleProjectDescription.lg,
+                            md: projects.singleProjectDescription.md,
+                            xs: projects.singleProjectDescription.xs,
+                        },
+                        textAlign: { md: `left`, xs: `center` },
+                        width: { lg: `80%`, md: `100%`, xs: `100%` },
+                    }}
+                >
                     {project.description}
                 </Typography>
-                <Box width={`80%`} sx={{ position: 'absolute', bottom: 20 }}>
+                <Box
+                    sx={{
+                        position: {
+                            lg: `absolute`,
+                            md: `static`,
+                        },
+
+                        marginTop: {
+                            md: `50px`,
+                        },
+                        bottom: 10,
+                    }}
+                >
                     <Stack
                         direction={'row'}
                         spacing={2}
                         className={styles.techStack}
-                        sx={{ transition: `all 1s ease` }}
+                        sx={{
+                            transition: `all 1s ease`,
+                            justifyContent: { xs: `center`, md: `flex-start` },
+                            marginTop: { xs: `20px` },
+                        }}
                     >
                         {project.techStack.map((singleItem: string) => (
                             <img
@@ -65,13 +116,30 @@ export const SingleProjectCard = ({ project }: IProps) => {
                 <Stack
                     direction={'row'}
                     spacing={2}
-                    sx={{ position: 'absolute', bottom: 10, right: 30 }}
+                    sx={{
+                        position: { md: `absolute`, xs: `static` },
+                        bottom: 5,
+                        right: 30,
+                        justifyContent: { xs: `center` },
+                        gap: { xs: 2 },
+                        margin: { xs: `15px 0 0` },
+                    }}
                 >
                     <a href={project.gitLink} target="_blank">
-                        <GitHubIcon sx={{ height: 50, width: 50 }} />
+                        <GitHubIcon
+                            sx={{
+                                height: { md: 50, xs: 20 },
+                                width: { md: 50, xs: 20 },
+                            }}
+                        />
                     </a>
                     <a href={project.liveLink} target="_blank">
-                        <LaunchIcon sx={{ height: 50, width: 50 }} />
+                        <LaunchIcon
+                            sx={{
+                                height: { md: 50, xs: 20 },
+                                width: { md: 50, xs: 20 },
+                            }}
+                        />
                     </a>
                 </Stack>
             </Box>
