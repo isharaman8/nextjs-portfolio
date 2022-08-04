@@ -1,0 +1,15 @@
+$xsWidth: 900px;
+$mdWidth: 1200px;
+$xlWidth: 1536px;
+
+@mixin mobile {
+    @media screen and (max-width: #{$xsWidth}) {
+        @content;
+    }
+}
+
+@mixin ipad {
+    @media screen and (max-width: #{$mdWidth}) {
+        @content;
+    }
+}

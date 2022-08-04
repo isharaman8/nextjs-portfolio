@@ -15,13 +15,13 @@ export function loadGLTFModel(
                 const obj = gltf.scene
                 obj.name = 'dog'
                 // obj.position.setX(-100)
-                obj.position.y = 0
+                obj.position.y = -10
                 obj.position.x = 0
                 obj.receiveShadow = receiveShadow
                 obj.castShadow = castShadow
-                obj.scale.x = 100
-                obj.scale.y = 100
-                obj.scale.z = 100
+                obj.scale.x = 90
+                obj.scale.y = 90
+                obj.scale.z = 90
                 scene.add(obj)
 
                 obj.traverse(function (child: any) {
