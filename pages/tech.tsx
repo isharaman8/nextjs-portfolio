@@ -34,7 +34,17 @@ export default function Tech() {
             >
                 {ICONS.map((one: string) => {
                     return (
-                        <Grid item lg={4} md={6} xs={12} style={{ zIndex: 5 }}>
+                        <Grid
+                            item
+                            lg={4}
+                            md={6}
+                            xs={12}
+                            sx={{
+                                zIndex: 5,
+                                padding: 0,
+                            }}
+                            className={styles.customGridBox}
+                        >
                             <Box
                                 style={{
                                     backgroundColor: `#5a5a5a`,
@@ -43,7 +53,6 @@ export default function Tech() {
                                     alignItems: 'center',
                                     height: '200px',
                                     borderRadius: '10px',
-                                    zIndex: 5,
                                     flexDirection: 'column',
                                 }}
                             >

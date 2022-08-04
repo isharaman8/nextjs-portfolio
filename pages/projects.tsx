@@ -1,23 +1,13 @@
-import {
-    Box,
-    Button,
-    Card,
-    CardActions,
-    CardContent,
-    CardMedia,
-    Typography,
-} from '@mui/material'
+import { Box, Typography } from '@mui/material'
 import React from 'react'
 import { useTheme } from '@mui/material'
 
-import { LIGHTTHEME, DARKTHEME } from '../constants/themeColor'
 import { SingleProjectCard } from '../components/SingleProjectCard'
 import { PROJECT_ARRAY, ISingleProject } from '../constants/projectDesc'
 import { FONT_SIZES } from '../constants/fontsSize'
 
 const Projects = () => {
     const theme: any = useTheme()
-
     const { projects } = FONT_SIZES
 
     const {
@@ -52,7 +42,8 @@ const Projects = () => {
                     justifyContent: 'flex-start',
                     alignItems: 'center',
                     gap: 3,
-                    padding: 4,
+                    padding: { lg: 4, xs: 0 },
+                    paddingTop: { xs: 0 },
                 }}
             >
                 {PROJECT_ARRAY.map((one: ISingleProject) => (

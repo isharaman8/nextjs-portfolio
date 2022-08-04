@@ -8,7 +8,7 @@ export const FONT_SIZES = {
         h1: {
             lg: `4.5vw`,
             md: `6vw`,
-            xs: `7vw`,
+            xs: `9vw`,
         },
         pFont: {
             lg: `1.1vw`,
@@ -46,17 +46,29 @@ export const FONT_SIZES = {
         mainHeading: {
             lg: `4vw`,
             md: `4vw`,
-            xs: `4vw`,
+            xs: `7vw`,
         },
         singleProjectCardHeading: {
             lg: `2vw`,
             md: `4vw`,
-            xs: `6vw`,
+            xs: `4vw`,
         },
         singleProjectDescription: {
             lg: `1vw`,
             md: `1.7vw`,
             xs: `3vw`,
+        },
+    },
+    contact: {
+        mainHeading: {
+            lg: `4vw`,
+            md: `7vw`,
+            xs: `12vw`,
+        },
+        description: {
+            lg: `2vw`,
+            md: `3vw`,
+            xs: `5vw`,
         },
     },
 }

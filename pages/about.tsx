@@ -15,7 +15,6 @@ const CustomTypography = styled(Typography)`
     @media only screen and (max-width: 1200px) {
         & {
             font-size: ${FONT_SIZES.about.pFont.md};
-            text-align: center;
         }
     }
 
@@ -33,13 +32,14 @@ function About() {
     return (
         <Box
             sx={{
-                marginTop: { lg: `100px`, xs: `180px` },
-                height: '80vh',
+                marginTop: { lg: `100px`, xs: `160px` },
+                height: { lg: `80vh`, xs: `70vh` },
                 display: 'flex',
                 justifyContent: 'center',
                 alignItems: 'center',
                 gap: '20px',
                 flexDirection: 'column',
+                overflowY: { xs: `visible`, lg: `hidden` },
             }}
         >
             <Avatar
@@ -74,6 +74,7 @@ function About() {
                         },
                         marginBottom: {
                             xs: `20px`,
+                            md: `0`,
                         },
                     }}
                 >
