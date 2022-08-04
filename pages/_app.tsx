@@ -124,7 +124,7 @@ function MyApp({ Component, pageProps }: AppProps) {
                             detectRetina: false,
                         }}
                     />
-                    <Component {...pageProps} />;
+                    <Component {...pageProps} />
                 </ThemeProvider>
             </ColorModeContext.Provider>
         </>
