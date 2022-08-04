@@ -9,14 +9,14 @@
 }
 
 .innerPTag {
-    width: 80%;
+    width: 50%;
     margin: 20px auto;
     font-size: 1.3vw;
+    padding: 0 !important;
+    list-style-type: none;
 
     @include mobile {
         font-size: 4vw;
-        text-align: center;
-        width: 100vw;
         padding: 0 !important;
         margin-top: 40px;
 

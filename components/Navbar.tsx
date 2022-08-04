@@ -15,6 +15,7 @@ import style from '../styles/Navbar.module.css'
 import { styled, useTheme } from '@mui/material/styles'
 
 import MaterialUISwitch from './MaterialUISwitch'
+import { Stack } from '@mui/material'
 
 const pages = ['Home', 'About', 'Tech', 'Projects', 'Contact']
 
@@ -109,20 +110,28 @@ const Navbar = () => {
                             ))}
                         </Menu>
                     </Box>
-                    <Typography
-                        variant="h6"
-                        noWrap
-                        component="div"
-                        sx={{
-                            flexGrow: 1,
-                            display: { xs: 'flex', md: 'none' },
-                            justifyContent: 'flex-end',
-                            cursor: 'pointer',
-                            fontSize: '25px',
-                        }}
-                    >
-                        Ak.
-                    </Typography>
+                    <Stack spacing={2} direction={`row`} alignItems={`center`}>
+                        <MaterialUISwitch
+                            onChange={colorMode.toggleColorMode}
+                            checked={
+                                theme.palette.mode === 'dark' ? true : false
+                            }
+                        />
+                        <Typography
+                            variant="h6"
+                            noWrap
+                            component="div"
+                            sx={{
+                                flexGrow: 1,
+                                display: { xs: 'flex', md: 'none' },
+                                justifyContent: 'flex-end',
+                                cursor: 'pointer',
+                                fontSize: '25px',
+                            }}
+                        >
+                            Ak.
+                        </Typography>
+                    </Stack>
                     <Box
                         className={style.linkBox}
                         sx={{

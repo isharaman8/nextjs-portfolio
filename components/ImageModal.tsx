@@ -6,6 +6,7 @@ import { Button, useTheme } from '@mui/material'
 
 import { LIGHTTHEME, DARKTHEME } from '../constants/themeColor'
 import styles from '../styles/singleProject.module.scss'
+import { motion } from 'framer-motion'
 
 const style = {
     position: 'absolute' as 'absolute',

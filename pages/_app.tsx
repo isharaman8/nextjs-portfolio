@@ -9,6 +9,7 @@ import { useTheme } from '@emotion/react'
 import * as React from 'react'
 import { Button } from '@mui/material'
 import ColorModeContext from '../components/ColorModeContext'
+import { AnimatePresence } from 'framer-motion'
 
 function MyApp({ Component, pageProps }: AppProps) {
     const theme = useTheme()
@@ -37,96 +38,99 @@ function MyApp({ Component, pageProps }: AppProps) {
 
     return (
         <>
-            <ColorModeContext.Provider value={colorMode}>
-                <ThemeProvider theme={darkTheme}>
-                    <CssBaseline />
-                    <Navbar />
-                    <Particles
-                        id="tsparticles"
-                        init={particlesInit}
-                        loaded={particlesLoaded}
-                        options={{
-                            background: {
-                                opacity: 0,
-                            },
-                            fpsLimit: 120,
-                            interactivity: {
-                                events: {
-                                    onClick: {
-                                        enable: true,
-                                        mode: 'push',
-                                    },
-                                    onHover: {
-                                        enable: true,
+            <AnimatePresence>
+                {' '}
+                <ColorModeContext.Provider value={colorMode}>
+                    <ThemeProvider theme={darkTheme}>
+                        <CssBaseline />
+                        <Navbar />
+                        <Particles
+                            id="tsparticles"
+                            init={particlesInit}
+                            loaded={particlesLoaded}
+                            options={{
+                                background: {
+                                    opacity: 0,
+                                },
+                                fpsLimit: 120,
+                                interactivity: {
+                                    events: {
+                                        onClick: {
+                                            enable: true,
+                                            mode: 'push',
+                                        },
+                                        onHover: {
+                                            enable: true,
 
-                                        mode: 'repulse',
+                                            mode: 'repulse',
+                                        },
+                                        resize: true,
                                     },
-                                    resize: true,
-                                },
-                                modes: {
-                                    push: {
-                                        quantity: 0,
+                                    modes: {
+                                        push: {
+                                            quantity: 0,
+                                        },
+                                        repulse: {
+                                            distance: 200,
+                                            duration: 0.4,
+                                        },
                                     },
-                                    repulse: {
-                                        distance: 200,
-                                        duration: 0.4,
+                                },
+                                particles: {
+                                    color: {
+                                        value:
+                                            mode === 'light'
+                                                ? '#5c7aff'
+                                                : '#ffffff',
                                     },
-                                },
-                            },
-                            particles: {
-                                color: {
-                                    value:
-                                        mode === 'light'
-                                            ? '#5c7aff'
-                                            : '#ffffff',
-                                },
-                                links: {
-                                    color:
-                                        mode === 'light'
-                                            ? '#5c7aff'
-                                            : '#ffffff',
-                                    distance: 150,
-                                    enable: true,
-                                    opacity: 0.4,
-                                    width: 0.5,
-                                },
-
-                                collisions: {
-                                    enable: true,
-                                },
-                                move: {
-                                    direction: 'none',
-                                    enable: true,
-                                    outModes: {
-                                        default: 'bounce',
-                                    },
-                                    random: false,
-                                    speed: 1,
-                                    straight: false,
-                                },
-                                number: {
-                                    density: {
+                                    links: {
+                                        color:
+                                            mode === 'light'
+                                                ? '#5c7aff'
+                                                : '#ffffff',
+                                        distance: 150,
                                         enable: true,
-                                        area: 2000,
+                                        opacity: 0.4,
+                                        width: 0.5,
                                     },
-                                    value: 80,
+
+                                    collisions: {
+                                        enable: true,
+                                    },
+                                    move: {
+                                        direction: 'none',
+                                        enable: true,
+                                        outModes: {
+                                            default: 'bounce',
+                                        },
+                                        random: false,
+                                        speed: 1,
+                                        straight: false,
+                                    },
+                                    number: {
+                                        density: {
+                                            enable: true,
+                                            area: 2000,
+                                        },
+                                        value: 80,
+                                    },
+                                    opacity: {
+                                        value: 0.5,
+                                    },
+                                    shape: {
+                                        type: 'square',
+                                    },
+                                    size: {
+                                        value: { min: 1, max: 5 },
+                                    },
                                 },
-                                opacity: {
-                                    value: 0.5,
-                                },
-                                shape: {
-                                    type: 'square',
-                                },
-                                size: {
-                                    value: { min: 1, max: 5 },
-                                },
-                            },
-                            detectRetina: false,
-                        }}
-                    />
-                    <Component {...pageProps} />
-                </ThemeProvider>
-            </ColorModeContext.Provider>
+                                detectRetina: false,
+                            }}
+                        />
+                        <Component {...pageProps} />
+                    </ThemeProvider>
+                </ColorModeContext.Provider>
+            </AnimatePresence>
         </>
     )
 }

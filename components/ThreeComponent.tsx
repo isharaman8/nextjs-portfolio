@@ -46,7 +46,7 @@ export default function ThreeComponent(props: any) {
                 marginTop: 100,
             }}
         >
-            <ambientLight intensity={0.5} />
+            <ambientLight intensity={0.1} />
             <Computer
                 scale={pcSize}
                 rotation={[0, 0, 0]}
