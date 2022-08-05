@@ -17,6 +17,7 @@ const Home: NextPage = () => {
     return (
         <PageSwapMotion>
             <Box
+                component="div"
                 id="home"
                 sx={{
                     height: `100vh`,
@@ -35,6 +36,7 @@ const Home: NextPage = () => {
                 </Head>
 
                 <Box
+                    component="div"
                     sx={{
                         height: `100vh`,
                         display: `flex`,
@@ -47,6 +49,7 @@ const Home: NextPage = () => {
                 >
                     <ThreeComponent />
                     <Box
+                        component="div"
                         sx={{
                             flex: 1,
                             display: 'flex',

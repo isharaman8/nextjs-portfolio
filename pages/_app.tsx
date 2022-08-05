@@ -37,17 +37,13 @@ function MyApp({ Component, pageProps }: AppProps) {
     )
 
     return (
-        <>
-            <AnimatePresence>
-                <ColorModeContext.Provider value={colorMode}>
-                    <ThemeProvider theme={darkTheme}>
-                        <CssBaseline />
-                        <Navbar />
-                        <Component {...pageProps} />
-                    </ThemeProvider>
-                </ColorModeContext.Provider>
-            </AnimatePresence>
-        </>
+        <ColorModeContext.Provider value={colorMode}>
+            <ThemeProvider theme={darkTheme}>
+                <CssBaseline />
+                <Navbar />
+                <Component {...pageProps} />
+            </ThemeProvider>
+        </ColorModeContext.Provider>
     )
 }
 

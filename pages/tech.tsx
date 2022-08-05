@@ -1,27 +1,31 @@
 import { Grid, Typography } from '@mui/material'
 import { Box } from '@mui/system'
 import * as React from 'react'
+import { motion } from 'framer-motion'
 
 import { ICONS } from '../constants/icons'
 import { CapitalizeString } from '../utils/stringFunctions'
 import styles from '../styles/tech.module.scss'
 import { FONT_SIZES } from '../constants/fontsSize'
 import PageSwapMotion from '../components/PageSwapMotion'
+import { useTheme } from '@emotion/react'
+import { DARKTHEME, LIGHTTHEME } from '../constants/themeColor'
 
 export default function Tech() {
+    const theme: any = useTheme()
+    const {
+        palette: { mode },
+    } = theme
     return (
         <PageSwapMotion>
-            {' '}
-            <Box mt={15} id="tech">
+            <Box component={'div'} mt={15} id="tech">
                 <Typography
                     variant={'h2'}
                     component={'h2'}
                     textAlign={'center'}
                     sx={{
                         fontSize: {
-                            lg: FONT_SIZES.tech.h2.lg,
-                            md: FONT_SIZES.tech.h2.md,
-                            xs: FONT_SIZES.tech.h2.xs,
+                            ...FONT_SIZES.tech.h2,
                         },
                     }}
                 >
@@ -34,30 +38,35 @@ export default function Tech() {
                     width={'60%'}
                     ml={'auto'}
                     mr={'auto'}
+                    // style={{ background: `red` }}
                 >
                     {ICONS.map((one: string) => {
                         return (
                             <Grid
+                                key={one}
                                 item
                                 lg={4}
                                 md={6}
-                                xs={12}
+                                xs={6}
                                 sx={{
                                     zIndex: 5,
                                     padding: 0,
                                 }}
                                 className={styles.customGridBox}
                             >
-                                <Box
+                                <motion.div
                                     style={{
-                                        backgroundColor: `#5a5a5a`,
                                         display: 'flex',
                                         justifyContent: 'center',
                                         alignItems: 'center',
-                                        height: '200px',
+                                        height: `fit-content`,
                                         borderRadius: '10px',
                                         flexDirection: 'column',
+                                        cursor: `pointer`,
                                     }}
+                                    whileHover={{ scale: 1.05 }}
+                                    initial={{ scale: 1 }}
+                                    whileTap={{ scale: 1 }}
                                 >
                                     <img
                                         className={styles.techstackicon}
@@ -68,9 +77,7 @@ export default function Tech() {
                                         mt={3}
                                         sx={{
                                             fontSize: {
-                                                lg: FONT_SIZES.tech.h5.lg,
-                                                md: FONT_SIZES.tech.h5.md,
-                                                xs: FONT_SIZES.tech.h5.xs,
+                                                ...FONT_SIZES.tech.h5,
                                             },
                                         }}
                                     >
@@ -78,7 +85,7 @@ export default function Tech() {
                                             ? 'MaterialUI'
                                             : CapitalizeString(one)}
                                     </Typography>
-                                </Box>
+                                </motion.div>
                             </Grid>
                         )
                     })}

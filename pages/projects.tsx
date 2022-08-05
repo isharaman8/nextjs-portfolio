@@ -15,7 +15,7 @@ const Projects = () => {
         palette: { mode },
     } = theme
     return (
-        <Box id="projects">
+        <Box component="div" id="projects" sx={{ position: `relative` }}>
             <PageSwapMotion>
                 <Typography
                     variant="h2"
@@ -33,6 +33,7 @@ const Projects = () => {
                     Projects I've made
                 </Typography>
                 <Box
+                    component="div"
                     sx={{
                         width: '75%',
                         margin: 'auto',
@@ -46,6 +47,7 @@ const Projects = () => {
                         gap: 3,
                         padding: { lg: 4, xs: 0 },
                         paddingTop: { xs: 0 },
+                        // position: 'relative',
                     }}
                 >
                     {PROJECT_ARRAY.map((one: ISingleProject) => (

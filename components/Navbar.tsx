@@ -13,9 +13,11 @@ import ColorModeContext from './ColorModeContext'
 import * as React from 'react'
 import style from '../styles/Navbar.module.css'
 import { styled, useTheme } from '@mui/material/styles'
+import { motion } from 'framer-motion'
 
 import MaterialUISwitch from './MaterialUISwitch'
 import { Stack } from '@mui/material'
+import { useRouter } from 'next/router'
 
 const pages = ['Home', 'About', 'Tech', 'Projects', 'Contact']
 
@@ -31,7 +33,7 @@ const Navbar = () => {
     }
 
     const colorMode = React.useContext(ColorModeContext)
-
+    const router = useRouter()
     return (
         <AppBar
             position="fixed"
@@ -56,7 +58,15 @@ const Navbar = () => {
                             cursor: 'pointer',
                         }}
                     >
-                        Ak.
+                        <motion.span
+                            initial={{ scale: 1 }}
+                            whileHover={{ scale: 1.1 }}
+                            whileTap={{ scale: 0.9, rotate: 0 }}
+                            animate={{ rotate: 0 }}
+                            onClick={() => router.push('/#')}
+                        >
+                            Ak.
+                        </motion.span>
                     </Typography>
 
                     <Box
@@ -105,7 +115,7 @@ const Navbar = () => {
                                     onClick={handleCloseNavMenu}
                                 >
                                     <Link
-                                        href={`/${
+                                        href={`/#${
                                             page.toLowerCase() === 'home'
                                                 ? ''
                                                 : page.toLowerCase()
@@ -132,7 +142,15 @@ const Navbar = () => {
                                 fontSize: '25px',
                             }}
                         >
-                            Ak.
+                            <motion.span
+                                initial={{ scale: 1 }}
+                                whileHover={{ scale: 1.1 }}
+                                whileTap={{ scale: 0.9, rotate: 0 }}
+                                animate={{ rotate: 0 }}
+                                onClick={() => router.push('/#')}
+                            >
+                                Ak.
+                            </motion.span>
                         </Typography>
                     </Stack>
                     <Box
@@ -161,7 +179,15 @@ const Navbar = () => {
                                         : page.toLowerCase()
                                 }`}
                             >
-                                {page}
+                                <motion.span
+                                    style={{ cursor: `pointer` }}
+                                    whileHover={{
+                                        scale: 1.1,
+                                        boxShadow: `0 0x 20px rgb(255, 255, 255)`,
+                                    }}
+                                >
+                                    {page}
+                                </motion.span>
                             </Link>
                         ))}
                     </Box>

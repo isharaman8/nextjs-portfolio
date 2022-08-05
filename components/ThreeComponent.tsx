@@ -3,6 +3,10 @@ import { useGLTF, Environment, OrbitControls } from '@react-three/drei'
 import { useEffect, useState } from 'react'
 import * as THREE from 'three'
 
+function easeOutCirc(x: number) {
+    return Math.sqrt(1 - Math.pow(x - 1, 4))
+}
+
 function Computer(props: any) {
     const { scene } = useGLTF('/static/retrocomputer/scene.gltf')
 

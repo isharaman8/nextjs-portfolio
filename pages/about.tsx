@@ -36,6 +36,7 @@ function About() {
     return (
         <PageSwapMotion>
             <Box
+                component="div"
                 id="about"
                 sx={{
                     marginTop: { lg: `140px`, xs: `20vh` },
@@ -69,6 +70,7 @@ function About() {
                     }
                 />
                 <Box
+                    component="div"
                     sx={{
                         flex: 1,
                         zIndex: 5,
@@ -82,9 +84,7 @@ function About() {
                         sx={{
                             textAlign: 'center',
                             fontSize: {
-                                lg: FONT_SIZES.about.h1.lg,
-                                md: FONT_SIZES.about.h1.md,
-                                xs: FONT_SIZES.about.h1.xs,
+                                ...FONT_SIZES.about.h1,
                             },
                             marginBottom: {
                                 xs: `20px`,
