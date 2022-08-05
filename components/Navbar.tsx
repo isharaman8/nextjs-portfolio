@@ -57,11 +57,20 @@ const Navbar = () => {
                     </Typography>
 
                     <Box
+                        component="div"
                         sx={{
                             flexGrow: 1,
                             display: { xs: 'flex', md: 'none' },
+                            alignItems: `center`,
                         }}
                     >
+                        <MaterialUISwitch
+                            onChange={colorMode.toggleColorMode}
+                            checked={
+                                theme.palette.mode === 'dark' ? true : false
+                            }
+                            sx={{ marginRight: 0 }}
+                        />
                         <IconButton
                             size="large"
                             aria-label="account of current user"
@@ -76,11 +85,6 @@ const Navbar = () => {
                             id="menu-appbar"
                             anchorEl={anchorElNav}
                             anchorOrigin={{
-                                vertical: 'bottom',
-                                horizontal: 'left',
-                            }}
-                            keepMounted
-                            transformOrigin={{
                                 vertical: 'top',
                                 horizontal: 'left',
                             }}
@@ -111,12 +115,6 @@ const Navbar = () => {
                         </Menu>
                     </Box>
                     <Stack spacing={2} direction={`row`} alignItems={`center`}>
-                        <MaterialUISwitch
-                            onChange={colorMode.toggleColorMode}
-                            checked={
-                                theme.palette.mode === 'dark' ? true : false
-                            }
-                        />
                         <Typography
                             variant="h6"
                             noWrap
@@ -133,6 +131,7 @@ const Navbar = () => {
                         </Typography>
                     </Stack>
                     <Box
+                        component="div"
                         className={style.linkBox}
                         sx={{
                             flexGrow: 1,
