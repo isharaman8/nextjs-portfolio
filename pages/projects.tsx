@@ -34,6 +34,7 @@ const Projects = () => {
                     Projects I've made
                 </Typography>
                 <Box
+                    id="projects"
                     sx={{
                         width: '75%',
                         margin: 'auto',

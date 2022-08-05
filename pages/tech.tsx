@@ -12,7 +12,7 @@ export default function Tech() {
     return (
         <PageSwapMotion>
             {' '}
-            <Box mt={15}>
+            <Box mt={15} id="tech">
                 <Typography
                     variant={'h2'}
                     component={'h2'}

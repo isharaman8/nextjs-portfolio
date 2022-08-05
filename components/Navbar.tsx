@@ -150,7 +150,7 @@ const Navbar = () => {
                         {pages.map((page) => (
                             <Link
                                 key={page}
-                                href={`/${
+                                href={`/#${
                                     page.toLowerCase() === 'home'
                                         ? ''
                                         : page.toLowerCase()

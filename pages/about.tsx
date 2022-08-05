@@ -7,6 +7,7 @@ import styles from '../styles/About.module.scss'
 import ColorModeContext from '../components/ColorModeContext'
 import { FONT_SIZES } from '../constants/fontsSize'
 import PageSwapMotion from '../components/PageSwapMotion'
+import { useAnimation, useInView } from 'framer-motion'
 
 const CustomTypography = styled(Typography)`
     font-size: ${FONT_SIZES.about.pFont.lg};
@@ -30,10 +31,12 @@ const CustomTypography = styled(Typography)`
 
 function About() {
     const colorMode = React.useContext(ColorModeContext)
+
     const theme: any = useTheme()
     return (
         <PageSwapMotion>
             <Box
+                id="about"
                 sx={{
                     marginTop: { lg: `140px`, xs: `20vh` },
                     height: { lg: `80vh`, xs: `70vh` },
