@@ -46,13 +46,12 @@ export default function ThreeComponent(props: any) {
                 marginTop: 100,
             }}
         >
-            <ambientLight intensity={0.1} />
             <Computer
                 scale={pcSize}
                 rotation={[0, 0, 0]}
                 position={[0, -0.4, 0]}
             />
-            <Environment preset="city" />
+
             <OrbitControls />
         </Canvas>
     )

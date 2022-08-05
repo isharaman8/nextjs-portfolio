@@ -54,16 +54,18 @@ const Home: NextPage = () => {
                             alignItems: 'center',
                             flexDirection: 'column',
                             padding: '20px',
+                            width: `100vw`,
+                            // backgroundColor: `red`,
                         }}
                     >
                         <Typography
                             variant="h2"
                             sx={{
                                 fontSize: {
-                                    lg: FONT_SIZES.index.h2.lg,
-                                    md: FONT_SIZES.index.h2.md,
-                                    xs: FONT_SIZES.index.h2.xs,
+                                    ...FONT_SIZES.index.h2,
                                 },
+                                width: { xs: `80%`, md: `50%` },
+                                textAlign: `center`,
                             }}
                         >
                             Hi There
@@ -72,10 +74,10 @@ const Home: NextPage = () => {
                             variant="h1"
                             sx={{
                                 fontSize: {
-                                    lg: FONT_SIZES.index.h1.lg,
-                                    md: FONT_SIZES.index.h1.md,
-                                    xs: FONT_SIZES.index.h1.xs,
+                                    ...FONT_SIZES.index.h1,
                                 },
+                                width: { xs: `80%`, md: `50%` },
+                                textAlign: 'center',
                             }}
                         >
                             I'm Aman Kumar
@@ -84,11 +86,11 @@ const Home: NextPage = () => {
                             variant="h2"
                             sx={{
                                 fontSize: {
-                                    lg: FONT_SIZES.index.h2.lg,
-                                    md: FONT_SIZES.index.h2.md,
-                                    xs: FONT_SIZES.index.h2.xs,
+                                    ...FONT_SIZES.index.h2,
                                 },
                                 marginTop: 1,
+                                width: { xs: `80%`, md: `50%` },
+                                textAlign: 'center',
                             }}
                         >
                             Full Stack Web Developer
@@ -98,11 +100,10 @@ const Home: NextPage = () => {
                             sx={{
                                 textAlign: 'center',
                                 fontSize: {
-                                    lg: FONT_SIZES.index.pFont.lg,
-                                    md: FONT_SIZES.index.pFont.md,
-                                    xs: FONT_SIZES.index.pFont.xs,
+                                    ...FONT_SIZES.index.pFont,
                                 },
                                 marginTop: 2,
+                                width: { xs: `80%`, md: `50%` },
                             }}
                         >
                             A computer enthusiast who loves creating websites

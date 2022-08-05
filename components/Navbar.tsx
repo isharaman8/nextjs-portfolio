@@ -37,7 +37,10 @@ const Navbar = () => {
             position="fixed"
             sx={{
                 height: 'max-content',
-                color: 'white',
+                color: theme.palette.mode === 'dark' ? `white` : `black`,
+                background: `transparent`,
+                boxShadow: `none`,
+                // opacity: 0,
             }}
         >
             <Container maxWidth="xl">
@@ -62,15 +65,9 @@ const Navbar = () => {
                             flexGrow: 1,
                             display: { xs: 'flex', md: 'none' },
                             alignItems: `center`,
+                            // justifyContent: `f`,
                         }}
                     >
-                        <MaterialUISwitch
-                            onChange={colorMode.toggleColorMode}
-                            checked={
-                                theme.palette.mode === 'dark' ? true : false
-                            }
-                            sx={{ marginRight: 0 }}
-                        />
                         <IconButton
                             size="large"
                             aria-label="account of current user"
@@ -81,6 +78,14 @@ const Navbar = () => {
                         >
                             <MenuIcon />
                         </IconButton>
+
+                        <MaterialUISwitch
+                            onChange={colorMode.toggleColorMode}
+                            checked={
+                                theme.palette.mode === 'dark' ? true : false
+                            }
+                        />
+
                         <Menu
                             id="menu-appbar"
                             anchorEl={anchorElNav}

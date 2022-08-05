@@ -15,9 +15,8 @@ const Projects = () => {
         palette: { mode },
     } = theme
     return (
-        <>
+        <Box id="projects">
             <PageSwapMotion>
-                {' '}
                 <Typography
                     variant="h2"
                     mt={10}
@@ -34,7 +33,6 @@ const Projects = () => {
                     Projects I've made
                 </Typography>
                 <Box
-                    id="projects"
                     sx={{
                         width: '75%',
                         margin: 'auto',
@@ -55,7 +53,7 @@ const Projects = () => {
                     ))}
                 </Box>
             </PageSwapMotion>
-        </>
+        </Box>
     )
 }
 export default Projects

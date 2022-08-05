@@ -46,6 +46,7 @@ function About() {
                     gap: '20px',
                     flexDirection: 'column',
                     overflowY: { xs: `visible`, lg: `visible` },
+                    // backgroundColor: `red`
                 }}
             >
                 <Avatar
@@ -67,7 +68,14 @@ function About() {
                         'https://raw.githubusercontent.com/isharaman8/portfolio/master/public/assets/my_pic.png'
                     }
                 />
-                <Box sx={{ flex: 1, zIndex: 5 }}>
+                <Box
+                    sx={{
+                        flex: 1,
+                        zIndex: 5,
+                        // backgroundColor: `red`,
+                        width: `100vw`,
+                    }}
+                >
                     <Typography
                         variant="h1"
                         component="h1"
