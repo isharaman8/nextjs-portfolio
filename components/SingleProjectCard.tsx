@@ -152,7 +152,7 @@ export const SingleProjectCard = ({ project }: IProps) => {
                                 <motion.img
                                     key={singleItem}
                                     className={styles.techStackImage}
-                                    src={`static/TECH_ICONS/${singleItem}`}
+                                    src={`/static/TECH_ICONS/${singleItem}`}
                                     alt="tech stack image"
                                     whileHover={{ scale: 1.1 }}
                                 />
