@@ -1,7 +1,7 @@
 import { AnimatePresence, motion } from 'framer-motion'
 import Backdrop from './Backdrop'
-
 import styles from '../styles/singleProject.module.scss'
+import Image from 'next/image'
 
 const dropIn = {
     hidden: {
@@ -35,13 +35,14 @@ export default function FramerModal({ handleClose, image }: any) {
                 animate="visible"
                 exit="exit"
             >
-                <img
+                <Image
                     src={image}
                     className={styles.modalImage}
                     alt="modal image"
+                    layout="fill"
                 />
                 {/* <AnimatePresence> */}
-                <motion.button
+                {/* <motion.button
                     className={styles.modalCloseButton}
                     initial={{ translateX: 20, opacity: 0 }}
                     animate={{ opacity: 1, translateX: 0 }}
@@ -54,7 +55,7 @@ export default function FramerModal({ handleClose, image }: any) {
                     onClick={handleClose}
                 >
                     Close
-                </motion.button>
+                </motion.button> */}
                 {/* </AnimatePresence> */}
             </motion.div>
         </Backdrop>

@@ -26,3 +26,27 @@
         }
     }
 }
+
+.resumeButton {
+    display: block;
+    width: fit-content;
+    margin: auto;
+    border-radius: 10px;
+    padding: 10px 25px;
+    font-size: 25px;
+    cursor: pointer;
+
+    @include ipad {
+        font-size: 20px;
+    }
+
+    @include mobile {
+        padding: 5px 10px;
+        font-size: 3.5vw;
+        border-width: 1px !important;
+        text-align: center;
+        margin: auto;
+        margin-left: 25%;
+    }
+    // border: 1px solid white;
+}

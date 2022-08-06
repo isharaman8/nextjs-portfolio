@@ -33,7 +33,7 @@ function MyApp({ Component, pageProps }: AppProps) {
                 setMode((prevMode) => (prevMode === 'light' ? 'dark' : 'light'))
             },
         }),
-        [mode]
+        []
     )
 
     return (

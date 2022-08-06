@@ -8,7 +8,6 @@ import styles from '../styles/singleProject.module.scss'
 import { LIGHTTHEME, DARKTHEME } from '../constants/themeColor'
 import { ISingleProject } from '../constants/projectDesc'
 import { FONT_SIZES } from '../constants/fontsSize'
-import ImageModal from '../components/ImageModal'
 import FramerModal from './FramerModal'
 import { AnimatePresence, motion } from 'framer-motion'
 
@@ -87,7 +86,7 @@ export const SingleProjectCard = ({ project }: IProps) => {
                         alt="project hero image"
                         className={styles.projectImage}
                         onClick={() => {
-                            setModalImage(project.heroImage)
+                            setModalImage(`/${project.heroImage}`)
                             open()
                         }}
                     />
@@ -172,7 +171,11 @@ export const SingleProjectCard = ({ project }: IProps) => {
                             margin: { xs: `15px 0 0` },
                         }}
                     >
-                        <a href={project.gitLink} target="_blank">
+                        <a
+                            href={project.gitLink}
+                            target="_blank"
+                            rel="noreferrer"
+                        >
                             <GitHubIcon
                                 sx={{
                                     height: { md: 50, xs: 20 },
@@ -180,7 +183,11 @@ export const SingleProjectCard = ({ project }: IProps) => {
                                 }}
                             />
                         </a>
-                        <a href={project.liveLink} target="_blank">
+                        <a
+                            href={project.liveLink}
+                            target="_blank"
+                            rel="noreferrer"
+                        >
                             <LaunchIcon
                                 sx={{
                                     height: { md: 50, xs: 20 },

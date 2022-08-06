@@ -115,6 +115,7 @@ const Navbar = () => {
                                     onClick={handleCloseNavMenu}
                                 >
                                     <Link
+                                        passHref
                                         href={`/#${
                                             page.toLowerCase() === 'home'
                                                 ? ''
@@ -172,6 +173,7 @@ const Navbar = () => {
                         />
                         {pages.map((page) => (
                             <Link
+                                passHref
                                 key={page}
                                 href={`/#${
                                     page.toLowerCase() === 'home'
