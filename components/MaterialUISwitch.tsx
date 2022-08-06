@@ -1,11 +1,12 @@
 import { styled } from '@mui/material/styles'
 import { Switch } from '@mui/material'
+import { DARKTHEME } from '../constants/themeColor'
 
 export default styled(Switch)(({ theme }) => ({
     width: 62,
     height: 34,
     padding: 7,
-    marginRight: 20,
+    // marginRight: 20,
     '& .MuiSwitch-switchBase': {
         margin: 1,
         padding: 0,
@@ -26,7 +27,10 @@ export default styled(Switch)(({ theme }) => ({
         },
     },
     '& .MuiSwitch-thumb': {
-        backgroundColor: theme.palette.mode === 'dark' ? '#003892' : '#001e3c',
+        backgroundColor:
+            theme.palette.mode === 'dark'
+                ? DARKTHEME.background.lightDark
+                : '#001e3c',
         width: 32,
         height: 32,
         '&:before': {

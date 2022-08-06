@@ -1,13 +1,15 @@
 import { Box, Stack, Typography, useTheme } from '@mui/material'
 import React from 'react'
+import { motion } from 'framer-motion'
 
-import styles from '../styles/Contact.module.scss'
-import { FONT_SIZES } from '../constants/fontsSize'
-import { LIGHTTHEME, DARKTHEME } from '../constants/themeColor'
+import styles from '../../styles/Contact.module.scss'
+import { FONT_SIZES } from '../../constants/fontsSize'
+import { LIGHTTHEME, DARKTHEME } from '../../constants/themeColor'
+// import PageSwapMotion from '../components/PageSwapMotion'
 
 const imagesArr = [
     {
-        img: 'icons8-github-128.png',
+        img: 'icons8-github-144.png',
         link: `https://github.com/isharaman8/`,
     },
     {
@@ -33,9 +35,11 @@ function Contact() {
     const { contact } = FONT_SIZES
     return (
         <>
+            {/* <PageSwapMotion> */}
             <Box
+                component="div"
+                id="contact"
                 sx={{
-                    marginTop: { lg: `200px`, md: `150px`, xs: `100px` },
                     display: `flex`,
                     flexDirection: `column`,
                     justifyContent: `center`,
@@ -45,11 +49,9 @@ function Contact() {
                             ? DARKTHEME.background.default
                             : `white`,
                     zIndex: '5',
-                    position: `absolute`,
-                    left: `50%`,
-                    top: { xs: `40%`, lg: `30%` },
-                    transform: `translate(-50%, -50%)`,
-                    width: `100%`,
+                    position: `relative`,
+                    width: `100vw`,
+                    height: `100vh`,
                 }}
             >
                 <Typography
@@ -61,7 +63,7 @@ function Contact() {
                         textAlign: `center`,
                     }}
                 >
-                    Let's Talk
+                    Let&apos;s Talk
                 </Typography>
                 <Typography
                     paragraph={true}
@@ -71,7 +73,7 @@ function Contact() {
                         marginTop: { lg: `50px`, xs: `30px` },
                     }}
                 >
-                    Get in touch with me through the below links
+                    Get in touch with me through below links.
                 </Typography>
                 <Stack
                     direction="row"
@@ -86,18 +88,26 @@ function Contact() {
                 >
                     {imagesArr.map((c) => {
                         return (
-                            <a href={c.link} target="_blank">
-                                <img
-                                    key={c.link}
+                            <a
+                                key={c.link}
+                                href={c.link}
+                                target="_blank"
+                                rel="noreferrer"
+                            >
+                                <motion.img
                                     className={styles.contactImage}
                                     src={`/static/ICONS/${c.img}`}
                                     alt="image"
+                                    initial={{ scale: 0.5 }}
+                                    animate={{ scale: 1 }}
+                                    whileHover={{ scale: 1.2 }}
                                 />
                             </a>
                         )
                     })}
                 </Stack>
             </Box>
+            {/* </PageSwapMotion> */}
         </>
     )
 }

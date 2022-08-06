@@ -3,6 +3,10 @@ import { useGLTF, Environment, OrbitControls } from '@react-three/drei'
 import { useEffect, useState } from 'react'
 import * as THREE from 'three'
 
+function easeOutCirc(x: number) {
+    return Math.sqrt(1 - Math.pow(x - 1, 4))
+}
+
 function Computer(props: any) {
     const { scene } = useGLTF('/static/retrocomputer/scene.gltf')
 
@@ -46,13 +50,12 @@ export default function ThreeComponent(props: any) {
                 marginTop: 100,
             }}
         >
-            <ambientLight intensity={0.5} />
             <Computer
                 scale={pcSize}
                 rotation={[0, 0, 0]}
                 position={[0, -0.4, 0]}
             />
-            <Environment preset="city" />
+
             <OrbitControls />
         </Canvas>
     )

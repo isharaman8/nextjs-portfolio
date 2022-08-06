@@ -13,8 +13,11 @@ import ColorModeContext from './ColorModeContext'
 import * as React from 'react'
 import style from '../styles/Navbar.module.css'
 import { styled, useTheme } from '@mui/material/styles'
+import { motion } from 'framer-motion'
 
 import MaterialUISwitch from './MaterialUISwitch'
+import { Stack } from '@mui/material'
+import { useRouter } from 'next/router'
 
 const pages = ['Home', 'About', 'Tech', 'Projects', 'Contact']
 
@@ -30,13 +33,16 @@ const Navbar = () => {
     }
 
     const colorMode = React.useContext(ColorModeContext)
-
+    const router = useRouter()
     return (
         <AppBar
             position="fixed"
             sx={{
                 height: 'max-content',
-                color: 'white',
+                color: theme.palette.mode === 'dark' ? `white` : `black`,
+                background: `transparent`,
+                boxShadow: `none`,
+                // opacity: 0,
             }}
         >
             <Container maxWidth="xl">
@@ -52,13 +58,24 @@ const Navbar = () => {
                             cursor: 'pointer',
                         }}
                     >
-                        Ak.
+                        <motion.span
+                            initial={{ scale: 1 }}
+                            whileHover={{ scale: 1.1 }}
+                            whileTap={{ scale: 0.9, rotate: 0 }}
+                            animate={{ rotate: 0 }}
+                            onClick={() => router.push('/#')}
+                        >
+                            Ak.
+                        </motion.span>
                     </Typography>
 
                     <Box
+                        component="div"
                         sx={{
                             flexGrow: 1,
                             display: { xs: 'flex', md: 'none' },
+                            alignItems: `center`,
+                            // justifyContent: `f`,
                         }}
                     >
                         <IconButton
@@ -71,15 +88,18 @@ const Navbar = () => {
                         >
                             <MenuIcon />
                         </IconButton>
+
+                        <MaterialUISwitch
+                            onChange={colorMode.toggleColorMode}
+                            checked={
+                                theme.palette.mode === 'dark' ? true : false
+                            }
+                        />
+
                         <Menu
                             id="menu-appbar"
                             anchorEl={anchorElNav}
                             anchorOrigin={{
-                                vertical: 'bottom',
-                                horizontal: 'left',
-                            }}
-                            keepMounted
-                            transformOrigin={{
                                 vertical: 'top',
                                 horizontal: 'left',
                             }}
@@ -95,7 +115,8 @@ const Navbar = () => {
                                     onClick={handleCloseNavMenu}
                                 >
                                     <Link
-                                        href={`/${
+                                        passHref
+                                        href={`/#${
                                             page.toLowerCase() === 'home'
                                                 ? ''
                                                 : page.toLowerCase()
@@ -109,21 +130,32 @@ const Navbar = () => {
                             ))}
                         </Menu>
                     </Box>
-                    <Typography
-                        variant="h6"
-                        noWrap
-                        component="div"
-                        sx={{
-                            flexGrow: 1,
-                            display: { xs: 'flex', md: 'none' },
-                            justifyContent: 'flex-end',
-                            cursor: 'pointer',
-                            fontSize: '25px',
-                        }}
-                    >
-                        Ak.
-                    </Typography>
+                    <Stack spacing={2} direction={`row`} alignItems={`center`}>
+                        <Typography
+                            variant="h6"
+                            noWrap
+                            component="div"
+                            sx={{
+                                flexGrow: 1,
+                                display: { xs: 'flex', md: 'none' },
+                                justifyContent: 'flex-end',
+                                cursor: 'pointer',
+                                fontSize: '25px',
+                            }}
+                        >
+                            <motion.span
+                                initial={{ scale: 1 }}
+                                whileHover={{ scale: 1.1 }}
+                                whileTap={{ scale: 0.9, rotate: 0 }}
+                                animate={{ rotate: 0 }}
+                                onClick={() => router.push('/#')}
+                            >
+                                Ak.
+                            </motion.span>
+                        </Typography>
+                    </Stack>
                     <Box
+                        component="div"
                         className={style.linkBox}
                         sx={{
                             flexGrow: 1,
@@ -141,14 +173,23 @@ const Navbar = () => {
                         />
                         {pages.map((page) => (
                             <Link
+                                passHref
                                 key={page}
-                                href={`/${
+                                href={`/#${
                                     page.toLowerCase() === 'home'
                                         ? ''
                                         : page.toLowerCase()
                                 }`}
                             >
-                                {page}
+                                <motion.span
+                                    style={{ cursor: `pointer` }}
+                                    whileHover={{
+                                        scale: 1.1,
+                                        boxShadow: `0 0x 20px rgb(255, 255, 255)`,
+                                    }}
+                                >
+                                    {page}
+                                </motion.span>
                             </Link>
                         ))}
                     </Box>
