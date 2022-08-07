@@ -44,10 +44,6 @@ function Contact() {
                     flexDirection: `column`,
                     justifyContent: `center`,
                     alignItems: `center`,
-                    background:
-                        mode === 'dark'
-                            ? DARKTHEME.background.default
-                            : `white`,
                     zIndex: '5',
                     position: `relative`,
                     width: `100vw`,

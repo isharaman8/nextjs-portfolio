@@ -21,6 +21,20 @@ import { useRouter } from 'next/router'
 
 const pages = ['Home', 'About', 'Tech', 'Projects', 'Contact']
 
+const FrostedBox = styled(Box)({
+    position: `absolute`,
+    top: 0,
+    left: 0,
+    width: `100%`,
+    height: `100%`,
+    // backgroundColor: `rgba(255, 0, 5, 0.5)`,
+
+    '&::before': {
+        // boxShadow: `inset 0 0 2000px rgba(255, 255, 255, .5)`,
+        filter: `blur(10px)`,
+    },
+})
+
 const Navbar = () => {
     const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null)
     const theme = useTheme()
@@ -42,10 +56,16 @@ const Navbar = () => {
                 color: theme.palette.mode === 'dark' ? `white` : `black`,
                 background: `transparent`,
                 boxShadow: `none`,
-                // opacity: 0,
+                backdropFilter: `blur(10px)`,
+
+                // '&::before': {
+                //     boxShadow: `inset 0 0 2000px rgba(255, 255, 255, .5)`,
+                // },
+                // // opacity: 0,
             }}
         >
             <Container maxWidth="xl">
+                {/* <FrostedBox /> */}
                 <Toolbar disableGutters>
                     <Typography
                         variant="h6"
