@@ -40,7 +40,7 @@ function About() {
                 id="about"
                 sx={{
                     marginTop: { lg: `140px`, xs: `20vh` },
-                    height: { lg: `80vh`, xs: `70vh` },
+                    minHeight: { lg: `80vh`, xs: `70vh` },
                     display: 'flex',
                     justifyContent: 'center',
                     alignItems: 'center',
@@ -61,13 +61,11 @@ function About() {
                             xs: `120px`,
                         },
                         borderColor:
-                            theme.palette.mode === 'dark' ? 'white' : '#1976d2',
+                            theme.palette.mode === 'dark' ? 'white' : '#212121',
                         borderWidth: 3,
                         borderStyle: 'solid',
                     }}
-                    src={
-                        'https://raw.githubusercontent.com/isharaman8/portfolio/master/public/assets/my_pic.png'
-                    }
+                    src="/static/personal.png"
                 />
                 <Box
                     component="div"
