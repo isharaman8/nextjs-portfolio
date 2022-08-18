@@ -124,7 +124,7 @@ function About() {
                         whileHover={{ scale: 1.1 }}
                         whileTap={{ scale: 1 }}
                         className={styles.resumeButton}
-                        href="https://drive.google.com/file/d/1t3eEWgg4HnnEwaNx1PQthWDt6pwmZ-9V/view?usp=sharing"
+                        href="https://drive.google.com/file/d/1ShvQIBNrALbSNi4c1Ibdg1yd7KlAp4tV/view?usp=sharing"
                         target="_blank"
                         style={{
                             border:
