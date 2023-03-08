@@ -79,7 +79,7 @@ const Index: NextPage = () => {
                 />
                 <meta
                     name="google-site-verification"
-                    content="AIzaSyDx-QIvFHWV7GIO8NpkzmS0Dm70hRHY6Zw"
+                    content={process.env.GOOGLE_CRED}
                 />
             </Head>
             <Home />
