@@ -14,7 +14,7 @@ export const CapitalizeString = (str: string): string => {
         suffix = 'DB'
     } else if (strArr.endsWith('ui')) {
         prefix = strArr.split('ui')[0]
-        suffix = 'DB'
+        suffix = 'UI'
     } else if (strArr.endsWith('js')) {
         prefix = strArr.split('js')[0]
         suffix = 'JS'
