@@ -1,14 +1,7 @@
 // THIRD PARTY IMPORTS
-import { Grow, Theme, Typography } from '@mui/material'
+
 import { Box } from '@mui/system'
 import type { NextPage } from 'next'
-import { useEffect, useRef, useState } from 'react'
-import {
-    AnimatePresence,
-    motion,
-    useMotionValue,
-    useTransform,
-} from 'framer-motion'
 
 import Home from '../components/MainComponents/homepage'
 import About from '../components/MainComponents/about'
@@ -16,7 +9,7 @@ import Tech from '../components/MainComponents/tech'
 import Projects from '../components/MainComponents/projects'
 import Contact from '../components/MainComponents/contact'
 import { useTheme } from '@emotion/react'
-import { DARKTHEME, LIGHTTHEME } from '../constants/themeColor'
+import { DARKTHEME } from '../constants/themeColor'
 import Head from 'next/head'
 
 const Index: NextPage = () => {
@@ -24,12 +17,6 @@ const Index: NextPage = () => {
     const {
         palette: { mode },
     } = theme
-    const x = useMotionValue(0)
-    const background = useTransform(
-        x,
-        [-100, 0, 100],
-        ['#a0d', 'rgba(0,0,0,0)', '#0bf']
-    )
 
     return (
         <Box
@@ -60,6 +47,40 @@ const Index: NextPage = () => {
                     href="/assets/favicon-16x16.png"
                 />
                 <link rel="manifest" href="/assets/site.webmanifest" />
+                {/* META TAGS */}
+                <meta name="theme-color" content="#000000" />
+                <meta name="author" content="Aman Kumar" />
+                <meta property="og:locale" content="en_US" />
+                <meta property="og:type" content="website" />
+                <meta
+                    property="og:title"
+                    content="Aman Kumar | Web Developer"
+                />
+                <meta
+                    property="og:url"
+                    content="https://aman-portfolio-eight.vercel.app/"
+                />
+                <meta
+                    property="og:site_name"
+                    content="Aman Kumar | Web Developer"
+                />
+                <meta
+                    property="og:description"
+                    content="Portfolio of Aman Kumar, a Web Developer from Jammu and Kashmir, India"
+                />
+                <meta property="og:image" content="" />
+                <link
+                    rel="canonical"
+                    href="https://aman-portfolio-eight.vercel.app/"
+                />
+                <meta
+                    name="keywords"
+                    content="Aman Kumar, isharaman8, Aman Portfolio, Aman Kumar Jammu, web developer, Aman"
+                />
+                <meta
+                    name="google-site-verification"
+                    content="AIzaSyDx-QIvFHWV7GIO8NpkzmS0Dm70hRHY6Zw"
+                />
             </Head>
             <Home />
             <About />
