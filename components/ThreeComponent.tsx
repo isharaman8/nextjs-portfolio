@@ -1,14 +1,6 @@
+import { useEffect, useState } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
-import {
-    useGLTF,
-    Environment,
-    OrbitControls,
-    Plane,
-    Box,
-} from '@react-three/drei'
-import { useEffect, useRef, useState } from 'react'
-import { truncateSync } from 'fs'
-// import * as THREE from 'three'
+import { useGLTF, OrbitControls } from '@react-three/drei'
 
 function easeOutCirc(x: number) {
     return Math.sqrt(1 - Math.pow(x - 1, 4))
@@ -16,9 +8,12 @@ function easeOutCirc(x: number) {
 
 function Computer(props: any) {
     const { scene } = useGLTF('/static/retrocomputer/scene.gltf')
+    const [elapsedTime, setElapsedTime] = useState(0)
 
-    useFrame(() => {
-        scene.rotation.y += 0.005
+    useFrame((_state, delta) => {
+        setElapsedTime((prev) => prev + delta)
+        const speed = elapsedTime < 1 ? 0.05 : 0.005
+        scene.rotation.y += speed
     })
 
     return <primitive object={scene} {...props} />
@@ -56,8 +51,6 @@ export default function ThreeComponent(props: any) {
                 width: `420px`,
                 marginTop: 100,
             }}
-            // colorManagement
-            // shadowMap
         >
             <ambientLight intensity={1} />
             <Computer

@@ -1,38 +1,91 @@
-import { Box, Stack, Typography, useTheme } from '@mui/material'
-import React from 'react'
+// third part imports
+import React, { useState } from 'react'
 import { motion } from 'framer-motion'
+import {
+    Box,
+    Button,
+    CircularProgress,
+    Stack,
+    TextField,
+    Typography,
+} from '@mui/material'
 
+// inner imports
 import styles from '../../styles/Contact.module.scss'
 import { FONT_SIZES } from '../../constants/fontsSize'
-import { LIGHTTHEME, DARKTHEME } from '../../constants/themeColor'
-// import PageSwapMotion from '../components/PageSwapMotion'
+import { _validateEmail } from '../../utils/stringFunctions'
 
 const imagesArr = [
     {
-        img: 'icons8-github-144.png',
+        img: 'github.svg',
         link: `https://github.com/isharaman8/`,
     },
     {
-        img: 'icons8-linkedin-144.png',
+        img: 'linkedin-original.svg',
         link: `https://www.linkedin.com/in/aman-kumar-71b655158/`,
     },
     {
-        img: 'icons8-mail-96.png',
-        link: `jacobreynolds@gmail.com`,
-    },
-    {
-        img: 'twitter-svgrepo-com.svg',
+        img: 'twitter.svg',
         link: `https://twitter.com/AmanKum34033445`,
     },
 ]
 
 function Contact() {
-    const theme: any = useTheme()
-    const {
-        palette: { mode },
-    } = theme
-
     const { contact } = FONT_SIZES
+    const [loading, setLoading] = useState(false)
+    const [buttonText, setButtonText] = useState('Say Hi!')
+    const [formData, setFormData] = useState({
+        name: '',
+        email: '',
+        text: '',
+    })
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = e.target
+        const updatedFormData = {
+            ...formData,
+            [name]: value,
+        }
+        setFormData(updatedFormData)
+        console.log(updatedFormData)
+    }
+
+    const handleSubmit = async () => {
+        const { name, email, text } = formData
+
+        if (!name || !email || !text || !_validateEmail(email)) return
+        setLoading(true)
+
+        const EMAIL_API = `https://formsubmit.co/ajax/isharaman8@gmail.com`
+
+        fetch(EMAIL_API, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+            },
+            body: JSON.stringify({
+                name,
+                message: text,
+                email,
+            }),
+        })
+            .then((_data) => {
+                setFormData({
+                    name: '',
+                    email: '',
+                    text: '',
+                })
+
+                setButtonText('Message Sent ✓')
+                setTimeout(() => {
+                    setButtonText('Say Hi!')
+                }, 2000)
+            })
+            .catch((err) => console.log(err))
+            .finally(() => setLoading(false))
+    }
+
     return (
         <>
             {/* <PageSwapMotion> */}
@@ -40,14 +93,14 @@ function Contact() {
                 component="div"
                 id="contact"
                 sx={{
-                    display: `flex`,
-                    flexDirection: `column`,
-                    justifyContent: `center`,
-                    alignItems: `center`,
                     zIndex: '5',
-                    position: `relative`,
                     width: `100vw`,
                     height: `100vh`,
+                    display: `flex`,
+                    position: `relative`,
+                    alignItems: `center`,
+                    flexDirection: `column`,
+                    justifyContent: `center`,
                 }}
             >
                 <Typography
@@ -61,6 +114,71 @@ function Contact() {
                 >
                     Let&apos;s Talk
                 </Typography>
+
+                <Stack
+                    component="form"
+                    sx={{
+                        gap: '20px',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        width: { lg: '50%', xs: '80%' },
+                        marginTop: { lg: '50px', xs: '30px' },
+                    }}
+                >
+                    <TextField
+                        fullWidth
+                        name="name"
+                        label="Name"
+                        variant="outlined"
+                        onChange={handleChange}
+                        value={formData.name}
+                        required
+                    />
+                    <TextField
+                        fullWidth
+                        name="email"
+                        label="Email"
+                        variant="outlined"
+                        onChange={handleChange}
+                        value={formData.email}
+                        required
+                    />
+                    <TextField
+                        rows={4}
+                        value={formData.text}
+                        multiline
+                        fullWidth
+                        name="text"
+                        label="Message"
+                        variant="outlined"
+                        onChange={handleChange}
+                        required
+                    />
+                    <Button
+                        variant="outlined"
+                        onClick={handleSubmit}
+                        disabled={loading}
+                        sx={{
+                            color: 'white',
+                            fontSize: '20px',
+                            marginTop: '20px',
+                            fontWeight: 'bold',
+                            alignSelf: 'center',
+                            borderColor: 'white',
+                            '&:hover': {
+                                borderColor: 'white',
+                                backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                            },
+                        }}
+                    >
+                        {loading ? (
+                            <CircularProgress sx={{ color: 'white' }} />
+                        ) : (
+                            buttonText
+                        )}
+                    </Button>
+                </Stack>
+
                 <Typography
                     paragraph={true}
                     textAlign={'center'}
@@ -69,17 +187,16 @@ function Contact() {
                         marginTop: { lg: `50px`, xs: `30px` },
                     }}
                 >
-                    Get in touch with me through below links.
+                    Or, get in touch with me through below links.
                 </Typography>
                 <Stack
                     direction="row"
                     sx={{
-                        marginTop: { lg: `100px`, xs: `50px` },
-                        display: { lg: 'flex', xs: `grid` },
-                        gridTemplateColumns: { xs: `repeat(2, auto)` },
-                        justifyContent: 'center',
                         alignItems: 'center',
+                        justifyContent: 'center',
                         gap: { lg: `20px`, xs: `50px` },
+                        display: 'flex',
+                        marginTop: '50px',
                     }}
                 >
                     {imagesArr.map((c) => {
@@ -94,7 +211,7 @@ function Contact() {
                                     className={styles.contactImage}
                                     src={`/static/ICONS/${c.img}`}
                                     alt="image"
-                                    initial={{ scale: 0.5 }}
+                                    initial={{ scale: 0.3 }}
                                     animate={{ scale: 1 }}
                                     whileHover={{ scale: 1.2 }}
                                 />

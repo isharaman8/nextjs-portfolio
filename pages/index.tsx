@@ -25,6 +25,7 @@ const Index: NextPage = () => {
                 transition: `all .3s ease`,
                 backgroundColor:
                     mode === 'dark' ? DARKTHEME.background.default : 'white',
+                overflowX: 'hidden',
             }}
         >
             <Head>

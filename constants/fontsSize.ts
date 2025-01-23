@@ -5,10 +5,15 @@ export const FONT_SIZES = {
             md: `2.5vw`,
             xs: `5vw`,
         },
+        h3: {
+            lg: `1.5vw`,
+            md: `2vw`,
+            xs: `4vw`,
+        },
         h1: {
-            lg: `4.5vw`,
-            md: `6vw`,
-            xs: `9vw`,
+            lg: `3.5vw`,
+            md: `4vw`,
+            xs: `4.5vw`,
         },
         pFont: {
             lg: `1.1vw`,
@@ -37,9 +42,9 @@ export const FONT_SIZES = {
             xs: `11vw`,
         },
         pFont: {
-            lg: `1.3vw`,
-            md: `1.7vw`,
-            xs: `3.7vw`,
+            lg: `1vw`,
+            md: `1.5vw`,
+            xs: `2.0vw`,
         },
     },
     projects: {
@@ -66,9 +71,9 @@ export const FONT_SIZES = {
             xs: `12vw`,
         },
         description: {
-            lg: `2vw`,
+            lg: `1.5vw`,
             md: `3vw`,
-            xs: `5vw`,
+            xs: `4vw`,
         },
     },
 }

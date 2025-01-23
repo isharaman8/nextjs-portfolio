@@ -1,13 +1,15 @@
-import { Avatar, Box, Button, Typography } from '@mui/material'
+// third party imports
 import * as React from 'react'
+import { motion } from 'framer-motion'
 import { useTheme } from '@emotion/react'
 import { styled } from '@mui/material/styles'
+import { Box, Typography } from '@mui/material'
 
-import styles from '../../styles/About.module.scss'
-import ColorModeContext from '../ColorModeContext'
-import { FONT_SIZES } from '../../constants/fontsSize'
+// inner imports
 import PageSwapMotion from '../PageSwapMotion'
-import { motion } from 'framer-motion'
+import ColorModeContext from '../ColorModeContext'
+import styles from '../../styles/About.module.scss'
+import { FONT_SIZES } from '../../constants/fontsSize'
 
 const CustomTypography = styled(Typography)`
     font-size: ${FONT_SIZES.about.pFont.lg};
@@ -50,23 +52,6 @@ function About() {
                     // backgroundColor: `red`
                 }}
             >
-                <Avatar
-                    sx={{
-                        width: {
-                            lg: `200px`,
-                            xs: `120px`,
-                        },
-                        height: {
-                            lg: `200px`,
-                            xs: `120px`,
-                        },
-                        borderColor:
-                            theme.palette.mode === 'dark' ? 'white' : '#212121',
-                        borderWidth: 3,
-                        borderStyle: 'solid',
-                    }}
-                    src="/static/personal.png"
-                />
                 <Box
                     component="div"
                     sx={{
@@ -93,26 +78,64 @@ function About() {
                         About Me
                     </Typography>
                     <CustomTypography>
-                        Hey, I am Aman Kumar. I&apos;m an aspiring Web
-                        Developer. I have a serious passion for building amazing
-                        web applications.
+                        Hi, I'm Aman Kumar, an aspiring web developer with a
+                        deep passion for building innovative and impactful web
+                        applications. With a solid foundation in the MERN stack
+                        (MongoDB, Express.js, React, and Node.js), I specialize
+                        in creating scalable and efficient solutions. My journey
+                        in web development has allowed me to work on several
+                        exciting projects, including a freelancing restaurant
+                        management app and Node.js and Python projects tailored
+                        to solar-based companies. Each project has been a
+                        valuable learning experience, sharpening my skills and
+                        reinforcing my commitment to excellence.
                     </CustomTypography>
                     <CustomTypography>
-                        I am skilled in developing web apps using the MERN stack
-                        and I&apos;ve built many amazing projects which you can
-                        see below.
+                        Beyond coding, I enjoy indulging in activities that fuel
+                        my creativity and problem-solving mindset:
                     </CustomTypography>
-                    <CustomTypography>
-                        Apart from coding, I love:
-                    </CustomTypography>
-                    <ul
+                    <Box
+                        component="ul"
                         className={styles.innerPTag}
-                        style={{ paddingLeft: 50 }}
+                        sx={{
+                            paddingLeft: 5,
+                            fontSize: FONT_SIZES.about.pFont,
+                        }}
                     >
-                        <li>🎧 Listening to music</li>
-                        <li>📚 Reading books</li>
-                        <li>📝 Solving DS Algo</li>
-                    </ul>
+                        <Box component="li">
+                            🎧 Exploring diverse music genres, from soothing
+                            instrumentals to energetic beats
+                        </Box>
+                        <Box component="li">
+                            📚 Diving into insightful books, spanning fiction,
+                            technology, and personal growth
+                        </Box>
+                        <Box component="li">
+                            📝 Tackling challenging data structures and
+                            algorithms to sharpen problem-solving skills
+                        </Box>
+                        <Box component="li">
+                            🌍 Exploring new places and cultures to broaden my
+                            perspective
+                        </Box>
+                        <Box component="li">
+                            🎮 Playing video games to unwind and recharge
+                            creatively
+                        </Box>
+                        <Box component="li">
+                            💻 Experimenting with new web technologies and
+                            frameworks
+                        </Box>
+                        <Box component="li">
+                            ☕ Enjoying a good cup of coffee while brainstorming
+                            ideas
+                        </Box>
+                    </Box>
+
+                    <CustomTypography>
+                        Take a look below to explore my work and see how I bring
+                        ideas to life with code!
+                    </CustomTypography>
                     {/* <Box
                         component="div"
                         sx={{
@@ -124,7 +147,7 @@ function About() {
                         whileHover={{ scale: 1.1 }}
                         whileTap={{ scale: 1 }}
                         className={styles.resumeButton}
-                        href="https://drive.google.com/file/d/1rmBvPIbAtKsCzcm3hbpPTqXqemeIKiuf/view?usp=sharing"
+                        href="https://drive.google.com/file/d/1t3eEWgg4HnnEwaNx1PQthWDt6pwmZ-9V/view?usp=drive_link"
                         target="_blank"
                         style={{
                             border:
