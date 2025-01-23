@@ -2,65 +2,60 @@ export interface ISingleProject {
     name: string
     description: string
     techStack: string[]
-    gitLink: string
+    gitLink?: string
     liveLink: string
     heroImage: string
+    features?: string[]
 }
 
-class SingleProject implements ISingleProject {
-    name: string
-    description: string
-    techStack: string[]
-    gitLink: string
-    liveLink: string
-    heroImage: string
-
-    constructor(
-        name: string,
-        description: string,
-        techStack: string[],
-        gitLink: string,
-        liveLink: string,
-        heroImage: string
-    ) {
-        this.name = name
-        this.description = description
-        this.techStack = techStack
-        this.gitLink = gitLink
-        this.liveLink = liveLink
-        this.heroImage = heroImage
-    }
-}
-
-export const PROJECT_ARRAY: Array<ISingleProject> = [
+export const PROJECT_ARRAY = [
     {
-        ...new SingleProject(
-            'Clone: Frontend Masters',
-            'Frontend-Master is E-learning Platform for Learning Frontend Development.',
-            ['html5.svg', 'css.svg', 'javascript.svg'],
-            'https://github.com/jishanpatel7/FrontEndMasters-Website',
-            'https://safe-woodland-02335.herokuapp.com/',
-            'static/PROJECT_PICS/frontendmasters.png'
-        ),
+        name: 'Restaurant Management App',
+        description:
+            'A web app for streamlining restaurant operations with billing, reports, products management, and real-time order tracking.',
+        techStack: [
+            'file-type-svelte.svg',
+            'nestjs.svg',
+            'mongodb-original.svg',
+        ],
+        liveLink: 'https://billing-app-aws-project.vercel.app/',
+        heroImage: '/static/PROJECT_PICS/restaurant-management-app.png',
+        features: [
+            'Product management section for adding/updating products.',
+            'Billing section for active orders with checkout, on-hold, and client book integration.',
+            'Order history section to view previous orders.',
+            'Reports section provides insights via bar charts for product sales, peak hours, and daily/monthly sales.',
+            'User profile section.',
+        ],
     },
     {
-        ...new SingleProject(
-            'Clone: Dineout',
-            "Dineout is India's largest dining out and restaurant tech solutions platform in B2C and B2B front with InResto & Torqus, processing more than 100M diners ",
-            ['react.svg', 'sass.svg', 'firebase.svg'],
-            'https://github.com/sayanwastaken/project_dineout',
-            'https://project-dineout.vercel.app/',
-            'static/PROJECT_PICS/projectdineout.png'
-        ),
+        name: 'Blogging Website',
+        description:
+            'A platform for creating, managing, and sharing blog posts with a user-friendly interface and seamless publishing experience.',
+        techStack: ['react.svg', 'sass.svg', 'firebase.svg'],
+        gitLink: 'https://github.com/isharaman8/bhrat_website',
+        liveLink: 'https://bhrat-website.vercel.app/',
+        heroImage: '/static/PROJECT_PICS/blogging-website.png',
+        features: [
+            'Create and edit blog posts',
+            'User authentication with Firebase',
+            'Responsive design',
+        ],
     },
     {
-        ...new SingleProject(
-            'Clone: PulsePlus Pharmacy',
-            'Pulse+ A collaborative project where user can purchase medicine or drugs at best price. ',
-            ['html5.svg', 'css.svg', 'javascript.svg'],
-            'https://github.com/Rohanverma4/UNIT_2_PROJECT_TESTING',
-            'https://pulsepluspharmacy.netlify.app/',
-            'static/PROJECT_PICS/pulseplus.png'
-        ),
+        name: 'Clone: FlowCV',
+        description:
+            'A seamless resume-building platform with customizable templates and real-time previews.',
+        techStack: ['nextjs.svg', 'css.svg'],
+        gitLink: 'https://github.com/isharaman8/clone_flowcv',
+        liveLink: 'https://clone-flowcv.vercel.app/',
+        heroImage: '/static/PROJECT_PICS/clone-flowcv.png',
+        features: [
+            'Customizable resume templates',
+            'Real-time resume preview',
+            'Download resume as PDF',
+            'Mobile-friendly design',
+            'User-friendly drag-and-drop interface',
+        ],
     },
 ]

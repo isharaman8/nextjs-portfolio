@@ -22,3 +22,7 @@ export const CapitalizeString = (str: string): string => {
 
     return prefix[0].toUpperCase() + prefix.substring(1).toLowerCase() + suffix
 }
+
+export const _validateEmail = (mail: string) => {
+    return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail)
+}

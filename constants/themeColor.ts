@@ -16,8 +16,8 @@ export const LIGHTTHEME = {
 
 export const DARKTHEME = {
     background: {
-        default: `#121212`,
-        paper: `#121212`,
+        default: `#201F23`,
+        paper: `#201F23`,
         lightDark: `#5a5a5a`,
         linearGradient: `linear-gradient(to bottom right, rgba(255,255,255,0.2), rgba(255,255,255,0))`,
     },

@@ -1,26 +1,16 @@
-import '../styles/globals.css'
-import type { AppProps } from 'next/app'
-import Navbar from '../components/Navbar'
-import Particles from 'react-tsparticles'
-import { loadFull } from 'tsparticles'
-import { ThemeProvider, createTheme } from '@mui/material/styles'
-import CssBaseline from '@mui/material/CssBaseline'
-import { useTheme } from '@emotion/react'
+// third party imports
 import * as React from 'react'
-import { Button } from '@mui/material'
+import type { AppProps } from 'next/app'
+import CssBaseline from '@mui/material/CssBaseline'
+import { ThemeProvider, createTheme } from '@mui/material/styles'
+
+// inner imports
+import '../styles/globals.css'
+import Navbar from '../components/Navbar'
 import ColorModeContext from '../components/ColorModeContext'
-import { AnimatePresence } from 'framer-motion'
 
 function MyApp({ Component, pageProps }: AppProps) {
-    const theme = useTheme()
     const [mode, setMode] = React.useState<'light' | 'dark'>('dark')
-    const particlesInit = async (main: any) => {
-        console.log(main)
-        await loadFull(main)
-    }
-    const particlesLoaded = (container: any): any => {
-        console.log(container)
-    }
     const darkTheme = React.useMemo(
         () =>
             createTheme({

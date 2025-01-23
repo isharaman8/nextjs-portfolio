@@ -1,18 +1,16 @@
 // THIRD PARTY IMPORTS
-import { Typography } from '@mui/material'
 import { Box } from '@mui/system'
 import type { NextPage } from 'next'
-import Head from 'next/head'
-import { useEffect, useRef, useState } from 'react'
-import { motion } from 'framer-motion'
+import { useTheme } from '@emotion/react'
+import { Avatar, Typography } from '@mui/material'
 
+// INNER IMPORTS
 import ThreeComponent from '../ThreeComponent'
 import PageSwapMotion from '../PageSwapMotion'
-import styles from '../../styles/Home.module.scss'
 import { FONT_SIZES } from '../../constants/fontsSize'
 
 const Home: NextPage = () => {
-    const textRef = useRef<HTMLHeadingElement>(null)
+    const theme: any = useTheme()
 
     return (
         <PageSwapMotion>
@@ -52,57 +50,100 @@ const Home: NextPage = () => {
                             // backgroundColor: `red`,
                         }}
                     >
-                        <Typography
-                            variant="h2"
+                        <Box
                             sx={{
-                                fontSize: {
-                                    ...FONT_SIZES.index.h2,
-                                },
                                 width: { xs: `80%`, md: `50%` },
-                                textAlign: `center`,
+                                padding: `10px`,
+                                display: 'flex',
+                                borderRadius: `10px`,
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                backgroundColor: `${
+                                    theme.palette.mode === 'dark'
+                                        ? '#313134'
+                                        : '#E1E1E1'
+                                }`,
                             }}
                         >
-                            Hi There
-                        </Typography>
-                        <Typography
-                            variant="h1"
+                            <Typography
+                                variant="p"
+                                sx={{
+                                    fontSize: {
+                                        ...FONT_SIZES.index.pFont,
+                                    },
+                                    textAlign: `center`,
+                                }}
+                            >
+                                Hi, I'm a web developer from Jammu and Kashmir,
+                                India!
+                            </Typography>
+                        </Box>
+
+                        <Box
                             sx={{
-                                fontSize: {
-                                    ...FONT_SIZES.index.h1,
-                                },
+                                height: `100%`,
+                                padding: `20px`,
+                                display: 'flex',
+                                marginTop: `20px`,
+                                alignItems: 'center',
+                                justifyContent: 'space-between',
                                 width: { xs: `80%`, md: `50%` },
-                                textAlign: 'center',
+                                flexDirection: {
+                                    lg: 'row',
+                                    xs: 'column-reverse',
+                                },
                             }}
                         >
-                            I&apos;m Aman Kumar
-                        </Typography>
-                        <Typography
-                            variant="h2"
-                            sx={{
-                                fontSize: {
-                                    ...FONT_SIZES.index.h2,
-                                },
-                                marginTop: 1,
-                                width: { xs: `80%`, md: `50%` },
-                                textAlign: 'center',
-                            }}
-                        >
-                            Full Stack Web Developer
-                        </Typography>
-                        <Typography
-                            component="p"
-                            sx={{
-                                textAlign: 'center',
-                                fontSize: {
-                                    ...FONT_SIZES.index.pFont,
-                                },
-                                marginTop: 2,
-                                width: { xs: `80%`, md: `50%` },
-                            }}
-                        >
-                            A computer enthusiast who loves creating websites
-                            and exploring emerging web technologies.
-                        </Typography>
+                            <span>
+                                <Typography
+                                    variant="h1"
+                                    sx={{
+                                        fontSize: {
+                                            ...FONT_SIZES.index.h1,
+                                        },
+                                        textAlign: { xs: 'center' },
+                                        marginTop: { xs: '20px' },
+                                    }}
+                                >
+                                    Aman Kumar
+                                </Typography>
+                                <Typography
+                                    variant="h3"
+                                    sx={{
+                                        fontSize: {
+                                            ...FONT_SIZES.index.h3,
+                                        },
+                                        marginTop: 1,
+                                        textAlign: { xs: 'center' },
+                                    }}
+                                >
+                                    💻 Full Stack Web Developer
+                                </Typography>
+                            </span>
+
+                            <span>
+                                <Avatar
+                                    sx={{
+                                        width: {
+                                            lg: `160px`,
+                                            xs: `120px`,
+                                        },
+                                        height: {
+                                            lg: `160px`,
+                                            xs: `120px`,
+                                        },
+                                        borderColor:
+                                            theme.palette.mode === 'dark'
+                                                ? '#E1E1E1'
+                                                : '#212121',
+                                        borderWidth: 3,
+                                        borderStyle: 'solid',
+                                        marginTop: { xs: '40px' },
+                                    }}
+                                    src="/static/personal3.png"
+                                />
+                            </span>
+                        </Box>
                         {/* <h1 ref={textRef}></h1> */}
                     </Box>
                 </Box>
