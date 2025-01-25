@@ -23,6 +23,7 @@
         "react-dom": "18.0.0",
         "react-three-fiber": "^6.0.13",
         "react-tsparticles": "^2.0.6",
+        "rimraf": "^6.0.1",
         "sass": "^1.54.1",
         "three": "^0.143.0",
         "tsparticles": "^2.0.6"
