@@ -78,17 +78,16 @@ function About() {
                         About Me
                     </Typography>
                     <CustomTypography>
-                        Hi, I'm Aman Kumar, an aspiring web developer with a
-                        deep passion for building innovative and impactful web
-                        applications. With a solid foundation in the MERN stack
-                        (MongoDB, Express.js, React, and Node.js), I specialize
-                        in creating scalable and efficient solutions. My journey
-                        in web development has allowed me to work on several
-                        exciting projects, including a freelancing restaurant
-                        management app and Node.js and Python projects tailored
-                        to solar-based companies. Each project has been a
-                        valuable learning experience, sharpening my skills and
-                        reinforcing my commitment to excellence.
+                        Hi, I'm Aman Kumar, a skilled software engineer with
+                        over 4 years of experience in web development. With a
+                        solid foundation in the MERN stack (MongoDB, Express.js,
+                        React, and Node.js), I specialize in creating scalable
+                        and efficient web solutions. My journey has included
+                        several exciting projects, such as a freelancing
+                        restaurant management app and Node.js and Python
+                        projects tailored to solar-based companies. Each project
+                        has been a valuable opportunity to sharpen my skills and
+                        deliver impactful results.
                     </CustomTypography>
                     <CustomTypography>
                         Beyond coding, I enjoy indulging in activities that fuel
