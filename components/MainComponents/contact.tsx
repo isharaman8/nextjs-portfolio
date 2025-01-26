@@ -56,7 +56,8 @@ function Contact() {
         if (!name || !email || !text || !_validateEmail(email)) return
         setLoading(true)
 
-        const EMAIL_API = `https://formsubmit.co/ajax/isharaman8@gmail.com`
+        const FORM_SUBMIT_KEY = process.env.NEXT_PUBLIC_FORM_SUBMIT_KEY
+        const EMAIL_API = `https://formsubmit.co/ajax/${FORM_SUBMIT_KEY}`
 
         fetch(EMAIL_API, {
             method: 'POST',
