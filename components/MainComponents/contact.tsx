@@ -8,6 +8,7 @@ import {
     Stack,
     TextField,
     Typography,
+    useTheme,
 } from '@mui/material'
 
 // inner imports
@@ -39,6 +40,7 @@ function Contact() {
         email: '',
         text: '',
     })
+    const theme = useTheme()
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target
@@ -160,20 +162,37 @@ function Contact() {
                         onClick={handleSubmit}
                         disabled={loading}
                         sx={{
-                            color: 'white',
+                            color:
+                                theme.palette.mode === 'light'
+                                    ? 'black'
+                                    : 'white',
                             fontSize: '20px',
                             marginTop: '20px',
                             fontWeight: 'bold',
                             alignSelf: 'center',
-                            borderColor: 'white',
+                            borderColor:
+                                theme.palette.mode === 'light'
+                                    ? 'black'
+                                    : 'white',
                             '&:hover': {
-                                borderColor: 'white',
-                                backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                                borderColor:
+                                    theme.palette.mode === 'light'
+                                        ? 'black'
+                                        : 'white',
+                                backgroundColor:
+                                    theme.palette.mode === 'light'
+                                        ? 'rgba(0, 0, 0, 0.1)'
+                                        : 'rgba(255, 255, 255, 0.1)',
                             },
                         }}
                     >
                         {loading ? (
-                            <CircularProgress sx={{ color: 'white' }} />
+                            <CircularProgress
+                                sx={{
+                                    color:
+                                        theme === 'light' ? 'black' : 'white',
+                                }}
+                            />
                         ) : (
                             buttonText
                         )}
