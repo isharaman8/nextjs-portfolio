@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { useEffect, useState } from 'react'
+import Link from 'next/link'
 import AppBar from '@mui/material/AppBar'
 import Box from '@mui/material/Box'
 import Container from '@mui/material/Container'
@@ -16,10 +17,15 @@ import { alpha, useTheme } from '@mui/material/styles'
 import ColorModeContext from './ColorModeContext'
 import { MONO_FONT_FAMILY } from '../constants/fonts'
 
-// Each entry must match a section `id` on the page
-const pages = ['About', 'Experience', 'Skills', 'Projects', 'Contact']
-
-const getHref = (page: string) => `#${page.toLowerCase()}`
+// Section hrefs must match a section `id` on the homepage; the `/` prefix makes them work from /blog too
+const pages = [
+    { label: 'About', href: '/#about' },
+    { label: 'Experience', href: '/#experience' },
+    { label: 'Skills', href: '/#skills' },
+    { label: 'Projects', href: '/#projects' },
+    { label: 'Blog', href: '/blog' },
+    { label: 'Contact', href: '/#contact' },
+]
 
 const Navbar = () => {
     const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null)
@@ -61,8 +67,8 @@ const Navbar = () => {
             <Container maxWidth="lg">
                 <Toolbar disableGutters sx={{ gap: 1 }}>
                     <Typography
-                        component="a"
-                        href="#home"
+                        component={Link}
+                        href="/#home"
                         sx={{
                             fontFamily: MONO_FONT_FAMILY,
                             fontWeight: 700,
@@ -82,9 +88,9 @@ const Navbar = () => {
                     >
                         {pages.map((page) => (
                             <Box
-                                component="a"
-                                key={page}
-                                href={getHref(page)}
+                                component={Link}
+                                key={page.label}
+                                href={page.href}
                                 sx={{
                                     px: 1.5,
                                     py: 1,
@@ -95,7 +101,7 @@ const Navbar = () => {
                                     '&:hover': { color: 'text.primary' },
                                 }}
                             >
-                                {page}
+                                {page.label}
                             </Box>
                         ))}
                     </Box>
@@ -131,12 +137,12 @@ const Navbar = () => {
                     >
                         {pages.map((page) => (
                             <MenuItem
-                                key={page}
-                                component="a"
-                                href={getHref(page)}
+                                key={page.label}
+                                component={Link}
+                                href={page.href}
                                 onClick={handleCloseNavMenu}
                             >
-                                {page}
+                                {page.label}
                             </MenuItem>
                         ))}
                     </Menu>

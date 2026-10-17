@@ -1,11 +1,13 @@
 // third party imports
 import * as React from 'react'
 import type { AppProps } from 'next/app'
+import { useRouter } from 'next/router'
 import CssBaseline from '@mui/material/CssBaseline'
 import { ThemeProvider, createTheme } from '@mui/material/styles'
 
 // inner imports
 import '../styles/globals.css'
+import 'highlight.js/styles/github-dark.css'
 import Navbar from '../components/Navbar'
 import { sansFont } from '../constants/fonts'
 import ColorModeContext from '../components/ColorModeContext'
@@ -53,6 +55,7 @@ const buildTheme = (mode: 'light' | 'dark') => {
 function MyApp({ Component, pageProps }: AppProps) {
     const [mode, setMode] = React.useState<'light' | 'dark'>('dark')
     const theme = React.useMemo(() => buildTheme(mode), [mode])
+    const isAdminPage = useRouter().pathname.startsWith('/admin')
 
     const colorMode = React.useMemo(
         () => ({
@@ -67,7 +70,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         <ColorModeContext.Provider value={colorMode}>
             <ThemeProvider theme={theme}>
                 <CssBaseline />
-                <Navbar />
+                {!isAdminPage && <Navbar />}
                 <Component {...pageProps} />
             </ThemeProvider>
         </ColorModeContext.Provider>
