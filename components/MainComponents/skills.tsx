@@ -5,6 +5,7 @@ import { Box, Typography } from '@mui/material'
 import Tag from '../Tag'
 import Reveal from '../Reveal'
 import Section from '../Section'
+import SkillIcon from '../SkillIcon'
 import { SKILL_GROUPS } from '../../constants/profile'
 
 export default function Skills() {
@@ -38,7 +39,11 @@ export default function Skills() {
                             </Typography>
                             <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
                                 {group.items.map((item) => (
-                                    <Tag key={item} label={item} />
+                                    <Tag
+                                        key={item}
+                                        label={item}
+                                        icon={<SkillIcon skill={item} />}
+                                    />
                                 ))}
                             </Box>
                         </Box>

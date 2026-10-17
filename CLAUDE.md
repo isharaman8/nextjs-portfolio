@@ -27,7 +27,9 @@ Use **npm** (yarn is not installed on the dev machine; lockfiles are gitignored,
 
 ## Content
 - All personal content is data: `constants/profile.ts` (profile/links, hero stats, about text, experience, skills, education, interests) and `constants/projectDesc.ts` (featured `PROJECT_ARRAY` + `EARLIER_PROJECTS`). Update these, not the components.
+- Skill icons: `components/SkillIcon.tsx` maps each skill label in `SKILL_GROUPS` to a `simple-icons` brand path or a MUI icon (exact label match; unmapped skills render without an icon). Add a mapping when adding a skill. simple-icons has no AWS logo (trademark removal).
 - Resume PDF is served from `public/resume/Aman_Kumar_Resume.pdf` (replace the file to update it).
+- SEO: title/description/keywords and the schema.org `ProfilePage`/`Person` JSON-LD live in `constants/seo.ts` (built from `profile.ts`); tags are rendered in `pages/index.tsx` `<Head>`. `SITE_URL` is hard-coded there **and** in `public/robots.txt` + `public/sitemap.xml` (update all three if the domain changes; bump sitemap `lastmod` on content changes). `public/og-image.png` (1200×630) is a static share image with the role/years baked in, so regenerate it when those change. `pages/_document.tsx` sets `<html lang="en">`.
 - Fonts: Inter + JetBrains Mono via `next/font/google` in `constants/fonts.ts` (`MONO_FONT_FAMILY` for mono text). The build downloads them, so it needs network access.
 
 ## Styling & conventions
@@ -36,4 +38,4 @@ Use **npm** (yarn is not installed on the dev machine; lockfiles are gitignored,
 - Relative imports only (no path aliases).
 
 ## Dead / unused code (safe to ignore or remove)
-`pages/blog/` (stub), `pages/api/hello.ts` (boilerplate), `public/static/One-line-cube/`, and now-unreferenced images in `public/static/` (`PROJECT_PICS/`, `TECH_ICONS/`, `ICONS/`, `programmer.gif`, `personal*.png`). `sass` is no longer used by any file.
+`pages/blog/` (stub), `pages/api/hello.ts` (boilerplate), `public/static/One-line-cube/`, and now-unreferenced images in `public/static/` (`PROJECT_PICS/`, `TECH_ICONS/`, `ICONS/`, `programmer.gif`, `personal*.png`). The About portrait is `public/static/aman-portrait-dark.jpg`. `sass` is no longer used by any file.

@@ -1,4 +1,5 @@
 // third party imports
+import Image from 'next/image'
 import { Box, Typography } from '@mui/material'
 
 // inner imports
@@ -11,6 +12,7 @@ import {
     ABOUT_PARAGRAPHS,
     EDUCATION,
     INTERESTS,
+    PROFILE,
 } from '../../constants/profile'
 
 function SideHeading({ children }: { children: React.ReactNode }) {
@@ -27,6 +29,29 @@ function SideHeading({ children }: { children: React.ReactNode }) {
         >
             {children}
         </Typography>
+    )
+}
+
+function Portrait() {
+    return (
+        <Box
+            sx={{
+                position: 'relative',
+                width: '100%',
+                aspectRatio: '1 / 1',
+                border: 1,
+                borderColor: 'divider',
+                overflow: 'hidden',
+            }}
+        >
+            <Image
+                src={PROFILE.portrait}
+                alt={`Illustrated portrait of ${PROFILE.name}`}
+                fill
+                sizes="(max-width: 900px) 100vw, 400px"
+                style={{ objectFit: 'cover' }}
+            />
+        </Box>
     )
 }
 
@@ -99,6 +124,7 @@ function About() {
                             gap: 3,
                         }}
                     >
+                        <Portrait />
                         <EducationList />
                         <InterestList />
                     </Box>

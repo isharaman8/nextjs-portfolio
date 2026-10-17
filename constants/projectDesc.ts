@@ -5,6 +5,7 @@ export interface ISingleProject {
     stack: string[]
     gitLink?: string
     liveLink?: string
+    thumbnail?: string
 }
 
 export interface IEarlierProject {
@@ -13,31 +14,37 @@ export interface IEarlierProject {
     stack: string[]
     gitLink?: string
     liveLink?: string
+    thumbnail?: string
 }
 
 export const PROJECT_ARRAY: ISingleProject[] = [
     {
-        name: 'Restaurant Management App',
+        name: 'GRE1000 · Key Word Tree',
         description:
-            'Order, billing and user-admin services for running a restaurant day to day.',
+            'A GRE vocabulary app: 1,111 essential words A–Z, grouped by sentiment, with flashcards, quizzes, study schedules and a leaderboard. I built the backend, the student app and an admin panel.',
         highlights: [
-            '**20% fewer** order errors and **40% faster** load times',
-            'Active orders with checkout, on-hold and a client book',
-            'Sales reports by product, peak hour, day and month',
+            'Fastify + PostgreSQL backend with JWT auth and **Razorpay subscriptions**',
+            'Study-schedule worker sending **push (FCM) and email** reminders',
+            'Word pronunciations via Kokoro TTS, audio stored on Cloudflare R2',
         ],
-        stack: ['NestJS', 'PostgreSQL', 'Svelte'],
-        liveLink: 'https://billing-app-aws-project.vercel.app/',
+        stack: ['Fastify', 'PostgreSQL', 'Redis', 'Next.js'],
+        liveLink: 'https://gre1000-user.vercel.app/',
+        thumbnail: '/static/PROJECT_PICS/gre1000.jpg',
     },
     {
         name: 'Finance Management App',
         description:
-            'Tracks personal spending and turns raw transactions into insights.',
+            'Cash Manager: track income and expenses, set budgets, and keep tabs on money lent to or borrowed from friends.',
         highlights: [
-            'REST APIs built on Fastify',
-            'MongoDB aggregation queries for spending insights',
-            'Offline-capable PWA client',
+            'Budgets that **update automatically** as entries are created, edited or deleted, with a full change log',
+            '**MongoDB aggregation pipelines** for category breakdowns, daily spending and filtered reports',
+            '**Redis caching** at the repository layer, covered by unit tests',
+            'Contacts for lent/borrowed money that can be **shared with other users**',
+            'Bulk edit/delete, search and soft delete across entries',
+            'Installable Next.js **PWA** with Recharts dashboards',
         ],
-        stack: ['Fastify', 'MongoDB', 'Next.js'],
+        stack: ['Fastify', 'MongoDB', 'Redis', 'Next.js'],
+        liveLink: 'https://finance-app-one-lilac.vercel.app/',
     },
 ]
 
@@ -48,6 +55,7 @@ export const EARLIER_PROJECTS: IEarlierProject[] = [
         stack: ['Next.js', 'CSS'],
         gitLink: 'https://github.com/isharaman8/clone_flowcv',
         liveLink: 'https://clone-flowcv.vercel.app/',
+        thumbnail: '/static/PROJECT_PICS/clone-flowcv.png',
     },
     {
         name: 'Blogging website',
@@ -55,5 +63,6 @@ export const EARLIER_PROJECTS: IEarlierProject[] = [
         stack: ['React', 'Sass', 'Firebase'],
         gitLink: 'https://github.com/isharaman8/bhrat_website',
         liveLink: 'https://bhrat-website.vercel.app/',
+        thumbnail: '/static/PROJECT_PICS/blogging-website.png',
     },
 ]

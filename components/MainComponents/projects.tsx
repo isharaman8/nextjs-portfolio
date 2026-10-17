@@ -3,8 +3,64 @@ import { Box, Typography } from '@mui/material'
 import Reveal from '../Reveal'
 import Section from '../Section'
 import { MONO_FONT_FAMILY } from '../../constants/fonts'
-import { ProjectLinks, SingleProjectCard } from '../SingleProjectCard'
-import { EARLIER_PROJECTS, PROJECT_ARRAY } from '../../constants/projectDesc'
+import {
+    ProjectLinks,
+    ProjectThumbnail,
+    SingleProjectCard,
+} from '../SingleProjectCard'
+import {
+    EARLIER_PROJECTS,
+    IEarlierProject,
+    PROJECT_ARRAY,
+} from '../../constants/projectDesc'
+
+function EarlierProjectRow({ project }: { project: IEarlierProject }) {
+    return (
+        <Box
+            sx={{
+                display: 'grid',
+                gridTemplateColumns: {
+                    xs: '96px 1fr auto',
+                    md: '128px 200px 1fr auto auto',
+                },
+                alignItems: 'center',
+                columnGap: { xs: 2, md: 3 },
+                py: 2,
+                borderTop: 1,
+                borderColor: 'divider',
+            }}
+        >
+            <Box sx={{ border: 1, borderColor: 'divider' }}>
+                <ProjectThumbnail
+                    name={project.name}
+                    thumbnail={project.thumbnail}
+                    sizes="128px"
+                />
+            </Box>
+            <Box sx={{ display: { md: 'contents' } }}>
+                <Typography sx={{ fontWeight: 600 }}>{project.name}</Typography>
+                <Typography sx={{ color: 'text.secondary', fontSize: { xs: 14, md: 16 } }}>
+                    {project.description}
+                </Typography>
+            </Box>
+            <Typography
+                sx={{
+                    display: { xs: 'none', md: 'block' },
+                    fontFamily: MONO_FONT_FAMILY,
+                    fontSize: 13,
+                    color: 'text.secondary',
+                }}
+            >
+                {project.stack.join(' · ')}
+            </Typography>
+            <ProjectLinks
+                name={project.name}
+                gitLink={project.gitLink}
+                liveLink={project.liveLink}
+            />
+        </Box>
+    )
+}
 
 function EarlierProjects() {
     return (
@@ -23,46 +79,7 @@ function EarlierProjects() {
                 Earlier work
             </Typography>
             {EARLIER_PROJECTS.map((project) => (
-                <Box
-                    key={project.name}
-                    sx={{
-                        display: 'grid',
-                        gridTemplateColumns: { xs: '1fr auto', md: '220px 1fr auto auto' },
-                        alignItems: 'center',
-                        columnGap: 3,
-                        rowGap: 0.5,
-                        py: 2,
-                        borderTop: 1,
-                        borderColor: 'divider',
-                    }}
-                >
-                    <Typography sx={{ fontWeight: 600 }}>{project.name}</Typography>
-                    <Typography
-                        sx={{
-                            color: 'text.secondary',
-                            gridRow: { xs: 2, md: 'auto' },
-                        }}
-                    >
-                        {project.description}
-                    </Typography>
-                    <Typography
-                        sx={{
-                            display: { xs: 'none', md: 'block' },
-                            fontFamily: MONO_FONT_FAMILY,
-                            fontSize: 13,
-                            color: 'text.secondary',
-                        }}
-                    >
-                        {project.stack.join(' · ')}
-                    </Typography>
-                    <Box sx={{ gridRow: { xs: '1 / span 2', md: 'auto' }, gridColumn: { xs: 2, md: 'auto' } }}>
-                        <ProjectLinks
-                            name={project.name}
-                            gitLink={project.gitLink}
-                            liveLink={project.liveLink}
-                        />
-                    </Box>
-                </Box>
+                <EarlierProjectRow key={project.name} project={project} />
             ))}
         </Reveal>
     )

@@ -9,9 +9,10 @@ export const PROFILE = {
     location: 'Bengaluru, India',
     availability: 'Open to remote',
     email: 'isharaman8@gmail.com',
-    resume: '/resume/Aman_Kumar_Resume.pdf',
+    resume: 'https://drive.google.com/file/d/1t3eEWgg4HnnEwaNx1PQthWDt6pwmZ-9V/view?usp=sharing',
     github: 'https://github.com/isharaman8',
     linkedin: 'https://www.linkedin.com/in/aman-kumar-71b655158/',
+    portrait: '/static/aman-portrait-dark.jpg',
 }
 
 export const HERO_STATS = [

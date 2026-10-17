@@ -1,4 +1,5 @@
 // THIRD PARTY IMPORTS
+import dynamic from 'next/dynamic'
 import { Box, Button, Container, IconButton, Typography } from '@mui/material'
 import { alpha, useTheme } from '@mui/material/styles'
 import GitHubIcon from '@mui/icons-material/GitHub'
@@ -7,10 +8,15 @@ import ArrowOutwardIcon from '@mui/icons-material/ArrowOutward'
 
 // INNER IMPORTS
 import Reveal from '../Reveal'
-import ThreeComponent from '../ThreeComponent'
 import CanvasErrorBoundary from '../CanvasErrorBoundary'
 import { MONO_FONT_FAMILY } from '../../constants/fonts'
 import { HERO_STATS, PROFILE } from '../../constants/profile'
+
+// Loaded client-side after the page renders so the 3D bundle and model
+// don't delay the first paint
+const ThreeComponent = dynamic(() => import('../ThreeComponent'), {
+    ssr: false,
+})
 
 function HeroBackground() {
     const theme = useTheme()

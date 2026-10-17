@@ -10,11 +10,7 @@ import Skills from '../components/MainComponents/skills'
 import Projects from '../components/MainComponents/projects'
 import Contact from '../components/MainComponents/contact'
 import { PROFILE } from '../constants/profile'
-
-const SITE_URL = 'https://aman-portfolio-eight.vercel.app/'
-const SITE_TITLE = 'Aman Kumar | Backend Engineer'
-const SITE_DESCRIPTION =
-    'Aman Kumar is a backend engineer (SDE 2) in Bengaluru building microservices in Go, Node.js and TypeScript.'
+import { SEO, SITE_URL, STRUCTURED_DATA } from '../constants/seo'
 
 function Footer() {
     return (
@@ -30,16 +26,26 @@ function Footer() {
 
 const Index: NextPage = () => {
     return (
-        <Box component="div" sx={{ overflowX: 'hidden' }}>
+        <>
             <Head>
-                <title>{SITE_TITLE}</title>
+                <title>{SEO.title}</title>
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
-                <meta name="description" content={SITE_DESCRIPTION} />
-                <link
-                    rel="apple-touch-icon"
-                    sizes="180x180"
-                    href="/assets/apple-touch-icon.png"
+                <meta name="description" content={SEO.description} />
+                <meta name="keywords" content={SEO.keywords} />
+                <meta name="author" content={PROFILE.name} />
+                <meta
+                    name="robots"
+                    content="index, follow, max-image-preview:large, max-snippet:-1"
                 />
+                <link rel="canonical" href={SITE_URL} />
+                <meta name="theme-color" content="#0b0d10" />
+                <meta
+                    name="google-site-verification"
+                    content="Do8q9qBHh0IhisMKgy6X3ocvFOeT099KRpeDLRNQGDk"
+                />
+
+                {/* ICONS */}
+                <link rel="icon" href="/assets/favicon.ico" sizes="any" />
                 <link
                     rel="icon"
                     type="image/png"
@@ -52,38 +58,53 @@ const Index: NextPage = () => {
                     sizes="16x16"
                     href="/assets/favicon-16x16.png"
                 />
+                <link
+                    rel="apple-touch-icon"
+                    sizes="180x180"
+                    href="/assets/apple-touch-icon.png"
+                />
                 <link rel="manifest" href="/assets/site.webmanifest" />
-                {/* META TAGS */}
-                <meta name="theme-color" content="#0b0d10" />
-                <meta name="author" content="Aman Kumar" />
+
+                {/* OPEN GRAPH (LinkedIn, WhatsApp, Slack, Facebook previews) */}
+                <meta property="og:type" content="profile" />
                 <meta property="og:locale" content="en_US" />
-                <meta property="og:type" content="website" />
-                <meta property="og:title" content={SITE_TITLE} />
                 <meta property="og:url" content={SITE_URL} />
-                <meta property="og:site_name" content={SITE_TITLE} />
-                <meta property="og:description" content={SITE_DESCRIPTION} />
-                <meta
-                    property="og:image"
-                    content={`${SITE_URL}assets/android-chrome-512x512.png`}
-                />
-                <link rel="canonical" href={SITE_URL} />
-                <meta
-                    name="keywords"
-                    content="Aman Kumar, isharaman8, backend engineer, Go, Node.js, TypeScript, microservices, Bengaluru"
-                />
-                <meta
-                    name="google-site-verification"
-                    content="Do8q9qBHh0IhisMKgy6X3ocvFOeT099KRpeDLRNQGDk"
+                <meta property="og:site_name" content={SEO.siteName} />
+                <meta property="og:title" content={SEO.title} />
+                <meta property="og:description" content={SEO.description} />
+                <meta property="og:image" content={SEO.image} />
+                <meta property="og:image:width" content="1200" />
+                <meta property="og:image:height" content="630" />
+                <meta property="og:image:alt" content={SEO.imageAlt} />
+                <meta property="profile:first_name" content="Aman" />
+                <meta property="profile:last_name" content="Kumar" />
+                <meta property="profile:username" content="isharaman8" />
+
+                {/* TWITTER / X */}
+                <meta name="twitter:card" content="summary_large_image" />
+                <meta name="twitter:title" content={SEO.title} />
+                <meta name="twitter:description" content={SEO.description} />
+                <meta name="twitter:image" content={SEO.image} />
+                <meta name="twitter:image:alt" content={SEO.imageAlt} />
+
+                {/* STRUCTURED DATA */}
+                <script
+                    type="application/ld+json"
+                    dangerouslySetInnerHTML={{
+                        __html: JSON.stringify(STRUCTURED_DATA),
+                    }}
                 />
             </Head>
-            <Home />
-            <About />
-            <Experience />
-            <Skills />
-            <Projects />
-            <Contact />
+            <Box component="main" sx={{ overflowX: 'hidden' }}>
+                <Home />
+                <About />
+                <Experience />
+                <Skills />
+                <Projects />
+                <Contact />
+            </Box>
             <Footer />
-        </Box>
+        </>
     )
 }
 
