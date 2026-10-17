@@ -1,166 +1,136 @@
 // third party imports
-import * as React from 'react'
-import { motion } from 'framer-motion'
-import { useTheme } from '@emotion/react'
-import { styled } from '@mui/material/styles'
+import Image from 'next/image'
 import { Box, Typography } from '@mui/material'
 
 // inner imports
-import PageSwapMotion from '../PageSwapMotion'
-import ColorModeContext from '../ColorModeContext'
-import styles from '../../styles/About.module.scss'
-import { FONT_SIZES } from '../../constants/fontsSize'
+import Tag from '../Tag'
+import Reveal from '../Reveal'
+import Section from '../Section'
+import Emphasis from '../Emphasis'
+import { MONO_FONT_FAMILY } from '../../constants/fonts'
+import {
+    ABOUT_PARAGRAPHS,
+    EDUCATION,
+    INTERESTS,
+    PROFILE,
+} from '../../constants/profile'
 
-const CustomTypography = styled(Typography)`
-    font-size: ${FONT_SIZES.about.pFont.lg};
-    width: 50%;
-    margin: 15px auto;
-    text-align: justify;
+function SideHeading({ children }: { children: React.ReactNode }) {
+    return (
+        <Typography
+            sx={{
+                fontFamily: MONO_FONT_FAMILY,
+                fontSize: 13,
+                color: 'text.secondary',
+                textTransform: 'uppercase',
+                letterSpacing: '0.08em',
+                mb: 1.5,
+            }}
+        >
+            {children}
+        </Typography>
+    )
+}
 
-    @media only screen and (max-width: 1200px) {
-        & {
-            font-size: ${FONT_SIZES.about.pFont.md};
-        }
-    }
+function Portrait() {
+    return (
+        <Box
+            sx={{
+                position: 'relative',
+                width: '100%',
+                aspectRatio: '1 / 1',
+                border: 1,
+                borderColor: 'divider',
+                overflow: 'hidden',
+            }}
+        >
+            <Image
+                src={PROFILE.portrait}
+                alt={`Illustrated portrait of ${PROFILE.name}`}
+                fill
+                sizes="(max-width: 900px) 100vw, 400px"
+                style={{ objectFit: 'cover' }}
+            />
+        </Box>
+    )
+}
 
-    @media only screen and (max-width: 900px) {
-        & {
-            font-size: ${FONT_SIZES.about.pFont.xs};
-            text-align: justify;
-        }
-    }
-`
+function EducationList() {
+    return (
+        <Box>
+            <SideHeading>Education</SideHeading>
+            {EDUCATION.map((item) => (
+                <Box key={item.title} sx={{ mb: 2 }}>
+                    <Typography sx={{ fontWeight: 600 }}>{item.title}</Typography>
+                    <Typography sx={{ fontSize: 14, color: 'text.secondary' }}>
+                        {item.place} · {item.period}
+                    </Typography>
+                </Box>
+            ))}
+        </Box>
+    )
+}
+
+function InterestList() {
+    return (
+        <Box>
+            <SideHeading>Outside work</SideHeading>
+            <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
+                {INTERESTS.map((interest) => (
+                    <Tag key={interest} label={interest} />
+                ))}
+            </Box>
+        </Box>
+    )
+}
 
 function About() {
-    const colorMode = React.useContext(ColorModeContext)
-
-    const theme: any = useTheme()
     return (
-        <PageSwapMotion>
+        <Section id="about" index="01" title="About me">
             <Box
-                component="div"
-                id="about"
                 sx={{
-                    marginTop: { lg: `140px`, xs: `20vh` },
-                    minHeight: { lg: `80vh`, xs: `70vh` },
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    gap: '20px',
-                    flexDirection: 'column',
-                    overflowY: { xs: `visible`, lg: `visible` },
-                    // backgroundColor: `red`
+                    display: 'grid',
+                    gridTemplateColumns: { xs: '1fr', md: '1.6fr 1fr' },
+                    gap: { xs: 6, md: 10 },
                 }}
             >
-                <Box
-                    component="div"
-                    sx={{
-                        flex: 1,
-                        zIndex: 5,
-                        // backgroundColor: `red`,
-                        width: `100vw`,
-                    }}
-                >
-                    <Typography
-                        variant="h1"
-                        component="h1"
-                        sx={{
-                            textAlign: 'center',
-                            fontSize: {
-                                ...FONT_SIZES.about.h1,
-                            },
-                            marginBottom: {
-                                xs: `20px`,
-                                md: `0`,
-                            },
-                        }}
-                    >
-                        About Me
-                    </Typography>
-                    <CustomTypography>
-                        Hi, I'm Aman Kumar, a skilled software engineer with
-                        over 4 years of experience in web development. With a
-                        solid foundation in the MERN stack (MongoDB, Express.js,
-                        React, and Node.js), I specialize in creating scalable
-                        and efficient web solutions. My journey has included
-                        several exciting projects, such as a freelancing
-                        restaurant management app and Node.js and Python
-                        projects tailored to solar-based companies. Each project
-                        has been a valuable opportunity to sharpen my skills and
-                        deliver impactful results.
-                    </CustomTypography>
-                    <CustomTypography>
-                        Beyond coding, I enjoy indulging in activities that fuel
-                        my creativity and problem-solving mindset:
-                    </CustomTypography>
-                    <Box
-                        component="ul"
-                        className={styles.innerPTag}
-                        sx={{
-                            paddingLeft: 5,
-                            fontSize: FONT_SIZES.about.pFont,
-                        }}
-                    >
-                        <Box component="li">
-                            🎧 Exploring diverse music genres, from soothing
-                            instrumentals to energetic beats
-                        </Box>
-                        <Box component="li">
-                            📚 Diving into insightful books, spanning fiction,
-                            technology, and personal growth
-                        </Box>
-                        <Box component="li">
-                            📝 Tackling challenging data structures and
-                            algorithms to sharpen problem-solving skills
-                        </Box>
-                        <Box component="li">
-                            🌍 Exploring new places and cultures to broaden my
-                            perspective
-                        </Box>
-                        <Box component="li">
-                            🎮 Playing video games to unwind and recharge
-                            creatively
-                        </Box>
-                        <Box component="li">
-                            💻 Experimenting with new web technologies and
-                            frameworks
-                        </Box>
-                        <Box component="li">
-                            ☕ Enjoying a good cup of coffee while brainstorming
-                            ideas
-                        </Box>
-                    </Box>
+                <Reveal>
+                    {ABOUT_PARAGRAPHS.map((paragraph) => (
+                        <Typography
+                            key={paragraph}
+                            component="p"
+                            sx={{
+                                fontSize: { xs: 17, md: 18 },
+                                lineHeight: 1.75,
+                                color: 'text.secondary',
+                                mb: 2.5,
+                            }}
+                        >
+                            <Emphasis text={paragraph} />
+                        </Typography>
+                    ))}
+                </Reveal>
 
-                    <CustomTypography>
-                        Take a look below to explore my work and see how I bring
-                        ideas to life with code!
-                    </CustomTypography>
-                    {/* <Box
-                        component="div"
+                <Reveal delay={0.15}>
+                    <Box
                         sx={{
-                            width: `fit-content`,
-                            margin: `auto`,
-                        }}
-                    > */}
-                    <motion.a
-                        whileHover={{ scale: 1.1 }}
-                        whileTap={{ scale: 1 }}
-                        className={styles.resumeButton}
-                        href="https://drive.google.com/file/d/1t3eEWgg4HnnEwaNx1PQthWDt6pwmZ-9V/view?usp=drive_link"
-                        target="_blank"
-                        style={{
-                            border:
-                                theme.palette.mode === 'dark'
-                                    ? `2px solid white`
-                                    : `2px solid black`,
+                            p: 3,
+                            border: 1,
+                            borderColor: 'divider',
+                            borderRadius: 4,
+                            bgcolor: 'background.paper',
+                            display: 'flex',
+                            flexDirection: 'column',
+                            gap: 3,
                         }}
                     >
-                        Resume
-                    </motion.a>
-                    {/* </Box> */}
-                </Box>
+                        <Portrait />
+                        <EducationList />
+                        <InterestList />
+                    </Box>
+                </Reveal>
             </Box>
-        </PageSwapMotion>
+        </Section>
     )
 }
 

@@ -1,43 +1,40 @@
+import * as React from 'react'
+import { useEffect, useState } from 'react'
 import AppBar from '@mui/material/AppBar'
 import Box from '@mui/material/Box'
-import Toolbar from '@mui/material/Toolbar'
-import IconButton from '@mui/material/IconButton'
-import Typography from '@mui/material/Typography'
-import Menu from '@mui/material/Menu'
-import MenuIcon from '@mui/icons-material/Menu'
 import Container from '@mui/material/Container'
+import IconButton from '@mui/material/IconButton'
+import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
-import { useState } from 'react'
-import Link from 'next/link'
+import Toolbar from '@mui/material/Toolbar'
+import Typography from '@mui/material/Typography'
+import MenuIcon from '@mui/icons-material/Menu'
+import DarkModeOutlined from '@mui/icons-material/DarkModeOutlined'
+import LightModeOutlined from '@mui/icons-material/LightModeOutlined'
+import { alpha, useTheme } from '@mui/material/styles'
+
 import ColorModeContext from './ColorModeContext'
-import * as React from 'react'
-import style from '../styles/Navbar.module.css'
-import { styled, useTheme } from '@mui/material/styles'
-import { motion } from 'framer-motion'
+import { MONO_FONT_FAMILY } from '../constants/fonts'
 
-import MaterialUISwitch from './MaterialUISwitch'
-import { Stack } from '@mui/material'
-import { useRouter } from 'next/router'
+// Each entry must match a section `id` on the page
+const pages = ['About', 'Experience', 'Skills', 'Projects', 'Contact']
 
-const pages = ['Home', 'About', 'Tech', 'Projects', 'Contact']
-
-const FrostedBox = styled(Box)({
-    position: `absolute`,
-    top: 0,
-    left: 0,
-    width: `100%`,
-    height: `100%`,
-    // backgroundColor: `rgba(255, 0, 5, 0.5)`,
-
-    '&::before': {
-        // boxShadow: `inset 0 0 2000px rgba(255, 255, 255, .5)`,
-        filter: `blur(10px)`,
-    },
-})
+const getHref = (page: string) => `#${page.toLowerCase()}`
 
 const Navbar = () => {
     const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null)
+    const [isScrolled, setIsScrolled] = useState(false)
     const theme = useTheme()
+    const colorMode = React.useContext(ColorModeContext)
+    const isDark = theme.palette.mode === 'dark'
+
+    useEffect(() => {
+        const handleScroll = () => setIsScrolled(window.scrollY > 24)
+        handleScroll()
+        window.addEventListener('scroll', handleScroll, { passive: true })
+        return () => window.removeEventListener('scroll', handleScroll)
+    }, [])
+
     const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorElNav(event.currentTarget)
     }
@@ -46,173 +43,103 @@ const Navbar = () => {
         setAnchorElNav(null)
     }
 
-    const colorMode = React.useContext(ColorModeContext)
-    const router = useRouter()
     return (
         <AppBar
             position="fixed"
+            elevation={0}
             sx={{
-                height: 'max-content',
-                color: theme.palette.mode === 'dark' ? `white` : `black`,
-                background: `transparent`,
-                boxShadow: `none`,
-                backdropFilter: `blur(10px)`,
-
-                // '&::before': {
-                //     boxShadow: `inset 0 0 2000px rgba(255, 255, 255, .5)`,
-                // },
-                // // opacity: 0,
+                color: 'text.primary',
+                transition: 'background-color .3s ease, border-color .3s ease',
+                backgroundColor: isScrolled
+                    ? alpha(theme.palette.background.default, 0.75)
+                    : 'transparent',
+                backdropFilter: isScrolled ? 'blur(12px)' : 'none',
+                borderBottom: 1,
+                borderColor: isScrolled ? 'divider' : 'transparent',
             }}
         >
-            <Container maxWidth="xl">
-                {/* <FrostedBox /> */}
-                <Toolbar disableGutters>
+            <Container maxWidth="lg">
+                <Toolbar disableGutters sx={{ gap: 1 }}>
                     <Typography
-                        variant="h6"
-                        noWrap
-                        component="div"
+                        component="a"
+                        href="#home"
                         sx={{
-                            mr: 2,
-                            display: { xs: 'none', md: 'flex' },
-                            fontSize: '25px',
-                            cursor: 'pointer',
+                            fontFamily: MONO_FONT_FAMILY,
+                            fontWeight: 700,
+                            fontSize: 20,
+                            flexGrow: 1,
                         }}
                     >
-                        <motion.span
-                            initial={{ scale: 1 }}
-                            whileHover={{ scale: 1.1 }}
-                            whileTap={{ scale: 0.9, rotate: 0 }}
-                            animate={{ rotate: 0 }}
-                            onClick={() => router.push('/#')}
-                        >
-                            Ak.
-                        </motion.span>
+                        ak
+                        <Box component="span" sx={{ color: 'primary.main' }}>
+                            .
+                        </Box>
                     </Typography>
 
                     <Box
-                        component="div"
-                        sx={{
-                            flexGrow: 1,
-                            display: { xs: 'flex', md: 'none' },
-                            alignItems: `center`,
-                            // justifyContent: `f`,
-                        }}
+                        component="nav"
+                        sx={{ display: { xs: 'none', md: 'flex' }, gap: 0.5 }}
                     >
-                        <IconButton
-                            size="large"
-                            aria-label="account of current user"
-                            aria-controls="menu-appbar"
-                            aria-haspopup="true"
-                            onClick={handleOpenNavMenu}
-                            color="inherit"
-                        >
-                            <MenuIcon />
-                        </IconButton>
-
-                        <MaterialUISwitch
-                            onChange={colorMode.toggleColorMode}
-                            checked={
-                                theme.palette.mode === 'dark' ? true : false
-                            }
-                        />
-
-                        <Menu
-                            id="menu-appbar"
-                            anchorEl={anchorElNav}
-                            anchorOrigin={{
-                                vertical: 'top',
-                                horizontal: 'left',
-                            }}
-                            open={Boolean(anchorElNav)}
-                            onClose={handleCloseNavMenu}
-                            sx={{
-                                display: { xs: 'block', md: 'none' },
-                            }}
-                        >
-                            {pages.map((page) => (
-                                <MenuItem
-                                    key={page}
-                                    onClick={handleCloseNavMenu}
-                                >
-                                    <Link
-                                        passHref
-                                        href={`/#${
-                                            page.toLowerCase() === 'home'
-                                                ? ''
-                                                : page.toLowerCase()
-                                        }`}
-                                    >
-                                        <Typography textAlign="center">
-                                            {page}
-                                        </Typography>
-                                    </Link>
-                                </MenuItem>
-                            ))}
-                        </Menu>
-                    </Box>
-                    <Stack spacing={2} direction={`row`} alignItems={`center`}>
-                        <Typography
-                            variant="h6"
-                            noWrap
-                            component="div"
-                            sx={{
-                                flexGrow: 1,
-                                display: { xs: 'flex', md: 'none' },
-                                justifyContent: 'flex-end',
-                                cursor: 'pointer',
-                                fontSize: '25px',
-                            }}
-                        >
-                            <motion.span
-                                initial={{ scale: 1 }}
-                                whileHover={{ scale: 1.1 }}
-                                whileTap={{ scale: 0.9, rotate: 0 }}
-                                animate={{ rotate: 0 }}
-                                onClick={() => router.push('/#')}
-                            >
-                                Ak.
-                            </motion.span>
-                        </Typography>
-                    </Stack>
-                    <Box
-                        component="div"
-                        className={style.linkBox}
-                        sx={{
-                            flexGrow: 1,
-                            display: { xs: 'none', md: 'flex' },
-                            justifyContent: 'flex-end',
-                            fontSize: '20px',
-                            gap: '15px',
-                        }}
-                    >
-                        <MaterialUISwitch
-                            onChange={colorMode.toggleColorMode}
-                            checked={
-                                theme.palette.mode === 'dark' ? true : false
-                            }
-                        />
                         {pages.map((page) => (
-                            <Link
-                                passHref
+                            <Box
+                                component="a"
                                 key={page}
-                                href={`/#${
-                                    page.toLowerCase() === 'home'
-                                        ? ''
-                                        : page.toLowerCase()
-                                }`}
+                                href={getHref(page)}
+                                sx={{
+                                    px: 1.5,
+                                    py: 1,
+                                    fontSize: 15,
+                                    color: 'text.secondary',
+                                    borderRadius: 2,
+                                    transition: 'color .2s ease',
+                                    '&:hover': { color: 'text.primary' },
+                                }}
                             >
-                                <motion.span
-                                    style={{ cursor: `pointer` }}
-                                    whileHover={{
-                                        scale: 1.1,
-                                        boxShadow: `0 0x 20px rgb(255, 255, 255)`,
-                                    }}
-                                >
-                                    {page}
-                                </motion.span>
-                            </Link>
+                                {page}
+                            </Box>
                         ))}
                     </Box>
+
+                    <IconButton
+                        onClick={colorMode.toggleColorMode}
+                        aria-label={
+                            isDark ? 'Switch to light mode' : 'Switch to dark mode'
+                        }
+                        color="inherit"
+                    >
+                        {isDark ? <LightModeOutlined /> : <DarkModeOutlined />}
+                    </IconButton>
+
+                    <IconButton
+                        aria-label="Open navigation menu"
+                        aria-controls="menu-appbar"
+                        aria-haspopup="true"
+                        onClick={handleOpenNavMenu}
+                        color="inherit"
+                        sx={{ display: { xs: 'inline-flex', md: 'none' } }}
+                    >
+                        <MenuIcon />
+                    </IconButton>
+                    <Menu
+                        id="menu-appbar"
+                        anchorEl={anchorElNav}
+                        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+                        transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+                        open={Boolean(anchorElNav)}
+                        onClose={handleCloseNavMenu}
+                        sx={{ display: { xs: 'block', md: 'none' } }}
+                    >
+                        {pages.map((page) => (
+                            <MenuItem
+                                key={page}
+                                component="a"
+                                href={getHref(page)}
+                                onClick={handleCloseNavMenu}
+                            >
+                                {page}
+                            </MenuItem>
+                        ))}
+                    </Menu>
                 </Toolbar>
             </Container>
         </AppBar>

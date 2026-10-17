@@ -1,14 +1,11 @@
+const path = require('path')
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     reactStrictMode: true,
+    outputFileTracingRoot: path.join(__dirname),
     images: {
-        domains: ['c.tenor.com'],
-    },
-    typescript: {
-        ignoreBuildErrors: true,
-    },
-    eslint: {
-        ignoreDuringBuilds: true, // Ignores ESLint errors during the build
+        remotePatterns: [{ protocol: 'https', hostname: 'c.tenor.com' }],
     },
 }
 

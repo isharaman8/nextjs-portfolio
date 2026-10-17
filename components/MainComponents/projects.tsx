@@ -1,61 +1,109 @@
 import { Box, Typography } from '@mui/material'
-import React from 'react'
-import { useTheme } from '@mui/material'
 
-import { SingleProjectCard } from '../SingleProjectCard'
-import { PROJECT_ARRAY, ISingleProject } from '../../constants/projectDesc'
-import { FONT_SIZES } from '../../constants/fontsSize'
-import PageSwapMotion from '../PageSwapMotion'
+import Reveal from '../Reveal'
+import Section from '../Section'
+import { MONO_FONT_FAMILY } from '../../constants/fonts'
+import {
+    ProjectLinks,
+    ProjectThumbnail,
+    SingleProjectCard,
+} from '../SingleProjectCard'
+import {
+    EARLIER_PROJECTS,
+    IEarlierProject,
+    PROJECT_ARRAY,
+} from '../../constants/projectDesc'
 
-const Projects = () => {
-    const theme: any = useTheme()
-    const { projects } = FONT_SIZES
-
-    const {
-        palette: { mode },
-    } = theme
+function EarlierProjectRow({ project }: { project: IEarlierProject }) {
     return (
-        <Box component="div" id="projects" sx={{ position: `relative` }}>
-            <PageSwapMotion>
-                <Typography
-                    variant="h2"
-                    mt={10}
-                    textAlign={'center'}
-                    sx={{
-                        fontSize: {
-                            lg: projects.mainHeading.lg,
-                            md: projects.mainHeading.md,
-                            xs: projects.mainHeading.xs,
-                        },
-                        width: `100vw`,
-                    }}
-                >
-                    Projects I&apos;ve made
+        <Box
+            sx={{
+                display: 'grid',
+                gridTemplateColumns: {
+                    xs: '96px 1fr auto',
+                    md: '128px 200px 1fr auto auto',
+                },
+                alignItems: 'center',
+                columnGap: { xs: 2, md: 3 },
+                py: 2,
+                borderTop: 1,
+                borderColor: 'divider',
+            }}
+        >
+            <Box sx={{ border: 1, borderColor: 'divider' }}>
+                <ProjectThumbnail
+                    name={project.name}
+                    thumbnail={project.thumbnail}
+                    sizes="128px"
+                />
+            </Box>
+            <Box sx={{ display: { md: 'contents' } }}>
+                <Typography sx={{ fontWeight: 600 }}>{project.name}</Typography>
+                <Typography sx={{ color: 'text.secondary', fontSize: { xs: 14, md: 16 } }}>
+                    {project.description}
                 </Typography>
-                <Box
-                    component="div"
-                    sx={{
-                        width: '75%',
-                        margin: 'auto',
-                        display: 'flex',
-                        flexDirection: 'column',
-                        borderRadius: 10,
-                        marginTop: 3,
-                        zIndex: 10,
-                        justifyContent: 'flex-start',
-                        alignItems: 'center',
-                        gap: 3,
-                        padding: { lg: 4, xs: 0 },
-                        paddingTop: { xs: 0 },
-                        // position: 'relative',
-                    }}
-                >
-                    {PROJECT_ARRAY.map((one: ISingleProject) => (
-                        <SingleProjectCard key={one.name} project={one} />
-                    ))}
-                </Box>
-            </PageSwapMotion>
+            </Box>
+            <Typography
+                sx={{
+                    display: { xs: 'none', md: 'block' },
+                    fontFamily: MONO_FONT_FAMILY,
+                    fontSize: 13,
+                    color: 'text.secondary',
+                }}
+            >
+                {project.stack.join(' · ')}
+            </Typography>
+            <ProjectLinks
+                name={project.name}
+                gitLink={project.gitLink}
+                liveLink={project.liveLink}
+            />
         </Box>
     )
 }
+
+function EarlierProjects() {
+    return (
+        <Reveal>
+            <Typography
+                sx={{
+                    fontFamily: MONO_FONT_FAMILY,
+                    fontSize: 13,
+                    color: 'text.secondary',
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.08em',
+                    mt: 8,
+                    mb: 2,
+                }}
+            >
+                Earlier work
+            </Typography>
+            {EARLIER_PROJECTS.map((project) => (
+                <EarlierProjectRow key={project.name} project={project} />
+            ))}
+        </Reveal>
+    )
+}
+
+const Projects = () => {
+    return (
+        <Section id="projects" index="04" title="Things I've built">
+            <Box
+                sx={{
+                    display: 'grid',
+                    gridTemplateColumns: { xs: '1fr', md: '1fr 1fr' },
+                    gap: 3,
+                }}
+            >
+                {PROJECT_ARRAY.map((project, index) => (
+                    <Reveal key={project.name} delay={0.1 * index}>
+                        <SingleProjectCard project={project} />
+                    </Reveal>
+                ))}
+            </Box>
+            <EarlierProjects />
+        </Section>
+    )
+}
+
 export default Projects
