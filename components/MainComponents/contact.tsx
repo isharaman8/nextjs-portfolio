@@ -123,7 +123,7 @@ function Contact() {
     const isSending = status === 'sending'
 
     return (
-        <Section id="contact" index="05" title="Let's talk">
+        <Section id="contact" index="06" title="Let's talk">
             <Box
                 sx={{
                     display: 'grid',

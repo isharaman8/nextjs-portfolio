@@ -1,30 +1,26 @@
 // THIRD PARTY IMPORTS
 import Head from 'next/head'
-import type { NextPage } from 'next'
-import { Box, Container, Typography } from '@mui/material'
+import type { GetStaticProps, NextPage } from 'next'
+import { Box } from '@mui/material'
 
 import Home from '../components/MainComponents/homepage'
 import About from '../components/MainComponents/about'
 import Experience from '../components/MainComponents/experience'
 import Skills from '../components/MainComponents/skills'
 import Projects from '../components/MainComponents/projects'
+import Blog from '../components/MainComponents/blog'
 import Contact from '../components/MainComponents/contact'
+import Footer from '../components/Footer'
 import { PROFILE } from '../constants/profile'
 import { SEO, SITE_URL, STRUCTURED_DATA } from '../constants/seo'
+import { listPublishedPosts } from '../lib/posts'
+import type { PostSummary } from '../lib/postTypes'
 
-function Footer() {
-    return (
-        <Box component="footer" sx={{ borderTop: 1, borderColor: 'divider', py: 4 }}>
-            <Container maxWidth="lg">
-                <Typography sx={{ fontSize: 14, color: 'text.secondary' }}>
-                    {PROFILE.name} · {PROFILE.location} · Built with Next.js
-                </Typography>
-            </Container>
-        </Box>
-    )
+interface IProps {
+    latestPosts: PostSummary[]
 }
 
-const Index: NextPage = () => {
+const Index: NextPage<IProps> = ({ latestPosts }) => {
     return (
         <>
             <Head>
@@ -43,27 +39,6 @@ const Index: NextPage = () => {
                     name="google-site-verification"
                     content="Do8q9qBHh0IhisMKgy6X3ocvFOeT099KRpeDLRNQGDk"
                 />
-
-                {/* ICONS */}
-                <link rel="icon" href="/assets/favicon.ico" sizes="any" />
-                <link
-                    rel="icon"
-                    type="image/png"
-                    sizes="32x32"
-                    href="/assets/favicon-32x32.png"
-                />
-                <link
-                    rel="icon"
-                    type="image/png"
-                    sizes="16x16"
-                    href="/assets/favicon-16x16.png"
-                />
-                <link
-                    rel="apple-touch-icon"
-                    sizes="180x180"
-                    href="/assets/apple-touch-icon.png"
-                />
-                <link rel="manifest" href="/assets/site.webmanifest" />
 
                 {/* OPEN GRAPH (LinkedIn, WhatsApp, Slack, Facebook previews) */}
                 <meta property="og:type" content="profile" />
@@ -101,11 +76,18 @@ const Index: NextPage = () => {
                 <Experience />
                 <Skills />
                 <Projects />
+                <Blog posts={latestPosts} />
                 <Contact />
             </Box>
             <Footer />
         </>
     )
+}
+
+// Admin saves revalidate this page on demand; the interval is only a fallback
+export const getStaticProps: GetStaticProps<IProps> = async () => {
+    const latestPosts = await listPublishedPosts({ limit: 3 })
+    return { props: { latestPosts }, revalidate: 3600 }
 }
 
 export default Index
