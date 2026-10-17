@@ -142,7 +142,7 @@ const Navbar = () => {
                                                 : page.toLowerCase()
                                         }`}
                                     >
-                                        <Typography textAlign="center">
+                                        <Typography sx={{ textAlign: 'center' }}>
                                             {page}
                                         </Typography>
                                     </Link>
@@ -150,7 +150,7 @@ const Navbar = () => {
                             ))}
                         </Menu>
                     </Box>
-                    <Stack spacing={2} direction={`row`} alignItems={`center`}>
+                    <Stack spacing={2} direction={`row`} sx={{ alignItems: 'center' }}>
                         <Typography
                             variant="h6"
                             noWrap

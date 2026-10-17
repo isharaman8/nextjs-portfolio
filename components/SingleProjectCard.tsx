@@ -95,8 +95,8 @@ export const SingleProjectCard = ({ project }: IProps) => {
                     </Typography>
                     <Typography
                         component="p"
-                        mt={2}
                         sx={{
+                            mt: 2,
                             fontSize: projects.singleProjectDescription,
                             color: 'text.secondary',
                         }}
@@ -104,7 +104,7 @@ export const SingleProjectCard = ({ project }: IProps) => {
                         {project.description}
                     </Typography>
                     {project.features && project.features.length > 0 && (
-                        <Box mt={2}>
+                        <Box sx={{ mt: 2 }}>
                             <Typography
                                 variant="h6"
                                 sx={{
@@ -142,7 +142,7 @@ export const SingleProjectCard = ({ project }: IProps) => {
                         <Stack
                             direction="row"
                             spacing={2}
-                            justifyContent={{ xs: 'center', md: 'flex-start' }}
+                            sx={{ justifyContent: { xs: 'center', md: 'flex-start' } }}
                             className={styles.techStack}
                         >
                             {project.techStack.map((singleItem: string) => (

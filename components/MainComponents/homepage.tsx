@@ -1,7 +1,7 @@
 // THIRD PARTY IMPORTS
 import { Box } from '@mui/system'
 import type { NextPage } from 'next'
-import { useTheme } from '@emotion/react'
+import { useTheme } from '@mui/material/styles'
 import { Avatar, Typography } from '@mui/material'
 
 // INNER IMPORTS
@@ -66,7 +66,7 @@ const Home: NextPage = () => {
                             }}
                         >
                             <Typography
-                                variant="p"
+                                component="p"
                                 sx={{
                                     fontSize: {
                                         ...FONT_SIZES.index.pFont,
@@ -74,7 +74,7 @@ const Home: NextPage = () => {
                                     textAlign: `center`,
                                 }}
                             >
-                                Hi, I'm a web developer from Jammu and Kashmir,
+                                Hi, I&apos;m a web developer from Jammu and Kashmir,
                                 India!
                             </Typography>
                         </Box>

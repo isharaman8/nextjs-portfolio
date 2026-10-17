@@ -1,5 +1,6 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
+import type { Group } from 'three'
 import { useGLTF, OrbitControls } from '@react-three/drei'
 
 function easeOutCirc(x: number) {
@@ -8,15 +9,20 @@ function easeOutCirc(x: number) {
 
 function Computer(props: any) {
     const { scene } = useGLTF('/static/retrocomputer/scene.gltf')
-    const [elapsedTime, setElapsedTime] = useState(0)
+    const elapsedTime = useRef(0)
+    const group = useRef<Group>(null)
 
     useFrame((_state, delta) => {
-        setElapsedTime((prev) => prev + delta)
-        const speed = elapsedTime < 1 ? 0.05 : 0.005
-        scene.rotation.y += speed
+        elapsedTime.current += delta
+        if (!group.current) return
+        group.current.rotation.y += elapsedTime.current < 1 ? 0.05 : 0.005
     })
 
-    return <primitive object={scene} {...props} />
+    return (
+        <group ref={group}>
+            <primitive object={scene} {...props} />
+        </group>
+    )
 }
 
 export default function ThreeComponent(props: any) {
@@ -33,14 +39,12 @@ export default function ThreeComponent(props: any) {
         }
     }
     useEffect(() => {
+        // eslint-disable-next-line react-hooks/set-state-in-effect
+        handleResize()
         window.addEventListener(`resize`, handleResize, false)
         return () => {
             window.removeEventListener(`resize`, handleResize, false)
         }
-    }, [])
-
-    useEffect(() => {
-        handleResize()
     }, [])
     return (
         <Canvas

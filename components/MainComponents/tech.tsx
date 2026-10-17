@@ -3,7 +3,7 @@ import * as React from 'react'
 import Image from 'next/image'
 import { Box, width } from '@mui/system'
 import { motion } from 'framer-motion'
-import { useTheme } from '@emotion/react'
+import { useTheme } from '@mui/material/styles'
 import { styled } from '@mui/material/styles'
 import { Grid, Typography } from '@mui/material'
 
@@ -43,7 +43,6 @@ export default function Tech() {
         <PageSwapMotion>
             <Box
                 component={'div'}
-                mt={15}
                 id="tech"
                 sx={{
                     gap: '20px',
@@ -59,8 +58,8 @@ export default function Tech() {
                 <Typography
                     variant={'h3'}
                     component={'h3'}
-                    textAlign={'center'}
                     sx={{
+                        textAlign: 'center',
                         fontSize: {
                             ...FONT_SIZES.tech.h2,
                         },

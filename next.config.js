@@ -2,13 +2,7 @@
 const nextConfig = {
     reactStrictMode: true,
     images: {
-        domains: ['c.tenor.com'],
-    },
-    typescript: {
-        ignoreBuildErrors: true,
-    },
-    eslint: {
-        ignoreDuringBuilds: true, // Ignores ESLint errors during the build
+        remotePatterns: [{ protocol: 'https', hostname: 'c.tenor.com' }],
     },
 }
 

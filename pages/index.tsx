@@ -8,7 +8,7 @@ import About from '../components/MainComponents/about'
 import Tech from '../components/MainComponents/tech'
 import Projects from '../components/MainComponents/projects'
 import Contact from '../components/MainComponents/contact'
-import { useTheme } from '@emotion/react'
+import { useTheme } from '@mui/material/styles'
 import { DARKTHEME } from '../constants/themeColor'
 import Head from 'next/head'
 

@@ -1,9 +1,9 @@
-import { AnimatePresence, motion } from 'framer-motion'
+import { AnimatePresence, motion, Variants } from 'framer-motion'
 import Backdrop from './Backdrop'
 import styles from '../styles/singleProject.module.scss'
 import Image from 'next/image'
 
-const dropIn = {
+const dropIn: Variants = {
     hidden: {
         y: '-100vh',
         opacity: 0,
@@ -39,7 +39,9 @@ export default function FramerModal({ handleClose, image }: any) {
                     src={image}
                     className={styles.modalImage}
                     alt="modal image"
-                    layout="fill"
+                    fill
+                    sizes="100vw"
+                    style={{ objectFit: 'contain' }}
                 />
                 {/* <AnimatePresence> */}
                 {/* <motion.button

@@ -1,7 +1,7 @@
 // third party imports
 import * as React from 'react'
 import { motion } from 'framer-motion'
-import { useTheme } from '@emotion/react'
+import { useTheme } from '@mui/material/styles'
 import { styled } from '@mui/material/styles'
 import { Box, Typography } from '@mui/material'
 
@@ -78,7 +78,7 @@ function About() {
                         About Me
                     </Typography>
                     <CustomTypography>
-                        Hi, I'm Aman Kumar, a skilled software engineer with
+                        Hi, I&apos;m Aman Kumar, a skilled software engineer with
                         over 4 years of experience in web development. With a
                         solid foundation in the MERN stack (MongoDB, Express.js,
                         React, and Node.js), I specialize in creating scalable

@@ -190,7 +190,7 @@ function Contact() {
                             <CircularProgress
                                 sx={{
                                     color:
-                                        theme === 'light' ? 'black' : 'white',
+                                        theme.palette.mode === 'light' ? 'black' : 'white',
                                 }}
                             />
                         ) : (
@@ -200,9 +200,9 @@ function Contact() {
                 </Stack>
 
                 <Typography
-                    paragraph={true}
-                    textAlign={'center'}
                     sx={{
+                        textAlign: 'center',
+                        mb: 2,
                         fontSize: { ...contact.description },
                         marginTop: { lg: `50px`, xs: `30px` },
                     }}

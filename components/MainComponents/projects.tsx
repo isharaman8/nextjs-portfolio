@@ -19,9 +19,9 @@ const Projects = () => {
             <PageSwapMotion>
                 <Typography
                     variant="h2"
-                    mt={10}
-                    textAlign={'center'}
                     sx={{
+                        mt: 10,
+                        textAlign: 'center',
                         fontSize: {
                             lg: projects.mainHeading.lg,
                             md: projects.mainHeading.md,
