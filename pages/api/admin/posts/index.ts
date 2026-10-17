@@ -3,10 +3,11 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 import { isAdminRequest } from '../../../../lib/auth'
 import { DuplicateSlugError, createPost, listAllPosts } from '../../../../lib/posts'
 import { parsePostInput } from '../../../../lib/postTypes'
+import { getImageOrigin } from '../../../../lib/r2'
 import { revalidateBlog } from '../../../../lib/revalidate'
 
 async function handleCreate(req: NextApiRequest, res: NextApiResponse) {
-    const parsed = parsePostInput(req.body)
+    const parsed = parsePostInput({ body: req.body, imageOrigin: getImageOrigin() })
     if ('error' in parsed) return res.status(400).json({ error: parsed.error })
 
     try {

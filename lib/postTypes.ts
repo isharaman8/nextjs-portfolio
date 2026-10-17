@@ -10,6 +10,8 @@ export interface PostInput {
     content: string
     tags: string[]
     status: PostStatus
+    coverImage: string | null
+    coverImageAlt: string
 }
 
 // Serializable shape passed through page props and API responses
@@ -30,11 +32,21 @@ const toTags = (value: unknown) => {
     return Array.from(new Set(tags))
 }
 
+// Cover images must come from our own image storage; null origin means uploads aren't configured
+const isAllowedImage = ({ url, origin }: { url: string; origin: string | null }) => {
+    return Boolean(origin) && url.startsWith(`${origin}/`)
+}
+
 // Returns the cleaned input, or an error message for the first invalid field
-export function parsePostInput(
+export function parsePostInput({
+    body,
+    imageOrigin,
+}: {
     body: unknown
-): { input: PostInput } | { error: string } {
+    imageOrigin: string | null
+}): { input: PostInput } | { error: string } {
     const raw = (body ?? {}) as Record<string, unknown>
+    const coverImage = asString(raw.coverImage)
     const input: PostInput = {
         title: asString(raw.title),
         slug: asString(raw.slug),
@@ -42,11 +54,16 @@ export function parsePostInput(
         content: typeof raw.content === 'string' ? raw.content : '',
         tags: toTags(raw.tags),
         status: raw.status === 'published' ? 'published' : 'draft',
+        coverImage: coverImage || null,
+        coverImageAlt: asString(raw.coverImageAlt),
     }
 
     if (!input.title) return { error: 'Title is required' }
     if (!isValidSlug(input.slug)) {
         return { error: 'Slug must be lowercase letters, numbers and dashes' }
+    }
+    if (coverImage && !isAllowedImage({ url: coverImage, origin: imageOrigin })) {
+        return { error: 'Cover image must be uploaded through the editor' }
     }
     return { input }
 }

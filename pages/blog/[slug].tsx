@@ -1,4 +1,5 @@
 import Head from 'next/head'
+import Image from 'next/image'
 import Link from 'next/link'
 import type { GetStaticPaths, GetStaticProps, NextPage } from 'next'
 import { Box, Button, Container } from '@mui/material'
@@ -22,6 +23,7 @@ const BlogPost: NextPage<IProps> = ({ post }) => {
     const url = `${SITE_URL}blog/${post.slug}`
     const title = `${post.title} – ${PROFILE.name}`
     const publishedAt = post.publishedAt ?? post.createdAt
+    const shareImage = post.coverImage ?? SEO.image
 
     return (
         <>
@@ -35,10 +37,11 @@ const BlogPost: NextPage<IProps> = ({ post }) => {
                 {post.excerpt && (
                     <meta property="og:description" content={post.excerpt} />
                 )}
-                <meta property="og:image" content={SEO.image} />
+                <meta property="og:image" content={shareImage} />
                 <meta property="article:published_time" content={publishedAt} />
                 <meta property="article:modified_time" content={post.updatedAt} />
                 <meta name="twitter:card" content="summary_large_image" />
+                <meta name="twitter:image" content={shareImage} />
             </Head>
             <Box component="main" sx={{ pt: { xs: 14, md: 18 }, pb: { xs: 10, md: 14 } }}>
                 <Container maxWidth="md">
@@ -61,6 +64,27 @@ const BlogPost: NextPage<IProps> = ({ post }) => {
                                 {post.tags.map((tag) => (
                                     <Tag key={tag} label={tag} />
                                 ))}
+                            </Box>
+                        )}
+                        {post.coverImage && (
+                            <Box
+                                sx={{
+                                    position: 'relative',
+                                    aspectRatio: '16 / 9',
+                                    mt: { xs: 4, md: 5 },
+                                    border: 1,
+                                    borderColor: 'divider',
+                                    overflow: 'hidden',
+                                }}
+                            >
+                                <Image
+                                    src={post.coverImage}
+                                    alt={post.coverImageAlt}
+                                    fill
+                                    priority
+                                    sizes="(max-width: 900px) 100vw, 852px"
+                                    style={{ objectFit: 'cover' }}
+                                />
                             </Box>
                         )}
                         <Box sx={{ mt: { xs: 5, md: 7 } }}>

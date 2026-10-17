@@ -1,5 +1,5 @@
 import { Box } from '@mui/material'
-import ReactMarkdown from 'react-markdown'
+import ReactMarkdown, { type Components } from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import rehypeHighlight from 'rehype-highlight'
 
@@ -7,6 +7,15 @@ import { MONO_FONT_FAMILY } from '../constants/fonts'
 
 interface IProps {
     content: string
+}
+
+// Body images have unknown dimensions, so a plain lazy <img> instead of next/image
+const components: Components = {
+    img: ({ src, alt }) => {
+        if (!src) return null
+        // eslint-disable-next-line @next/next/no-img-element
+        return <img src={String(src)} alt={alt ?? ''} loading="lazy" decoding="async" />
+    },
 }
 
 // Raw HTML in posts is ignored (react-markdown's default), so content needs no sanitizing
@@ -61,7 +70,14 @@ export default function Markdown({ content }: IProps) {
                 },
                 // highlight.js theme supplies the code block colors
                 '& pre code.hljs': { p: 2.5, display: 'block' },
-                '& img': { maxWidth: '100%', height: 'auto' },
+                '& img': {
+                    display: 'block',
+                    maxWidth: '100%',
+                    height: 'auto',
+                    mx: 'auto',
+                    border: 1,
+                    borderColor: 'divider',
+                },
                 '& hr': { border: 0, borderTop: 1, borderColor: 'divider', my: 5 },
                 '& table': {
                     display: 'block',
@@ -77,7 +93,11 @@ export default function Markdown({ content }: IProps) {
                 },
             }}
         >
-            <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeHighlight]}>
+            <ReactMarkdown
+                remarkPlugins={[remarkGfm]}
+                rehypePlugins={[rehypeHighlight]}
+                components={components}
+            >
                 {content}
             </ReactMarkdown>
         </Box>

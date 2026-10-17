@@ -50,6 +50,9 @@ function toPostSummary(doc: WithId<PostDocument>): PostSummary {
         excerpt: doc.excerpt,
         tags: doc.tags,
         status: doc.status,
+        // posts saved before images were supported have no cover fields
+        coverImage: doc.coverImage ?? null,
+        coverImageAlt: doc.coverImageAlt ?? '',
         publishedAt: doc.publishedAt ? doc.publishedAt.toISOString() : null,
         createdAt: doc.createdAt.toISOString(),
         updatedAt: doc.updatedAt.toISOString(),

@@ -93,11 +93,15 @@ function ThumbnailPlaceholder({ name }: { name: string }) {
 export function ProjectThumbnail({
     name,
     thumbnail,
+    alt,
     sizes,
+    objectPosition = 'top',
 }: {
     name: string
     thumbnail?: string
+    alt?: string
     sizes: string
+    objectPosition?: string
 }) {
     return (
         <Box
@@ -114,10 +118,10 @@ export function ProjectThumbnail({
             {thumbnail ? (
                 <Image
                     src={thumbnail}
-                    alt={`Screenshot of ${name}`}
+                    alt={alt ?? `Screenshot of ${name}`}
                     fill
                     sizes={sizes}
-                    style={{ objectFit: 'cover', objectPosition: 'top' }}
+                    style={{ objectFit: 'cover', objectPosition }}
                 />
             ) : (
                 <ThumbnailPlaceholder name={name} />

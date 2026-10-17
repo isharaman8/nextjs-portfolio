@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import { useRouter } from 'next/router'
 import {
     Alert,
@@ -11,9 +11,12 @@ import {
     Tabs,
     TextField,
 } from '@mui/material'
+import AddPhotoAlternateOutlinedIcon from '@mui/icons-material/AddPhotoAlternateOutlined'
 
 import Markdown from '../Markdown'
 import { adminRequest } from './adminApi'
+import CoverImageField from './CoverImageField'
+import useImageUpload from './useImageUpload'
 import { MONO_FONT_FAMILY } from '../../constants/fonts'
 import type { Post, PostInput } from '../../lib/postTypes'
 import { slugify } from '../../utils/stringFunctions'
@@ -29,6 +32,8 @@ interface FormState {
     tags: string
     content: string
     isPublished: boolean
+    coverImage: string | null
+    coverImageAlt: string
 }
 
 type MobileView = 'write' | 'preview'
@@ -40,6 +45,8 @@ const toFormState = (post?: Post): FormState => ({
     tags: post?.tags.join(', ') ?? '',
     content: post?.content ?? '',
     isPublished: post?.status === 'published',
+    coverImage: post?.coverImage ?? null,
+    coverImageAlt: post?.coverImageAlt ?? '',
 })
 
 const toPostInput = (form: FormState): PostInput => ({
@@ -49,7 +56,24 @@ const toPostInput = (form: FormState): PostInput => ({
     tags: form.tags.split(','),
     content: form.content,
     status: form.isPublished ? 'published' : 'draft',
+    coverImage: form.coverImage,
+    coverImageAlt: form.coverImageAlt,
 })
+
+const getImageFiles = (files: FileList | null | undefined) => {
+    return Array.from(files ?? []).filter((file) => file.type.startsWith('image/'))
+}
+
+// "my-diagram.png" -> "my diagram", used as the default alt text
+const toAltText = (fileName: string) => {
+    return fileName.replace(/\.[^.]+$/, '').replace(/[-_]+/g, ' ').trim()
+}
+
+const insertAt = ({ text, index, insert }: { text: string; index: number; insert: string }) => {
+    return text.slice(0, index) + insert + text.slice(index)
+}
+
+let placeholderCounter = 0
 
 export default function PostEditor({ initialPost }: IProps) {
     const router = useRouter()
@@ -60,8 +84,11 @@ export default function PostEditor({ initialPost }: IProps) {
     const [isSaving, setIsSaving] = useState(false)
     const [error, setError] = useState('')
     const [savedMessage, setSavedMessage] = useState('')
+    const contentRef = useRef<HTMLTextAreaElement>(null)
+    const fileInputRef = useRef<HTMLInputElement>(null)
+    const { uploadImage, isUploading } = useImageUpload()
 
-    const updateField = (field: keyof FormState, value: string | boolean) => {
+    const updateField = (field: keyof FormState, value: string | boolean | null) => {
         setForm((current) => ({ ...current, [field]: value }))
     }
 
@@ -76,6 +103,70 @@ export default function PostEditor({ initialPost }: IProps) {
     const handleSlugChange = (slug: string) => {
         setIsSlugTouched(true)
         updateField('slug', slug)
+    }
+
+    const replaceInContent = (search: string, replacement: string) => {
+        setForm((current) => ({ ...current, content: current.content.replace(search, replacement) }))
+    }
+
+    // Inserts a placeholder at the cursor right away, then swaps in the real image once uploaded
+    const uploadInlineImage = async (file: File, index: number) => {
+        placeholderCounter += 1
+        const placeholder = `![Uploading ${file.name} (${placeholderCounter})…]()`
+        setForm((current) => ({
+            ...current,
+            content: insertAt({ text: current.content, index, insert: `${placeholder}\n` }),
+        }))
+
+        try {
+            const url = await uploadImage(file)
+            replaceInContent(placeholder, `![${toAltText(file.name)}](${url})`)
+        } catch (err) {
+            replaceInContent(`${placeholder}\n`, '')
+            setError((err as Error).message)
+        }
+    }
+
+    const insertImages = (files: File[]) => {
+        const cursor = contentRef.current?.selectionStart ?? form.content.length
+        files.forEach((file) => uploadInlineImage(file, cursor))
+    }
+
+    const handlePaste = (event: React.ClipboardEvent) => {
+        const files = getImageFiles(event.clipboardData.files)
+        if (files.length === 0) return
+        event.preventDefault()
+        insertImages(files)
+    }
+
+    const handleDrop = (event: React.DragEvent) => {
+        const files = getImageFiles(event.dataTransfer.files)
+        if (files.length === 0) return
+        event.preventDefault()
+        insertImages(files)
+    }
+
+    const handleFileInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const files = getImageFiles(event.target.files)
+        event.target.value = ''
+        insertImages(files)
+    }
+
+    const handleCoverSelect = async (file: File) => {
+        try {
+            const url = await uploadImage(file)
+            setForm((current) => ({
+                ...current,
+                coverImage: url,
+                coverImageAlt: current.coverImageAlt || toAltText(file.name),
+            }))
+        } catch (err) {
+            setError((err as Error).message)
+        }
+    }
+
+    const handleCoverRemove = () => {
+        setForm((current) => ({ ...current, coverImage: null, coverImageAlt: '' }))
     }
 
     const savePost = async () => {
@@ -139,6 +230,35 @@ export default function PostEditor({ initialPost }: IProps) {
                 onChange={(event) => updateField('tags', event.target.value)}
                 helperText="Comma separated, e.g. Go, PostgreSQL"
             />
+            <CoverImageField
+                url={form.coverImage}
+                alt={form.coverImageAlt}
+                isUploading={isUploading}
+                onSelectFile={handleCoverSelect}
+                onAltChange={(alt) => updateField('coverImageAlt', alt)}
+                onRemove={handleCoverRemove}
+            />
+
+            <Box sx={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 1.5 }}>
+                <Button
+                    variant="outlined"
+                    startIcon={<AddPhotoAlternateOutlinedIcon />}
+                    onClick={() => fileInputRef.current?.click()}
+                >
+                    Insert image
+                </Button>
+                <Box component="span" sx={{ fontSize: 13, color: 'text.secondary' }}>
+                    {isUploading ? 'Uploading…' : 'or paste / drop images into the editor'}
+                </Box>
+                <input
+                    ref={fileInputRef}
+                    type="file"
+                    accept="image/*"
+                    multiple
+                    hidden
+                    onChange={handleFileInputChange}
+                />
+            </Box>
 
             <Tabs
                 value={mobileView}
@@ -154,6 +274,9 @@ export default function PostEditor({ initialPost }: IProps) {
                         label="Content (Markdown)"
                         value={form.content}
                         onChange={(event) => updateField('content', event.target.value)}
+                        onPaste={handlePaste}
+                        onDrop={handleDrop}
+                        inputRef={contentRef}
                         multiline
                         minRows={24}
                         fullWidth
@@ -187,7 +310,7 @@ export default function PostEditor({ initialPost }: IProps) {
                     }
                     label={form.isPublished ? 'Published' : 'Draft'}
                 />
-                <Button type="submit" variant="contained" disabled={isSaving}>
+                <Button type="submit" variant="contained" disabled={isSaving || isUploading}>
                     {isSaving ? 'Saving…' : 'Save'}
                 </Button>
             </Box>

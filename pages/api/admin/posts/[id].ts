@@ -8,6 +8,7 @@ import {
     updatePost,
 } from '../../../../lib/posts'
 import { parsePostInput } from '../../../../lib/postTypes'
+import { getImageOrigin } from '../../../../lib/r2'
 import { revalidateBlog } from '../../../../lib/revalidate'
 
 const NOT_FOUND = { error: 'Post not found' }
@@ -19,7 +20,7 @@ async function handleGet(id: string, res: NextApiResponse) {
 }
 
 async function handleUpdate(id: string, req: NextApiRequest, res: NextApiResponse) {
-    const parsed = parsePostInput(req.body)
+    const parsed = parsePostInput({ body: req.body, imageOrigin: getImageOrigin() })
     if ('error' in parsed) return res.status(400).json({ error: parsed.error })
 
     try {
