@@ -1,203 +1,126 @@
 // third party imports
-import * as React from 'react'
-import { useTheme } from '@mui/material'
-import LaunchIcon from '@mui/icons-material/Launch'
+import { Box, IconButton, Typography } from '@mui/material'
 import GitHubIcon from '@mui/icons-material/GitHub'
-import { Box, Stack, Typography } from '@mui/material'
-import { AnimatePresence, motion } from 'framer-motion'
+import LaunchIcon from '@mui/icons-material/Launch'
 
 // inner imports
-import FramerModal from './FramerModal'
-import { FONT_SIZES } from '../constants/fontsSize'
-import styles from '../styles/singleProject.module.scss'
+import Tag from './Tag'
+import Emphasis from './Emphasis'
+import { MONO_FONT_FAMILY } from '../constants/fonts'
 import { ISingleProject } from '../constants/projectDesc'
-import { LIGHTTHEME, DARKTHEME } from '../constants/themeColor'
 
 interface IProps {
     project: ISingleProject
 }
 
-export const SingleProjectCard = ({ project }: IProps) => {
-    const [modalOpen, setModalOpen] = React.useState(false)
-    const [modalImage, setModalImage] = React.useState(project.heroImage)
-
-    const open = () => setModalOpen(true)
-    const close = () => setModalOpen(false)
-
-    const theme: any = useTheme()
-    const {
-        palette: { mode },
-    } = theme
-
-    const { projects } = FONT_SIZES
-
+export function ProjectLinks({
+    name,
+    gitLink,
+    liveLink,
+}: {
+    name: string
+    gitLink?: string
+    liveLink?: string
+}) {
     return (
-        <>
-            <AnimatePresence>
-                {modalOpen && (
-                    <FramerModal
-                        modalOpen={modalOpen}
-                        handleClose={close}
-                        image={modalImage}
-                    />
-                )}
-            </AnimatePresence>
-            <Box
-                component="div"
-                sx={{
-                    width: { lg: '65%', md: '50%' },
-                    background: mode === 'light' ? '#E5E7EB' : '#2A2B2E',
-                    display: 'flex',
-                    flexDirection: { xs: 'column' },
-                    borderRadius: 5,
-                    position: 'relative',
-                    overflow: 'hidden',
-                }}
-                className={styles.blurForm}
-            >
-                {/* Project Image */}
-                <div className={styles.projectImageDiv}>
-                    <motion.img
-                        whileHover={{ scale: 1.05 }}
-                        drag
-                        dragConstraints={{
-                            top: 0,
-                            bottom: 0,
-                            left: 0,
-                            right: 0,
-                        }}
-                        dragElastic={0.1}
-                        src={project.heroImage}
-                        alt={`${project.name} Screenshot`}
-                        className={styles.projectImage}
-                        onClick={() => {
-                            setModalImage(project.heroImage)
-                            open()
-                        }}
-                    />
-                </div>
+        <Box sx={{ display: 'flex', gap: 0.5 }}>
+            {gitLink && (
+                <IconButton
+                    href={gitLink}
+                    target="_blank"
+                    rel="noreferrer"
+                    aria-label={`${name} source code`}
+                    size="small"
+                    color="inherit"
+                >
+                    <GitHubIcon fontSize="small" />
+                </IconButton>
+            )}
+            {liveLink && (
+                <IconButton
+                    href={liveLink}
+                    target="_blank"
+                    rel="noreferrer"
+                    aria-label={`${name} live site`}
+                    size="small"
+                    color="inherit"
+                >
+                    <LaunchIcon fontSize="small" />
+                </IconButton>
+            )}
+        </Box>
+    )
+}
 
-                {/* Project Details */}
-                <Box
-                    component="div"
+export const SingleProjectCard = ({ project }: IProps) => {
+    return (
+        <Box
+            sx={{
+                height: '100%',
+                p: { xs: 3, md: 4 },
+                display: 'flex',
+                flexDirection: 'column',
+                border: 1,
+                borderColor: 'divider',
+                borderRadius: 4,
+                bgcolor: 'background.paper',
+                transition: 'border-color .25s ease, transform .25s ease',
+                '&:hover': {
+                    borderColor: 'primary.main',
+                    transform: 'translateY(-4px)',
+                },
+            }}
+        >
+            <Box
+                sx={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    // keeps titles aligned when a card has no links
+                    minHeight: 34,
+                    mb: 2,
+                }}
+            >
+                <Typography
                     sx={{
-                        width: '100%',
-                        padding: '20px',
+                        fontFamily: MONO_FONT_FAMILY,
+                        fontSize: 13,
+                        color: 'primary.main',
                     }}
                 >
-                    <Typography
-                        variant="h3"
-                        sx={{
-                            fontSize: projects.singleProjectCardHeading,
-                        }}
-                    >
-                        {project.name}
-                    </Typography>
-                    <Typography
-                        component="p"
-                        sx={{
-                            mt: 2,
-                            fontSize: projects.singleProjectDescription,
-                            color: 'text.secondary',
-                        }}
-                    >
-                        {project.description}
-                    </Typography>
-                    {project.features && project.features.length > 0 && (
-                        <Box sx={{ mt: 2 }}>
-                            <Typography
-                                variant="h6"
-                                sx={{
-                                    fontSize: projects.singleProjectDescription,
-                                }}
-                            >
-                                Features:
-                            </Typography>
-                            <ul>
-                                {project.features.map((feature, index) => (
-                                    <li key={index}>
-                                        <Typography
-                                            component="p"
-                                            sx={{
-                                                fontSize:
-                                                    projects.singleProjectDescription,
-                                                color: 'text.secondary',
-                                            }}
-                                        >
-                                            {feature}
-                                        </Typography>
-                                    </li>
-                                ))}
-                            </ul>
-                        </Box>
-                    )}
-                    <Box
-                        sx={{
-                            marginTop: 5,
-                            display: 'flex',
-                            justifyContent: 'space-between',
-                            alignItems: 'flex-end',
-                        }}
-                    >
-                        <Stack
-                            direction="row"
-                            spacing={2}
-                            sx={{ justifyContent: { xs: 'center', md: 'flex-start' } }}
-                            className={styles.techStack}
-                        >
-                            {project.techStack.map((singleItem: string) => (
-                                <motion.img
-                                    key={singleItem}
-                                    className={styles.techStackImage}
-                                    src={`/static/TECH_ICONS/${singleItem}`}
-                                    alt={`${singleItem} icon`}
-                                    whileHover={{ scale: 1.1 }}
-                                />
-                            ))}
-                        </Stack>
-                        <Stack
-                            direction="row"
-                            spacing={2}
-                            sx={{
-                                justifyContent: {
-                                    xs: 'center',
-                                    md: 'flex-start',
-                                },
-                                marginTop: 3,
-                            }}
-                        >
-                            {project.gitLink && (
-                                <a
-                                    href={project.gitLink}
-                                    target="_blank"
-                                    rel="noreferrer"
-                                >
-                                    <GitHubIcon
-                                        sx={{
-                                            height: { xs: 20, md: 40 },
-                                            width: { xs: 20, md: 40 },
-                                            color: 'text.primary',
-                                        }}
-                                    />
-                                </a>
-                            )}
-                            <a
-                                href={project.liveLink}
-                                target="_blank"
-                                rel="noreferrer"
-                            >
-                                <LaunchIcon
-                                    sx={{
-                                        height: { xs: 20, md: 40 },
-                                        width: { xs: 20, md: 40 },
-                                        color: 'text.primary',
-                                    }}
-                                />
-                            </a>
-                        </Stack>
-                    </Box>
-                </Box>
+                    Featured project
+                </Typography>
+                <ProjectLinks
+                    name={project.name}
+                    gitLink={project.gitLink}
+                    liveLink={project.liveLink}
+                />
             </Box>
-        </>
+
+            <Typography variant="h3" sx={{ fontSize: 24, fontWeight: 700 }}>
+                {project.name}
+            </Typography>
+            <Typography sx={{ mt: 1.5, color: 'text.secondary', lineHeight: 1.7 }}>
+                {project.description}
+            </Typography>
+
+            <Box component="ul" sx={{ m: 0, mt: 2, pl: 2.5, flexGrow: 1 }}>
+                {project.highlights.map((highlight) => (
+                    <Box
+                        component="li"
+                        key={highlight}
+                        sx={{ color: 'text.secondary', lineHeight: 1.7, mb: 0.5 }}
+                    >
+                        <Emphasis text={highlight} />
+                    </Box>
+                ))}
+            </Box>
+
+            <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, mt: 3 }}>
+                {project.stack.map((item) => (
+                    <Tag key={item} label={item} />
+                ))}
+            </Box>
+        </Box>
     )
 }

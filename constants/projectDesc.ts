@@ -1,61 +1,59 @@
 export interface ISingleProject {
     name: string
     description: string
-    techStack: string[]
+    highlights: string[]
+    stack: string[]
     gitLink?: string
-    liveLink: string
-    heroImage: string
-    features?: string[]
+    liveLink?: string
 }
 
-export const PROJECT_ARRAY = [
+export interface IEarlierProject {
+    name: string
+    description: string
+    stack: string[]
+    gitLink?: string
+    liveLink?: string
+}
+
+export const PROJECT_ARRAY: ISingleProject[] = [
     {
         name: 'Restaurant Management App',
         description:
-            'A web app for streamlining restaurant operations with billing, reports, products management, and real-time order tracking.',
-        techStack: [
-            'file-type-svelte.svg',
-            'nestjs.svg',
-            'mongodb-original.svg',
+            'Order, billing and user-admin services for running a restaurant day to day.',
+        highlights: [
+            '**20% fewer** order errors and **40% faster** load times',
+            'Active orders with checkout, on-hold and a client book',
+            'Sales reports by product, peak hour, day and month',
         ],
+        stack: ['NestJS', 'PostgreSQL', 'Svelte'],
         liveLink: 'https://billing-app-aws-project.vercel.app/',
-        heroImage: '/static/PROJECT_PICS/restaurant-management-app.png',
-        features: [
-            'Product management section for adding/updating products.',
-            'Billing section for active orders with checkout, on-hold, and client book integration.',
-            'Order history section to view previous orders.',
-            'Reports section provides insights via bar charts for product sales, peak hours, and daily/monthly sales.',
-            'User profile section.',
-        ],
     },
     {
-        name: 'Blogging Website',
+        name: 'Finance Management App',
         description:
-            'A platform for creating, managing, and sharing blog posts with a user-friendly interface and seamless publishing experience.',
-        techStack: ['react.svg', 'sass.svg', 'firebase.svg'],
-        gitLink: 'https://github.com/isharaman8/bhrat_website',
-        liveLink: 'https://bhrat-website.vercel.app/',
-        heroImage: '/static/PROJECT_PICS/blogging-website.png',
-        features: [
-            'Create and edit blog posts',
-            'User authentication with Firebase',
-            'Responsive design',
+            'Tracks personal spending and turns raw transactions into insights.',
+        highlights: [
+            'REST APIs built on Fastify',
+            'MongoDB aggregation queries for spending insights',
+            'Offline-capable PWA client',
         ],
+        stack: ['Fastify', 'MongoDB', 'Next.js'],
     },
+]
+
+export const EARLIER_PROJECTS: IEarlierProject[] = [
     {
-        name: 'Clone: FlowCV',
-        description:
-            'A seamless resume-building platform with customizable templates and real-time previews.',
-        techStack: ['nextjs.svg', 'css.svg'],
+        name: 'FlowCV clone',
+        description: 'Resume builder with templates and live preview.',
+        stack: ['Next.js', 'CSS'],
         gitLink: 'https://github.com/isharaman8/clone_flowcv',
         liveLink: 'https://clone-flowcv.vercel.app/',
-        heroImage: '/static/PROJECT_PICS/clone-flowcv.png',
-        features: [
-            'Customizable resume templates',
-            'Real-time resume preview',
-            'Download resume as PDF',
-            'Mobile-friendly design',
-            'User-friendly drag-and-drop interface',
-        ],
+    },
+    {
+        name: 'Blogging website',
+        description: 'Write, edit and publish posts with Firebase auth.',
+        stack: ['React', 'Sass', 'Firebase'],
+        gitLink: 'https://github.com/isharaman8/bhrat_website',
+        liveLink: 'https://bhrat-website.vercel.app/',
     },
 ]

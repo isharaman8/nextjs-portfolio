@@ -1,35 +1,40 @@
 // THIRD PARTY IMPORTS
-
-import { Box } from '@mui/system'
+import Head from 'next/head'
 import type { NextPage } from 'next'
+import { Box, Container, Typography } from '@mui/material'
 
 import Home from '../components/MainComponents/homepage'
 import About from '../components/MainComponents/about'
-import Tech from '../components/MainComponents/tech'
+import Experience from '../components/MainComponents/experience'
+import Skills from '../components/MainComponents/skills'
 import Projects from '../components/MainComponents/projects'
 import Contact from '../components/MainComponents/contact'
-import { useTheme } from '@mui/material/styles'
-import { DARKTHEME } from '../constants/themeColor'
-import Head from 'next/head'
+import { PROFILE } from '../constants/profile'
+
+const SITE_URL = 'https://aman-portfolio-eight.vercel.app/'
+const SITE_TITLE = 'Aman Kumar | Backend Engineer'
+const SITE_DESCRIPTION =
+    'Aman Kumar is a backend engineer (SDE 2) in Bengaluru building microservices in Go, Node.js and TypeScript.'
+
+function Footer() {
+    return (
+        <Box component="footer" sx={{ borderTop: 1, borderColor: 'divider', py: 4 }}>
+            <Container maxWidth="lg">
+                <Typography sx={{ fontSize: 14, color: 'text.secondary' }}>
+                    {PROFILE.name} · {PROFILE.location} · Built with Next.js
+                </Typography>
+            </Container>
+        </Box>
+    )
+}
 
 const Index: NextPage = () => {
-    const theme: any = useTheme()
-    const {
-        palette: { mode },
-    } = theme
-
     return (
-        <Box
-            component={'div'}
-            sx={{
-                transition: `all .3s ease`,
-                backgroundColor:
-                    mode === 'dark' ? DARKTHEME.background.default : 'white',
-                overflowX: 'hidden',
-            }}
-        >
+        <Box component="div" sx={{ overflowX: 'hidden' }}>
             <Head>
-                <title>Aman Kumar</title>
+                <title>{SITE_TITLE}</title>
+                <meta name="viewport" content="width=device-width, initial-scale=1" />
+                <meta name="description" content={SITE_DESCRIPTION} />
                 <link
                     rel="apple-touch-icon"
                     sizes="180x180"
@@ -49,34 +54,22 @@ const Index: NextPage = () => {
                 />
                 <link rel="manifest" href="/assets/site.webmanifest" />
                 {/* META TAGS */}
-                <meta name="theme-color" content="#000000" />
+                <meta name="theme-color" content="#0b0d10" />
                 <meta name="author" content="Aman Kumar" />
                 <meta property="og:locale" content="en_US" />
                 <meta property="og:type" content="website" />
+                <meta property="og:title" content={SITE_TITLE} />
+                <meta property="og:url" content={SITE_URL} />
+                <meta property="og:site_name" content={SITE_TITLE} />
+                <meta property="og:description" content={SITE_DESCRIPTION} />
                 <meta
-                    property="og:title"
-                    content="Aman Kumar | Web Developer"
+                    property="og:image"
+                    content={`${SITE_URL}assets/android-chrome-512x512.png`}
                 />
-                <meta
-                    property="og:url"
-                    content="https://aman-portfolio-eight.vercel.app/"
-                />
-                <meta
-                    property="og:site_name"
-                    content="Aman Kumar | Web Developer"
-                />
-                <meta
-                    property="og:description"
-                    content="Portfolio of Aman Kumar, a Web Developer from Jammu and Kashmir, India"
-                />
-                <meta property="og:image" content="" />
-                <link
-                    rel="canonical"
-                    href="https://aman-portfolio-eight.vercel.app/"
-                />
+                <link rel="canonical" href={SITE_URL} />
                 <meta
                     name="keywords"
-                    content="Aman Kumar, isharaman8, Aman Portfolio, Aman Kumar Jammu, web developer, Aman"
+                    content="Aman Kumar, isharaman8, backend engineer, Go, Node.js, TypeScript, microservices, Bengaluru"
                 />
                 <meta
                     name="google-site-verification"
@@ -85,9 +78,11 @@ const Index: NextPage = () => {
             </Head>
             <Home />
             <About />
-            <Tech />
+            <Experience />
+            <Skills />
             <Projects />
             <Contact />
+            <Footer />
         </Box>
     )
 }

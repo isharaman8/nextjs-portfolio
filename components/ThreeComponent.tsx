@@ -1,11 +1,7 @@
-import { useEffect, useRef, useState } from 'react'
+import { useRef } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
 import type { Group } from 'three'
 import { useGLTF, OrbitControls } from '@react-three/drei'
-
-function easeOutCirc(x: number) {
-    return Math.sqrt(1 - Math.pow(x - 1, 4))
-}
 
 function Computer(props: any) {
     const { scene } = useGLTF('/static/retrocomputer/scene.gltf')
@@ -25,45 +21,17 @@ function Computer(props: any) {
     )
 }
 
-export default function ThreeComponent(props: any) {
-    const [pcSize, setpcSize] = useState<number>(1.8)
-    const [canvasSize, setCanvasSize] = useState<string>(`400px`)
-
-    const handleResize = () => {
-        if (window.innerWidth < 900) {
-            setpcSize(1.4)
-            setCanvasSize(`300px`)
-        } else {
-            setpcSize(1.8)
-            setCanvasSize(`400px`)
-        }
-    }
-    useEffect(() => {
-        // eslint-disable-next-line react-hooks/set-state-in-effect
-        handleResize()
-        window.addEventListener(`resize`, handleResize, false)
-        return () => {
-            window.removeEventListener(`resize`, handleResize, false)
-        }
-    }, [])
+// Fills its parent; size the wrapping element to size the scene
+export default function ThreeComponent() {
     return (
         <Canvas
-            gl={{ antialias: true }}
+            gl={{ antialias: true, alpha: true }}
             camera={{ position: [-2.5, 2.5, -2.5], fov: 25 }}
-            style={{
-                height: canvasSize,
-                width: `420px`,
-                marginTop: 100,
-            }}
+            style={{ width: '100%', height: '100%' }}
         >
             <ambientLight intensity={1} />
-            <Computer
-                scale={pcSize}
-                rotation={[0, 0, 0]}
-                position={[0, -0.4, 0]}
-            />
-
-            <OrbitControls />
+            <Computer scale={1.7} position={[0, -0.4, 0]} />
+            <OrbitControls enableZoom={false} enablePan={false} />
         </Canvas>
     )
 }

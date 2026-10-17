@@ -7,48 +7,52 @@ import { ThemeProvider, createTheme } from '@mui/material/styles'
 // inner imports
 import '../styles/globals.css'
 import Navbar from '../components/Navbar'
+import { sansFont } from '../constants/fonts'
 import ColorModeContext from '../components/ColorModeContext'
+import { DARKTHEME, LIGHTTHEME } from '../constants/themeColor'
+
+const buildTheme = (mode: 'light' | 'dark') => {
+    const tokens = mode === 'dark' ? DARKTHEME : LIGHTTHEME
+
+    return createTheme({
+        palette: {
+            mode,
+            primary: {
+                main: tokens.accent,
+                contrastText: tokens.accentContrast,
+            },
+            background: tokens.background,
+            text: tokens.text,
+            divider: tokens.border,
+        },
+        // square corners everywhere; numeric sx borderRadius values multiply this
+        shape: { borderRadius: 0 },
+        typography: {
+            fontFamily: sansFont.style.fontFamily,
+            button: { textTransform: 'none', fontWeight: 600 },
+        },
+        components: {
+            MuiCssBaseline: {
+                styleOverrides: {
+                    body: { transition: 'background-color .3s ease' },
+                },
+            },
+            MuiButton: {
+                defaultProps: { disableElevation: true },
+                styleOverrides: {
+                    root: {
+                        paddingInline: 20,
+                        paddingBlock: 10,
+                    },
+                },
+            },
+        },
+    })
+}
 
 function MyApp({ Component, pageProps }: AppProps) {
     const [mode, setMode] = React.useState<'light' | 'dark'>('dark')
-    const darkTheme = React.useMemo(
-        () =>
-            createTheme({
-                palette: {
-                    mode,
-                },
-                transitions: {
-                    duration: {
-                        shortest: 150,
-                        shorter: 200,
-                        short: 250,
-                        // most basic recommended timing
-                        standard: 300,
-                        // this is to be used in complex animations
-                        complex: 375,
-                        // recommended when something is entering screen
-                        enteringScreen: 225,
-                        // recommended when something is leaving screen
-                        leavingScreen: 195,
-                    },
-                    easing: {
-                        // This is the most common easing curve.
-                        easeInOut: 'cubic-bezier(0.4, 0, 0.2, 1)',
-                        // Objects enter the screen at full velocity from off-screen and
-                        // slowly decelerate to a resting point.
-                        easeOut: 'cubic-bezier(0.0, 0, 0.2, 1)',
-                        // Objects leave the screen at full velocity. They do not decelerate when off-screen.
-                        easeIn: 'cubic-bezier(0.4, 0, 1, 1)',
-                        // The sharp curve is used by objects that may return to the screen at any time.
-                        sharp: 'cubic-bezier(0.4, 0, 0.6, 1)',
-                    },
-                },
-            }),
-
-        [mode]
-    )
-
-    darkTheme.transitions.create(['background-color', 'transform'])
+    const theme = React.useMemo(() => buildTheme(mode), [mode])
 
     const colorMode = React.useMemo(
         () => ({
@@ -56,12 +60,12 @@ function MyApp({ Component, pageProps }: AppProps) {
                 setMode((prevMode) => (prevMode === 'light' ? 'dark' : 'light'))
             },
         }),
-        [mode]
+        []
     )
 
     return (
         <ColorModeContext.Provider value={colorMode}>
-            <ThemeProvider theme={darkTheme}>
+            <ThemeProvider theme={theme}>
                 <CssBaseline />
                 <Navbar />
                 <Component {...pageProps} />

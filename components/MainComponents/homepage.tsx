@@ -1,154 +1,252 @@
 // THIRD PARTY IMPORTS
-import { Box } from '@mui/system'
-import type { NextPage } from 'next'
-import { useTheme } from '@mui/material/styles'
-import { Avatar, Typography } from '@mui/material'
+import { Box, Button, Container, IconButton, Typography } from '@mui/material'
+import { alpha, useTheme } from '@mui/material/styles'
+import GitHubIcon from '@mui/icons-material/GitHub'
+import LinkedInIcon from '@mui/icons-material/LinkedIn'
+import ArrowOutwardIcon from '@mui/icons-material/ArrowOutward'
 
 // INNER IMPORTS
+import Reveal from '../Reveal'
 import ThreeComponent from '../ThreeComponent'
-import PageSwapMotion from '../PageSwapMotion'
-import { FONT_SIZES } from '../../constants/fontsSize'
+import CanvasErrorBoundary from '../CanvasErrorBoundary'
+import { MONO_FONT_FAMILY } from '../../constants/fonts'
+import { HERO_STATS, PROFILE } from '../../constants/profile'
 
-const Home: NextPage = () => {
-    const theme: any = useTheme()
+function HeroBackground() {
+    const theme = useTheme()
 
     return (
-        <PageSwapMotion>
+        <Box
+            aria-hidden
+            sx={{
+                position: 'absolute',
+                inset: 0,
+                zIndex: 0,
+                pointerEvents: 'none',
+                backgroundImage: `radial-gradient(${theme.palette.divider} 1px, transparent 1px)`,
+                backgroundSize: '28px 28px',
+                maskImage:
+                    'radial-gradient(ellipse 70% 60% at 50% 40%, black 30%, transparent 100%)',
+                '&::after': {
+                    content: '""',
+                    position: 'absolute',
+                    inset: 0,
+                    background: `radial-gradient(600px circle at 75% 35%, ${alpha(
+                        theme.palette.primary.main,
+                        0.14
+                    )}, transparent 60%)`,
+                },
+            }}
+        />
+    )
+}
+
+function StatusPill() {
+    return (
+        <Box
+            sx={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: 1,
+                px: 1.5,
+                py: 0.5,
+                mb: 3,
+                border: 1,
+                borderColor: 'divider',
+                borderRadius: 1,
+                bgcolor: 'background.paper',
+                fontFamily: MONO_FONT_FAMILY,
+                fontSize: 13,
+                color: 'text.secondary',
+            }}
+        >
             <Box
-                component="div"
-                id="home"
+                component="span"
                 sx={{
-                    height: `100vh`,
-                    width: `100vw`,
-                    overflowY: `hidden`,
-                    scrollBarWidth: 'none',
+                    width: 8,
+                    height: 8,
+                    borderRadius: '50%',
+                    bgcolor: 'primary.main',
                 }}
+            />
+            {PROFILE.availability} · {PROFILE.location}
+        </Box>
+    )
+}
+
+function HeroActions() {
+    return (
+        <Box
+            sx={{
+                display: 'flex',
+                flexWrap: 'wrap',
+                alignItems: 'center',
+                gap: 1.5,
+                mt: 4,
+            }}
+        >
+            <Button variant="contained" href="#contact">
+                Get in touch
+            </Button>
+            <Button
+                variant="outlined"
+                color="inherit"
+                href={PROFILE.resume}
+                target="_blank"
+                rel="noreferrer"
+                endIcon={<ArrowOutwardIcon fontSize="small" />}
+                sx={{ borderColor: 'divider' }}
             >
-                <Box
-                    component="div"
-                    sx={{
-                        height: `100vh`,
-                        display: `flex`,
-                        zIndex: 5,
-                        justifyContent: `center`,
-                        alignItems: `center`,
-                        flexDirection: `column`,
-                        overflow: `hidden`,
-                    }}
+                Resume
+            </Button>
+            <Box sx={{ display: 'flex' }}>
+                <IconButton
+                    href={PROFILE.github}
+                    target="_blank"
+                    rel="noreferrer"
+                    aria-label="GitHub"
+                    color="inherit"
                 >
-                    <ThreeComponent />
+                    <GitHubIcon />
+                </IconButton>
+                <IconButton
+                    href={PROFILE.linkedin}
+                    target="_blank"
+                    rel="noreferrer"
+                    aria-label="LinkedIn"
+                    color="inherit"
+                >
+                    <LinkedInIcon />
+                </IconButton>
+            </Box>
+        </Box>
+    )
+}
+
+function HeroStats() {
+    return (
+        <Box
+            sx={{
+                display: 'grid',
+                gridTemplateColumns: { xs: '1fr 1fr', md: 'repeat(4, 1fr)' },
+                gap: 2,
+                mt: { xs: 6, md: 8 },
+            }}
+        >
+            {HERO_STATS.map((stat, index) => (
+                <Reveal key={stat.label} delay={0.1 * index}>
                     <Box
-                        component="div"
                         sx={{
-                            flex: 1,
-                            display: 'flex',
-                            justifyContent: 'flex-start',
-                            alignItems: 'center',
-                            flexDirection: 'column',
-                            padding: '20px',
-                            width: `100vw`,
-                            // backgroundColor: `red`,
+                            height: '100%',
+                            p: { xs: 2, md: 2.5 },
+                            border: 1,
+                            borderColor: 'divider',
+                            borderRadius: 3,
+                            bgcolor: 'background.paper',
                         }}
                     >
-                        <Box
+                        <Typography
                             sx={{
-                                width: { xs: `80%`, md: `50%` },
-                                padding: `10px`,
-                                display: 'flex',
-                                borderRadius: `10px`,
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                                backgroundColor: `${
-                                    theme.palette.mode === 'dark'
-                                        ? '#313134'
-                                        : '#E1E1E1'
-                                }`,
+                                fontSize: { xs: 28, md: 34 },
+                                fontWeight: 700,
+                                color: 'primary.main',
+                                letterSpacing: '-0.02em',
                             }}
                         >
-                            <Typography
-                                component="p"
-                                sx={{
-                                    fontSize: {
-                                        ...FONT_SIZES.index.pFont,
-                                    },
-                                    textAlign: `center`,
-                                }}
-                            >
-                                Hi, I&apos;m a web developer from Jammu and Kashmir,
-                                India!
-                            </Typography>
-                        </Box>
+                            {stat.value}
+                        </Typography>
+                        <Typography
+                            sx={{ fontSize: 14, color: 'text.secondary', mt: 0.5 }}
+                        >
+                            {stat.label}
+                        </Typography>
+                    </Box>
+                </Reveal>
+            ))}
+        </Box>
+    )
+}
 
-                        <Box
+const Home = () => {
+    return (
+        <Box
+            component="section"
+            id="home"
+            sx={{
+                position: 'relative',
+                minHeight: '100vh',
+                display: 'flex',
+                alignItems: 'center',
+                pt: { xs: 14, md: 12 },
+                pb: { xs: 6, md: 8 },
+                overflow: 'hidden',
+            }}
+        >
+            <HeroBackground />
+            <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 1 }}>
+                <Box
+                    sx={{
+                        display: 'grid',
+                        gridTemplateColumns: { xs: '1fr', md: '1.25fr 1fr' },
+                        alignItems: 'center',
+                        gap: { xs: 2, md: 4 },
+                    }}
+                >
+                    <Reveal>
+                        <StatusPill />
+                        <Typography
+                            variant="h1"
                             sx={{
-                                height: `100%`,
-                                padding: `20px`,
-                                display: 'flex',
-                                marginTop: `20px`,
-                                alignItems: 'center',
-                                justifyContent: 'space-between',
-                                width: { xs: `80%`, md: `50%` },
-                                flexDirection: {
-                                    lg: 'row',
-                                    xs: 'column-reverse',
-                                },
+                                fontSize: { xs: 48, sm: 60, md: 76 },
+                                fontWeight: 800,
+                                letterSpacing: '-0.035em',
+                                lineHeight: 1.02,
                             }}
                         >
-                            <span>
-                                <Typography
-                                    variant="h1"
-                                    sx={{
-                                        fontSize: {
-                                            ...FONT_SIZES.index.h1,
-                                        },
-                                        textAlign: { xs: 'center' },
-                                        marginTop: { xs: '20px' },
-                                    }}
-                                >
-                                    Aman Kumar
-                                </Typography>
-                                <Typography
-                                    variant="h3"
-                                    sx={{
-                                        fontSize: {
-                                            ...FONT_SIZES.index.h3,
-                                        },
-                                        marginTop: 1,
-                                        textAlign: { xs: 'center' },
-                                    }}
-                                >
-                                    💻 Full Stack Web Developer
-                                </Typography>
-                            </span>
+                            {PROFILE.name}
+                        </Typography>
+                        <Typography
+                            component="p"
+                            sx={{
+                                mt: 2,
+                                fontFamily: MONO_FONT_FAMILY,
+                                fontSize: { xs: 16, md: 20 },
+                                color: 'primary.main',
+                            }}
+                        >
+                            {PROFILE.role}
+                        </Typography>
+                        <Typography
+                            component="p"
+                            sx={{
+                                mt: 2.5,
+                                maxWidth: 560,
+                                fontSize: { xs: 17, md: 19 },
+                                lineHeight: 1.65,
+                                color: 'text.secondary',
+                            }}
+                        >
+                            {PROFILE.tagline}
+                        </Typography>
+                        <HeroActions />
+                    </Reveal>
 
-                            <span>
-                                <Avatar
-                                    sx={{
-                                        width: {
-                                            lg: `160px`,
-                                            xs: `120px`,
-                                        },
-                                        height: {
-                                            lg: `160px`,
-                                            xs: `120px`,
-                                        },
-                                        borderColor:
-                                            theme.palette.mode === 'dark'
-                                                ? '#E1E1E1'
-                                                : '#212121',
-                                        borderWidth: 3,
-                                        borderStyle: 'solid',
-                                        marginTop: { xs: '40px' },
-                                    }}
-                                    src="/static/personal3.png"
-                                />
-                            </span>
-                        </Box>
-                        {/* <h1 ref={textRef}></h1> */}
+                    <Box
+                        sx={{
+                            height: { xs: 260, md: 440 },
+                            cursor: 'grab',
+                            '&:active': { cursor: 'grabbing' },
+                        }}
+                    >
+                        <CanvasErrorBoundary>
+                            <ThreeComponent />
+                        </CanvasErrorBoundary>
                     </Box>
                 </Box>
-            </Box>
-        </PageSwapMotion>
+
+                <HeroStats />
+            </Container>
+        </Box>
     )
 }
 
